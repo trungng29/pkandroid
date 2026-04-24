@@ -1,0 +1,226 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookingpageViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Bookingpage</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingpageViewModel (com.example.do_an_tot_nghiep.Bookingpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingpageViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Bookingpage;
+&nbsp;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;import androidx.lifecycle.ViewModel;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingPhotoReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.DoctorReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.ServiceReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.BookingPhotoRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.BookingRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.ServiceRepository;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 23-11-2022
+&nbsp; * Booking-page ViewModel
+&nbsp; */
+<b class="nc">&nbsp;public class BookingpageViewModel extends ViewModel {</b>
+&nbsp;
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;ServiceReadByID&gt; serviceReadByIdResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;BookingReadByID&gt; bookingReadByIdResponse = new SingleLiveEvent&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;    private MutableLiveData&lt;Boolean&gt; animation = new MutableLiveData&lt;&gt;();</b>
+&nbsp;    private ServiceRepository serviceRepository;
+&nbsp;    private BookingRepository bookingRepository;
+&nbsp;    private BookingPhotoRepository bookingPhotoRepository;
+&nbsp;    private DoctorRepository doctorRepository;
+&nbsp;
+&nbsp;    public MutableLiveData&lt;Boolean&gt; getAnimation() {
+<b class="nc">&nbsp;        return animation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * instantiate repository
+&nbsp;     */
+&nbsp;    public void instantiate()
+&nbsp;    {
+<b class="nc">&nbsp;        if( serviceRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            serviceRepository = new ServiceRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( bookingRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            bookingRepository = new BookingRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( bookingPhotoRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            bookingPhotoRepository = new BookingPhotoRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( doctorRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            doctorRepository = new DoctorRepository();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************SERVICE READ BY ID***************************/
+&nbsp;    public SingleLiveEvent&lt;ServiceReadByID&gt; getServiceReadByIdResponse() {
+<b class="nc">&nbsp;        return serviceReadByIdResponse;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void serviceReadById(Map&lt;String, String&gt; header, String serviceId)
+&nbsp;    {
+<b class="nc">&nbsp;        serviceRepository.readByID(header, serviceId);</b>
+<b class="nc">&nbsp;        serviceReadByIdResponse = serviceRepository.getReadByIDResponse();</b>
+<b class="nc">&nbsp;        animation = serviceRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************BOOKING READ BY ID***************************/
+&nbsp;    public SingleLiveEvent&lt;BookingReadByID&gt; getBookingReadByIdResponse() {
+<b class="nc">&nbsp;        return bookingReadByIdResponse;</b>
+&nbsp;    }
+&nbsp;    public void bookingReadByID(Map&lt;String, String&gt; header, String bookingId)
+&nbsp;    {
+<b class="nc">&nbsp;        bookingRepository.readByID(header, bookingId);</b>
+<b class="nc">&nbsp;        bookingReadByIdResponse = bookingRepository.getReadByIDResponse();</b>
+<b class="nc">&nbsp;        animation = bookingRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /************************BOOKING PHOTO - READ ALL***************************/
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;BookingPhotoReadAll&gt; bookingPhotoReadAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+&nbsp;    public SingleLiveEvent&lt;BookingPhotoReadAll&gt; getBookingPhotoReadAllResponse(){
+<b class="nc">&nbsp;        return bookingPhotoReadAllResponse;</b>
+&nbsp;    }
+&nbsp;    public void bookingPhotoReadAll(Map&lt;String, String&gt; header, String bookingId)
+&nbsp;    {
+<b class="nc">&nbsp;        bookingPhotoRepository.readAll(header, bookingId);</b>
+<b class="nc">&nbsp;        bookingPhotoReadAllResponse = bookingPhotoRepository.getReadAllResponse();</b>
+<b class="nc">&nbsp;        animation = bookingPhotoRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************DOCTOR - READ BY ID***************************/
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;DoctorReadByID&gt; doctorReadById = new SingleLiveEvent&lt;&gt;();</b>
+&nbsp;    public SingleLiveEvent&lt;DoctorReadByID&gt; getDoctorReadByIdResponse() {
+<b class="nc">&nbsp;        return doctorReadById;</b>
+&nbsp;    }
+&nbsp;    public void doctorReadByID(Map&lt;String, String&gt; header, String doctorId)
+&nbsp;    {
+<b class="nc">&nbsp;        doctorRepository.readById(header, doctorId);</b>
+<b class="nc">&nbsp;        doctorReadById = doctorRepository.getReadByIdResponse();</b>
+<b class="nc">&nbsp;        animation = doctorRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

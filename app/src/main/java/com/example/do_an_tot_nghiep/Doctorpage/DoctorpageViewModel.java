@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.do_an_tot_nghiep.Container.DoctorReadByID;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
-import com.example.do_an_tot_nghiep.Repository.SpecialityRepository;
 
 import java.util.Map;
 
@@ -15,15 +15,11 @@ import java.util.Map;
  */
 public class DoctorpageViewModel extends ViewModel {
 
-    private MutableLiveData<DoctorReadByID> response;
+    private SingleLiveEvent<DoctorReadByID> response = new SingleLiveEvent<>();
     private MutableLiveData<Boolean> animation;
     private DoctorRepository repository;
 
-    public MutableLiveData<DoctorReadByID> getResponse() {
-        if( response == null)
-        {
-            response = new MutableLiveData<>();
-        }
+    public SingleLiveEvent<DoctorReadByID> getResponse() {
         return response;
     }
 
@@ -49,7 +45,8 @@ public class DoctorpageViewModel extends ViewModel {
      */
     public void readById(Map<String, String> headers, String id)
     {
-        response = repository.readById(headers, id);
+        repository.readById(headers, id);
+        response = repository.getReadByIdResponse();
         animation = repository.getAnimation();
     }
 }

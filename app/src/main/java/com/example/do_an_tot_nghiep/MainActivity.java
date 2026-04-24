@@ -3,14 +3,13 @@ package com.example.do_an_tot_nghiep;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -24,9 +23,7 @@ import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
 import com.example.do_an_tot_nghiep.Loginpage.LoginActivity;
 import com.example.do_an_tot_nghiep.Model.User;
 
-import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private GlobalVariable globalVariable;
     private Dialog dialog;
 
-    /**
-     * @author Phong-Kaster
-     * @since 15-11-2022
-     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         notification.createChannel();
 
 
-        /*Step 1 - does the application connect to Internet? - NO, close the application*/
+        /*Step 1 - does the application connect to Internet?*/
         boolean isConnected = isInternetAvailable();
         if( !isConnected )
         {
@@ -78,48 +71,29 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(value);
 
 
-        /*Step 3 - what is the language of application?
-        * Find onResume to watch*/
-
-
         /*Step 4 - is AccessToken null?*/
         String accessToken = sharedPreferences.getString("accessToken", null);
-        System.out.println(TAG);
-        System.out.println(accessToken);
         if(accessToken != null)
         {
-            /*global variable chi hoat dong trong phien lam viec nen phai gan lai accessToken cho no*/
             globalVariable.setAccessToken(accessToken);
-
-            /*cai dat header voi yeu cau doc thong tin ca nhan cua mot benh nhan*/
             Map<String, String> headers = globalVariable.getHeaders();
-
-            /*gui yeu cau doc thong tin benh nhan*/
             viewModel.readPersonalInformation(headers);
 
-            /*lang nghe phan hoi*/
             viewModel.getResponse().observe(this, response->{
                 try
                 {
                     int result = response.getResult();
-                    /*result == 1 => luu thong tin nguoi dung va vao homepage*/
                     if( result == 1)
                     {
-                        /*cap nhat thong tin nguoi dung*/
                         User user = response.getData();
                         globalVariable.setAuthUser( user );
 
-                        /*bat dau vao trang chu*/
                         Intent intent = new Intent(MainActivity.this, HomepageActivity.class);
                         startActivity(intent);
                         finish();
                     }
-                    /*result == 0 => thong bao va cho dang nhap lai*/
                     if( result == 0)
                     {
-                        System.out.println(TAG);
-                        System.out.println("result: " + result);
-                        System.out.println("msg: " + response.getMsg());
                         sharedPreferences.edit().putString("accessToken",null).apply();
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -129,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 catch(Exception ex)
                 {
-                    /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
-                    System.out.println(TAG + "- exception: " + ex.getMessage());
                     dialog.announce();
                     dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
                     dialog.btnOK.setOnClickListener(view->{
@@ -143,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            /*delay 1s before starting HomeActivity*/
             Handler handler = new Handler(Looper.myLooper());
             handler.postDelayed(() -> {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -151,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             },1000);
         }
-    }/*end OnCreate*/
+    }
 
 
     @Override
@@ -161,23 +132,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @author Phong-Kaster
-     * @since 16-11-2022
-     * @return boolean
-     * true if we are connecting with Internet
-     * false if we aren't
+     * Cải tiến hàm kiểm tra Internet để hoạt động tốt trên cả máy thật và máy ảo
      */
     public boolean isInternetAvailable() {
-        boolean connected;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        }
-        else
-            connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) return false;
 
-        return connected;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            android.net.Network network = connectivityManager.getActiveNetwork();
+            if (network == null) return false;
+            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+            return capabilities != null && (
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        } else {
+            // Hỗ trợ các phiên bản Android cũ hơn
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
     }
 }

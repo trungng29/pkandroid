@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GlobalVariable</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Helper</a>
+</div>
+
+<h1>Coverage Summary for Class: GlobalVariable (com.example.do_an_tot_nghiep.Helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GlobalVariable</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Helper;
+&nbsp;
+&nbsp;import android.app.Application;
+&nbsp;import android.util.Log;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Option;
+&nbsp;import com.example.do_an_tot_nghiep.Model.User;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="nc">&nbsp;public class GlobalVariable extends Application {</b>
+&nbsp;    private String accessToken;
+&nbsp;    private User AuthUser;
+<b class="nc">&nbsp;    private final String SHARED_PREFERENCE_KEY = &quot;doantotnghiep&quot;;</b>
+<b class="nc">&nbsp;    private String contentType = &quot;application/x-www-form-urlencoded&quot;;</b>
+&nbsp;
+&nbsp;    public Map&lt;String, String&gt; getHeaders() {
+<b class="nc">&nbsp;        Map&lt;String, String&gt; headers = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        headers.put(&quot;Content-Type&quot;, contentType );</b>
+<b class="nc">&nbsp;        headers.put(&quot;Authorization&quot;, accessToken);</b>
+<b class="nc">&nbsp;        headers.put(&quot;type&quot;, &quot;patient&quot;);</b>
+&nbsp;        
+<b class="nc">&nbsp;        Log.d(&quot;API_DEBUG&quot;, &quot;Sending Headers: &quot; + headers.toString());</b>
+<b class="nc">&nbsp;        return headers;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getAccessToken() {
+<b class="nc">&nbsp;        return accessToken;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAccessToken(String accessToken) {
+<b class="nc">&nbsp;        this.accessToken = accessToken;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public User getAuthUser() {
+<b class="nc">&nbsp;        return AuthUser;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAuthUser(User authUser) {
+<b class="nc">&nbsp;        AuthUser = authUser;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSharedReferenceKey() {
+<b class="nc">&nbsp;        return SHARED_PREFERENCE_KEY;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getContentType() {
+<b class="nc">&nbsp;        return contentType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setContentType(String contentType) {
+<b class="nc">&nbsp;        this.contentType = contentType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Option&gt; getFilterOptions()
+&nbsp;    {
+<b class="nc">&nbsp;        List&lt;Option&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        Option option1 = new Option();</b>
+<b class="nc">&nbsp;        option1.setIcon(R.drawable.ic_service);</b>
+<b class="nc">&nbsp;        option1.setName(getString(R.string.service));</b>
+&nbsp;
+<b class="nc">&nbsp;        Option option2 = new Option();</b>
+<b class="nc">&nbsp;        option2.setIcon(R.drawable.ic_speciality);</b>
+<b class="nc">&nbsp;        option2.setName(getString(R.string.speciality));</b>
+&nbsp;
+<b class="nc">&nbsp;        Option option3 = new Option();</b>
+<b class="nc">&nbsp;        option3.setIcon(R.drawable.ic_doctor);</b>
+<b class="nc">&nbsp;        option3.setName(getString(R.string.doctor));</b>
+&nbsp;
+<b class="nc">&nbsp;        list.add(option1);</b>
+<b class="nc">&nbsp;        list.add(option2);</b>
+<b class="nc">&nbsp;        list.add(option3);</b>
+<b class="nc">&nbsp;        return list;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

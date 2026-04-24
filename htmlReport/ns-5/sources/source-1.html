@@ -1,0 +1,715 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookingFragment1</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Bookingpage</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingFragment1 (com.example.do_an_tot_nghiep.Bookingpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingFragment1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/215)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BookingFragment1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/227)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Bookingpage;
+&nbsp;
+&nbsp;import android.app.Activity;
+&nbsp;import android.app.DatePickerDialog;
+&nbsp;import android.app.TimePickerDialog;
+&nbsp;import android.content.Context;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.EditText;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.RadioButton;
+&nbsp;import android.widget.RadioGroup;
+&nbsp;import android.widget.TextView;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.lifecycle.LifecycleOwner;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingCreate;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Doctor;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Service;
+&nbsp;import com.example.do_an_tot_nghiep.Model.User;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.Calendar;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+&nbsp;/**
+&nbsp; * @since 09-12-2022
+&nbsp; * flow: Fragment 1 -&gt; Fragment 3 -&gt; Fragment 2
+&nbsp; */
+<b class="nc">&nbsp;public class BookingFragment1 extends Fragment {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;BookingFragment1&quot;;</b>
+&nbsp;
+&nbsp;    private String serviceId;// nếu serviceId == null thì nó sẽ bằng 1 bởi vì API cần serviceId do rằng buộc dữ liệu trong database
+&nbsp;    private String doctorId;// doctorId == null thì nó sẽ bằng 0, vì chúng ta không cần
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;
+&nbsp;    private ImageView imgServiceAvatar;
+&nbsp;    private TextView txtServiceName;
+&nbsp;
+&nbsp;    private Activity activity;
+&nbsp;    private Context context;
+&nbsp;    private AppCompatButton btnConfirm;
+&nbsp;
+&nbsp;    /*FORM*/
+&nbsp;    private EditText txtBookingName;
+&nbsp;    private EditText txtBookingPhone;
+&nbsp;    private EditText txtPatientName;
+&nbsp;
+&nbsp;    private RadioGroup rdPatientGender;
+&nbsp;    private EditText txtPatientBirthday;
+&nbsp;
+&nbsp;    private EditText txtPatientAddress;
+&nbsp;    private EditText txtPatientReason;
+&nbsp;    private EditText txtAppointmentDate;
+&nbsp;    private EditText txtAppointmentTime;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+&nbsp;        // Inflate the layout for this fragment
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_booking1, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent(view);</b>
+&nbsp;
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * setup component()
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+&nbsp;        /*GLOBAL VARIABLE*/
+<b class="nc">&nbsp;        activity = requireActivity();</b>
+<b class="nc">&nbsp;        context = requireContext();</b>
+&nbsp;
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable) activity.getApplication();</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(activity);</b>
+<b class="nc">&nbsp;        dialog = new Dialog(context);</b>
+<b class="nc">&nbsp;        User user = globalVariable.getAuthUser();</b>
+&nbsp;
+<b class="nc">&nbsp;        Bundle bundle = getArguments();</b>
+<b class="nc">&nbsp;        assert bundle != null;</b>
+<b class="nc">&nbsp;        serviceId = bundle.getString(&quot;serviceId&quot;) != null ? bundle.getString(&quot;serviceId&quot;) : &quot;&quot;;</b>
+<b class="nc">&nbsp;        doctorId = bundle.getString(&quot;doctorId&quot;) != null ? bundle.getString(&quot;doctorId&quot;) : &quot;0&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(TAG);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;serviceId: &quot; + serviceId);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;doctorId: &quot; + doctorId);</b>
+&nbsp;
+&nbsp;        /*FORM*/
+<b class="nc">&nbsp;        imgServiceAvatar = view.findViewById(R.id.imgServiceAvatar);</b>
+<b class="nc">&nbsp;        txtServiceName = view.findViewById(R.id.txtServiceName);</b>
+<b class="nc">&nbsp;        btnConfirm = view.findViewById(R.id.btnConfirm);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtBookingName = view.findViewById(R.id.txtBookingName);</b>
+<b class="nc">&nbsp;        txtBookingPhone = view.findViewById(R.id.txtBookingPhone);</b>
+<b class="nc">&nbsp;        txtPatientName = view.findViewById(R.id.txtPatientName);</b>
+&nbsp;
+<b class="nc">&nbsp;        rdPatientGender = view.findViewById(R.id.rdPatientGender);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtPatientBirthday = view.findViewById(R.id.txtPatientBirthday);</b>
+<b class="nc">&nbsp;        txtPatientAddress = view.findViewById(R.id.txtPatientAddress);</b>
+<b class="nc">&nbsp;        txtPatientReason = view.findViewById(R.id.txtPatientReason);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtAppointmentDate = view.findViewById(R.id.txtAppointmentDate);</b>
+<b class="nc">&nbsp;        txtAppointmentTime = view.findViewById(R.id.txtAppointmentTime);</b>
+&nbsp;
+&nbsp;        /*SET UP FORM*/
+<b class="nc">&nbsp;        txtBookingPhone.setText(user.getPhone());</b>
+<b class="nc">&nbsp;        txtPatientBirthday.setText(user.getBirthday());</b>
+<b class="nc">&nbsp;        txtPatientAddress.setText(user.getAddress());</b>
+<b class="nc">&nbsp;        txtAppointmentDate.setText(Tooltip.getToday());</b>
+<b class="nc">&nbsp;        txtAppointmentTime.setText(R.string.default_appointment_time);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * setup view model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+&nbsp;        /*Step 1 - declare*/
+<b class="nc">&nbsp;        BookingpageViewModel viewModel = new ViewModelProvider(this).get(BookingpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*Step 2 - prepare HTTP header*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; header = globalVariable.getHeaders();</b>
+&nbsp;
+<b class="nc">&nbsp;        if(!Objects.equals(doctorId, &quot;0&quot;))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            viewModel.doctorReadByID(header, doctorId);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            viewModel.serviceReadById(header, serviceId);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 3 - animation &amp; listen for response*/
+<b class="nc">&nbsp;        viewModel.getAnimation().observe((LifecycleOwner) context, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*Step 4 - get service read by id response*/
+<b class="nc">&nbsp;        viewModel.getServiceReadByIdResponse().observe((LifecycleOwner) context, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    Service service = response.getData();</b>
+<b class="nc">&nbsp;                    printServiceInformation(service);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if( result == 0)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    System.out.println(TAG + &quot;- result: &quot; + result);</b>
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        activity.finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;            catch(Exception ex)
+&nbsp;            {
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                System.out.println(TAG);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Exception: &quot; + ex.getMessage());</b>
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                    dialog.close();</b>
+<b class="nc">&nbsp;                    activity.finish();</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;        });/*end Step 4*/
+&nbsp;
+&nbsp;        /*Step 5*/
+<b class="nc">&nbsp;        viewModel.getDoctorReadByIdResponse().observe((LifecycleOwner) context, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    Doctor doctor = response.getData();</b>
+<b class="nc">&nbsp;                    printDoctorInformation(doctor);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if( result == 0)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    System.out.println(TAG + &quot;- result: &quot; + result);</b>
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        activity.finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;            catch(Exception ex)
+&nbsp;            {
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                System.out.println(TAG);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Exception: &quot; + ex.getMessage());</b>
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                    dialog.close();</b>
+<b class="nc">&nbsp;                    activity.finish();</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;        });/*end Step 4*/
+&nbsp;        /*end Step 5*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * print service information
+&nbsp;     */
+&nbsp;    private void printServiceInformation(Service service)
+&nbsp;    {
+<b class="nc">&nbsp;        String name = service.getName();// for instance: Đặt lịch khám với bác sĩ Phong</b>
+<b class="nc">&nbsp;        String image = Constant.UPLOAD_URI() + service.getImage();</b>
+&nbsp;
+<b class="nc">&nbsp;        txtServiceName.setText(name);</b>
+<b class="nc">&nbsp;        if( service.getImage().length() &gt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Picasso.get().load(image).into(imgServiceAvatar);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 19-12-2022
+&nbsp;     * print doctor information
+&nbsp;     */
+&nbsp;    private void printDoctorInformation(Doctor doctor)
+&nbsp;    {
+<b class="nc">&nbsp;        String name = getString(R.string.create_booking)</b>
+<b class="nc">&nbsp;                + &quot; &quot; + getString(R.string.with)</b>
+<b class="nc">&nbsp;                + &quot; &quot; + getString(R.string.doctor)</b>
+<b class="nc">&nbsp;                + &quot; &quot; + doctor.getName();// for instance: Đặt lịch khám với bác sĩ Phong</b>
+<b class="nc">&nbsp;        String image = Constant.UPLOAD_URI() + doctor.getAvatar();</b>
+&nbsp;
+<b class="nc">&nbsp;        txtServiceName.setText(name);</b>
+<b class="nc">&nbsp;        if( doctor.getAvatar().length() &gt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Picasso.get().load(image).into(imgServiceAvatar);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * setup event
+&nbsp;     */
+&nbsp;    private void setupEvent(View view)
+&nbsp;    {
+&nbsp;        /*-************************PREPARE TIME &amp; DATE PICKER FOR BUTTON**************************************/
+&nbsp;        /*GET TODAY*/
+<b class="nc">&nbsp;        Calendar calendar = Calendar.getInstance();</b>
+<b class="nc">&nbsp;        int year = calendar.get(Calendar.YEAR);</b>
+<b class="nc">&nbsp;        int month = calendar.get(Calendar.MONTH);</b>
+<b class="nc">&nbsp;        int day = calendar.get(Calendar.DAY_OF_MONTH);</b>
+&nbsp;
+&nbsp;        /*DATE PICKER FOR BIRTHDAY - if day or month less than 10, we will insert 0 in front of the value*/
+<b class="nc">&nbsp;        DatePickerDialog.OnDateSetListener birthday = (view13, year1, month1, day1) -&gt; {</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.YEAR, year1);</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.MONTH, month1);</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.DAY_OF_MONTH, day1);</b>
+&nbsp;
+<b class="nc">&nbsp;            String dayFormatted = String.valueOf(day1);</b>
+<b class="nc">&nbsp;            String monthFormatted = String.valueOf(month1+1);// add 1 unit because 0 &lt;= month &lt;=11</b>
+&nbsp;
+<b class="nc">&nbsp;            if( day1 &lt; 10)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                dayFormatted = &quot;0&quot; + day1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if( month1 &lt; 10 )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                monthFormatted = &quot;0&quot; + month1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            String output = year1 + &quot;-&quot; + monthFormatted + &quot;-&quot; + dayFormatted;</b>
+<b class="nc">&nbsp;            txtPatientBirthday.setText(output);</b>
+&nbsp;        };
+&nbsp;
+&nbsp;        /*DATE PICKER FOR APPOINTMENT DATE - if day or month less than 10, we will insert 0 in front of the value*/
+<b class="nc">&nbsp;        DatePickerDialog.OnDateSetListener appointmentDateDialog = (view13, year1, month1, day1) -&gt; {</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.YEAR, year1);</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.MONTH, month1);</b>
+<b class="nc">&nbsp;            calendar.set(Calendar.DAY_OF_MONTH, day1);</b>
+&nbsp;
+<b class="nc">&nbsp;            String dayFormatted = String.valueOf(day1);</b>
+<b class="nc">&nbsp;            String monthFormatted = String.valueOf(month1+1);</b>
+<b class="nc">&nbsp;            if( day1 &lt; 10)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                dayFormatted = &quot;0&quot; + day1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if( month1 &lt; 10 )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                monthFormatted = &quot;0&quot; + month1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            String output = year1 + &quot;-&quot; + monthFormatted + &quot;-&quot; + dayFormatted;</b>
+<b class="nc">&nbsp;            txtAppointmentDate.setText(output);</b>
+&nbsp;        };
+&nbsp;
+&nbsp;        /*TIME PICKER FOR APPOINTMENT TIME*/
+<b class="nc">&nbsp;        TimePickerDialog.OnTimeSetListener appointmentTimeDialog = (timePicker, hour, minute) -&gt; {</b>
+<b class="nc">&nbsp;            String hourFormatted = String.valueOf(hour);</b>
+<b class="nc">&nbsp;            String minuteFormatted = String.valueOf(minute);</b>
+<b class="nc">&nbsp;            if(hour &lt; 10)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                hourFormatted = &quot;0&quot; + hour;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if( minute &lt; 10)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                minuteFormatted = &quot;0&quot; + minute;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            String output = hourFormatted + &quot;:&quot; + minuteFormatted;</b>
+<b class="nc">&nbsp;            txtAppointmentTime.setText(output);</b>
+&nbsp;        };
+&nbsp;
+&nbsp;
+&nbsp;        /* *************************LISTEN CLICK EVENT FOR BUTTONS**************************************/
+&nbsp;        /*EDIT TEXT BIRTHDAY*/
+<b class="nc">&nbsp;        txtPatientBirthday.setOnClickListener(birthdayView -&gt; new DatePickerDialog(context,birthday,year,month,day).show());</b>
+&nbsp;
+&nbsp;        /*EDIT TEXT APPOINTMENT DATE*/
+<b class="nc">&nbsp;        txtAppointmentDate.setOnClickListener(appointmentDateView-&gt; new DatePickerDialog(context, appointmentDateDialog, year, month, day).show());</b>
+&nbsp;
+&nbsp;        /*EDIT TEXT APPOINTMENT TIME*/
+<b class="nc">&nbsp;        txtAppointmentTime.setOnClickListener(appointmentTimeView-&gt; new TimePickerDialog(context, appointmentTimeDialog, 9, 0, true).show() );</b>
+&nbsp;
+&nbsp;        /*BUTTON CONFIRM*/
+<b class="nc">&nbsp;        btnConfirm.setOnClickListener(view1-&gt;{</b>
+&nbsp;            /*Step 1 - user must fill up all mandatory fields*/
+<b class="nc">&nbsp;            boolean flag = areMandatoryFieldsFilledUp();</b>
+<b class="nc">&nbsp;            if( !flag ){</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+&nbsp;            /*Step 2 - get date that user enters*/
+<b class="nc">&nbsp;            String bookingName = txtBookingName.getText().toString();</b>
+<b class="nc">&nbsp;            String bookingPhone = txtBookingPhone.getText().toString();</b>
+<b class="nc">&nbsp;            String patientName = txtPatientName.getText().toString();</b>
+&nbsp;
+<b class="nc">&nbsp;            int selectedId = rdPatientGender.getCheckedRadioButtonId();</b>
+<b class="nc">&nbsp;            RadioButton radioButton = view.findViewById(selectedId);</b>
+<b class="nc">&nbsp;            String patientGender = radioButton.getHint().toString();</b>
+<b class="nc">&nbsp;            String patientAddress = txtPatientAddress.getText().toString();</b>
+<b class="nc">&nbsp;            String patientReason = txtPatientReason.getText().toString();</b>
+&nbsp;
+<b class="nc">&nbsp;            String patientBirthday = txtPatientBirthday.getText().toString();</b>
+<b class="nc">&nbsp;            String appointmentDate = txtAppointmentDate.getText().toString();</b>
+<b class="nc">&nbsp;            String appointmentTime = txtAppointmentTime.getText().toString();</b>
+&nbsp;
+&nbsp;
+&nbsp;            /*Step 3 - setup header and body for POST request*/
+<b class="nc">&nbsp;            Map&lt;String, String&gt; header = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;            Map&lt;String, String&gt; body = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            body.put(&quot;serviceId&quot;, serviceId);</b>
+<b class="nc">&nbsp;            body.put(&quot;doctorId&quot;, doctorId);</b>
+<b class="nc">&nbsp;            body.put(&quot;bookingName&quot;, bookingName);</b>
+<b class="nc">&nbsp;            body.put(&quot;bookingPhone&quot;, bookingPhone);</b>
+<b class="nc">&nbsp;            body.put(&quot;name&quot;, patientName);</b>
+<b class="nc">&nbsp;            body.put(&quot;gender&quot;, patientGender);</b>
+<b class="nc">&nbsp;            body.put(&quot;address&quot;, patientAddress);</b>
+<b class="nc">&nbsp;            body.put(&quot;reason&quot;, patientReason);</b>
+<b class="nc">&nbsp;            body.put(&quot;birthday&quot;, patientBirthday);</b>
+<b class="nc">&nbsp;            body.put(&quot;appointmentTime&quot;, appointmentTime);</b>
+<b class="nc">&nbsp;            body.put(&quot;appointmentDate&quot;, appointmentDate);</b>
+&nbsp;
+&nbsp;            /*ở đây sẽ gửi trực tiếp POST request bằng retrofit để tránh việc tạo ra nhiều observer mỗi lần ấn nút gửi yêu cầu*/
+<b class="nc">&nbsp;            loadingScreen.start();</b>
+<b class="nc">&nbsp;            sendBookingCreate(header, body);</b>
+&nbsp;        });/*end BUTTON CONFIRM*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * are mandatory fields filled up?
+&nbsp;     * YES, it returns TRUE
+&nbsp;     * NO, it returns FALSE
+&nbsp;     */
+&nbsp;    private boolean areMandatoryFieldsFilledUp()
+&nbsp;    {
+<b class="nc">&nbsp;        String bookingName = txtBookingName.getText().toString();</b>
+<b class="nc">&nbsp;        String bookingPhone = txtBookingPhone.getText().toString();</b>
+<b class="nc">&nbsp;        String patientName = txtPatientName.getText().toString();</b>
+<b class="nc">&nbsp;        String appointmentDate = txtAppointmentDate.getText().toString();</b>
+<b class="nc">&nbsp;        String appointmentTime = txtAppointmentTime.getText().toString();</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] requiredFields = { bookingName, bookingPhone, patientName, appointmentTime, appointmentDate };</b>
+&nbsp;
+<b class="nc">&nbsp;        for (String element : requiredFields) {</b>
+<b class="nc">&nbsp;            if (TextUtils.isEmpty(element)) {</b>
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, context.getString(R.string.you_do_not_fill_mandatory_field_try_again), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view -&gt; dialog.close());</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void sendBookingCreate(Map&lt;String, String&gt; header, Map&lt;String,String&gt; body)
+&nbsp;    {
+&nbsp;        /*Step 2*/
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;        /*Step 3*/
+<b class="nc">&nbsp;        String serviceId = body.get(&quot;serviceId&quot;);</b>
+<b class="nc">&nbsp;        String doctorId = body.get(&quot;doctorId&quot;);</b>
+<b class="nc">&nbsp;        String bookingName = body.get(&quot;bookingName&quot;);</b>
+<b class="nc">&nbsp;        String bookingPhone = body.get(&quot;bookingPhone&quot;);</b>
+<b class="nc">&nbsp;        String name = body.get(&quot;name&quot;);</b>
+<b class="nc">&nbsp;        String gender = body.get(&quot;gender&quot;);</b>
+<b class="nc">&nbsp;        String address = body.get(&quot;address&quot;);</b>
+<b class="nc">&nbsp;        String reason = body.get(&quot;reason&quot;);</b>
+<b class="nc">&nbsp;        String birthday = body.get(&quot;birthday&quot;);</b>
+<b class="nc">&nbsp;        String appointmentTime = body.get(&quot;appointmentTime&quot;);</b>
+<b class="nc">&nbsp;        String appointmentDate = body.get(&quot;appointmentDate&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        Call&lt;BookingCreate&gt; container = api.bookingCreate(header, doctorId, serviceId,</b>
+&nbsp;                bookingName, bookingPhone, name, gender, address, reason, birthday, appointmentTime, appointmentDate);
+&nbsp;
+&nbsp;        /*Step 4*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;BookingCreate&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;BookingCreate&gt; call, @NonNull Response&lt;BookingCreate&gt; response) {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    BookingCreate content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+<b class="nc">&nbsp;                    processWithPOSTResponse(content);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println( e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;BookingCreate&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Booking Fragment - Create - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 23-11-2022
+&nbsp;     * process with the response from POST request that we send to server
+&nbsp;     */
+&nbsp;    private void processWithPOSTResponse(BookingCreate response)
+&nbsp;    {
+&nbsp;        /*Step 1 - prepare Dialog if we have error*/
+<b class="nc">&nbsp;        dialog.announce();</b>
+<b class="nc">&nbsp;        dialog.btnOK.setOnClickListener(view -&gt; dialog.close());</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 2 - show result*/
+&nbsp;        try
+&nbsp;        {
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if( result == 1)// create successfully -&gt; go to next booking fragment</b>
+&nbsp;            {
+<b class="nc">&nbsp;                Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                String fragmentTag = &quot;bookingFragment3&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;                Bundle bundle = new Bundle();</b>
+<b class="nc">&nbsp;                bundle.putString(&quot;bookingId&quot;, String.valueOf(response.getData().getId()));</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                BookingFragment3 nextFragment = new BookingFragment3();</b>
+<b class="nc">&nbsp;                nextFragment.setArguments(bundle);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;                requireActivity().getSupportFragmentManager().beginTransaction()</b>
+<b class="nc">&nbsp;                        .replace(R.id.frameLayout, nextFragment, fragmentTag)</b>
+<b class="nc">&nbsp;                        .addToBackStack(fragmentTag)</b>
+<b class="nc">&nbsp;                        .commit();</b>
+&nbsp;
+<b class="nc">&nbsp;                HomepageActivity.getInstance().setNumberOnNotificationIcon();</b>
+&nbsp;            }
+&nbsp;            else// create failed -&gt; show error message
+&nbsp;            {
+<b class="nc">&nbsp;                String message = response.getMsg();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, message, R.drawable.ic_info);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        catch (Exception exception)
+&nbsp;        {
+<b class="nc">&nbsp;            System.out.println(TAG);</b>
+<b class="nc">&nbsp;            System.out.println(exception);</b>
+<b class="nc">&nbsp;            dialog.show(R.string.attention, context.getString(R.string.oops_there_is_an_issue), R.drawable.ic_info);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

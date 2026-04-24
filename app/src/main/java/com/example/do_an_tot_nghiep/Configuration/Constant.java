@@ -12,7 +12,8 @@ public class Constant {
      */
     public static String UPLOAD_URI()
     {
-        return "http://192.168.1.221:8080/PTIT-Do-An-Tot-Nghiep/api/assets/uploads/";
+        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
+        return "http://192.168.1.57:8080/assets/uploads/";
     }
 
 
@@ -22,7 +23,8 @@ public class Constant {
      */
     public static String APP_PATH()
     {
-        return "http://192.168.1.221:8080/PTIT-Do-An-Tot-Nghiep/";
+        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
+        return "http://192.168.1.57:8080/";
     }
 
     /**
@@ -31,7 +33,7 @@ public class Constant {
      */
     public static String APP_PATH_EMULATOR()
     {
-        return "http://10.0.2.2:8080/PTIT-Do-An-Tot-Nghiep/";
+        return "http://192.168.1.57:8080/";
     }
 
     /**
@@ -64,12 +66,6 @@ public class Constant {
 
     /**
      * @since 22-12-2022
-     * đây là API key từ https://openweathermap.org/
-     * mình sử dụng API này để lấy nhiệt độ của TP.HCM
-     * https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-     * lat là kinh độ của thành phố
-     * lon là vĩ độ của thành phố
-     * API Key là key bên dưới
      */
     public static String OPEN_WEATHER_MAP_API_KEY()
     {

@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HTTPRequest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Configuration</a>
+</div>
+
+<h1>Coverage Summary for Class: HTTPRequest (com.example.do_an_tot_nghiep.Configuration)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">HTTPRequest$MockitoMock$niDFbyY3</td>
+  </tr>
+  <tr>
+    <td class="name">HTTPRequest$MockitoMock$niDFbyY3$auxiliary$4S7a39SZ</td>
+  </tr>
+  <tr>
+    <td class="name">HTTPRequest$MockitoMock$niDFbyY3$auxiliary$hHwerET3</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Configuration;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentQueue;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingCancel;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingCreate;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingPhotoDelete;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingPhotoReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingPhotoUpload;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.DoctorReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.DoctorReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.Login;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationCreate;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationMarkAllAsRead;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationMarkAsRead;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.PatientProfile;
+&nbsp;import com.example.do_an_tot_nghiep.Container.PatientProfileChangeAvatar;
+&nbsp;import com.example.do_an_tot_nghiep.Container.PatientProfileChangePersonalInformation;
+&nbsp;import com.example.do_an_tot_nghiep.Container.RecordReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.ServiceReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.ServiceReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.SpecialityReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.SpecialityReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.TreatmentReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.TreatmentReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Container.WeatherForecast;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import okhttp3.MultipartBody;
+&nbsp;import okhttp3.RequestBody;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.http.DELETE;
+&nbsp;import retrofit2.http.Field;
+&nbsp;import retrofit2.http.FormUrlEncoded;
+&nbsp;import retrofit2.http.GET;
+&nbsp;import retrofit2.http.Header;
+&nbsp;import retrofit2.http.HeaderMap;
+&nbsp;import retrofit2.http.Multipart;
+&nbsp;import retrofit2.http.POST;
+&nbsp;import retrofit2.http.PUT;
+&nbsp;import retrofit2.http.Part;
+&nbsp;import retrofit2.http.Path;
+&nbsp;import retrofit2.http.QueryMap;
+&nbsp;
+&nbsp;public interface HTTPRequest {
+&nbsp;
+&nbsp;    /**********************LOGIN WITH PHONE NUMBER**********************/
+&nbsp;    @FormUrlEncoded
+&nbsp;    @POST(&quot;api/login&quot;)
+&nbsp;    Call&lt;Login&gt; login(@Field(&quot;phone&quot;) String phone, @Field(&quot;password&quot;) String password, @Field(&quot;type&quot;) String type);
+&nbsp;
+&nbsp;
+&nbsp;    /**********************LOGIN WITH GOOGLE ACCOUNT**********************/
+&nbsp;    @FormUrlEncoded
+&nbsp;    @POST(&quot;api/login/google&quot;)
+&nbsp;    Call&lt;Login&gt; loginWithGoogle(@Field(&quot;email&quot;) String email, @Field(&quot;password&quot;) String password, @Field(&quot;type&quot;) String type);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**********************PATIENT PROFILE - GET - READ PERSONAL INFORMATION**********************/
+&nbsp;    @GET(&quot;api/patient/profile&quot;)
+&nbsp;    Call&lt;PatientProfile&gt; readPersonalInformation(@HeaderMap Map&lt;String, String&gt; headers);
+&nbsp;
+&nbsp;
+&nbsp;    @FormUrlEncoded
+&nbsp;    @POST(&quot;api/patient/profile&quot;)
+&nbsp;    Call&lt;PatientProfileChangePersonalInformation&gt; changePersonalInformation(@HeaderMap Map&lt;String, String&gt; header ,
+&nbsp;                                                                            @Field(&quot;action&quot;) String action,
+&nbsp;                                                                            @Field(&quot;name&quot;) String name,
+&nbsp;                                                                            @Field(&quot;gender&quot;) String gender,
+&nbsp;                                                                            @Field(&quot;birthday&quot;) String birthday,
+&nbsp;                                                                            @Field(&quot;address&quot;) String address);
+&nbsp;
+&nbsp;
+&nbsp;    @Multipart
+&nbsp;    @POST(&quot;api/patient/profile&quot;)
+&nbsp;    Call&lt;PatientProfileChangeAvatar&gt; changeAvatar(@Header(&quot;Authorization&quot;) String accessToken,
+&nbsp;                                                  @Header(&quot;Type&quot;) String type,
+&nbsp;                                                  @Part MultipartBody.Part file,
+&nbsp;                                                  @Part(&quot;action&quot;) RequestBody action);
+&nbsp;
+&nbsp;    /**********************SPECIALITY**********************/
+&nbsp;    @GET(&quot;api/specialities&quot;)
+&nbsp;    Call&lt;SpecialityReadAll&gt; specialityReadAll(@HeaderMap Map&lt;String, String&gt; headers, @QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;    @GET(&quot;api/specialities/{id}&quot;)
+&nbsp;    Call&lt;SpecialityReadByID&gt; specialityReadByID(@HeaderMap Map&lt;String, String&gt; headers, @Path(&quot;id&quot;) String id);
+&nbsp;
+&nbsp;
+&nbsp;    /**********************DOCTOR**********************/
+&nbsp;    @GET(&quot;api/doctors&quot;)
+&nbsp;    Call&lt;DoctorReadAll&gt; doctorReadAll(@HeaderMap Map&lt;String, String&gt; headers, @QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;    @GET(&quot;api/doctors/{id}&quot;)
+&nbsp;    Call&lt;DoctorReadByID&gt; doctorReadByID(@HeaderMap Map&lt;String, String&gt; headers, @Path(&quot;id&quot;) String id);
+&nbsp;
+&nbsp;
+&nbsp;    /**********************SERVICE**********************/
+&nbsp;    @GET(&quot;api/services&quot;)
+&nbsp;    Call&lt;ServiceReadAll&gt; serviceReadAll(@HeaderMap Map&lt;String, String&gt; headers, @QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;    @GET(&quot;api/services/{id}&quot;)
+&nbsp;    Call&lt;ServiceReadByID&gt; serviceReadByID(@HeaderMap Map&lt;String, String&gt; headers, @Path(&quot;id&quot;) String id);
+&nbsp;
+&nbsp;
+&nbsp;    /**********************BOOKING**********************/
+&nbsp;    @FormUrlEncoded
+&nbsp;    @POST(&quot;api/patient/booking&quot;)
+&nbsp;    Call&lt;BookingCreate&gt; bookingCreate(@HeaderMap Map&lt;String, String&gt; headers,
+&nbsp;                                      @Field(&quot;doctor_id&quot;) String doctorId,
+&nbsp;                                      @Field(&quot;service_id&quot;) String serviceId,
+&nbsp;                                      @Field(&quot;booking_name&quot;) String bookingName,
+&nbsp;                                      @Field(&quot;booking_phone&quot;) String bookingPhone,
+&nbsp;                                      @Field(&quot;name&quot;) String name,
+&nbsp;                                      @Field(&quot;gender&quot;) String gender,
+&nbsp;                                      @Field(&quot;address&quot;) String address,
+&nbsp;                                      @Field(&quot;reason&quot;) String reason,
+&nbsp;                                      @Field(&quot;birthday&quot;) String birthday,
+&nbsp;                                      @Field(&quot;appointment_time&quot;) String appointmentTime,
+&nbsp;                                      @Field(&quot;appointment_date&quot;) String appointmentDate);
+&nbsp;
+&nbsp;    @GET(&quot;api/patient/booking&quot;)
+&nbsp;    Call&lt;BookingReadAll&gt; bookingReadAll(@HeaderMap Map&lt;String, String&gt; header, @HeaderMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;    /**********************BOOKING PHOTO**********************/
+&nbsp;    @GET(&quot;api/booking/photos/{id}&quot;)
+&nbsp;    Call&lt;BookingPhotoReadAll&gt; bookingPhotoReadAll(@HeaderMap Map&lt;String, String&gt; headers, @Path(&quot;id&quot;) String id);
+&nbsp;
+&nbsp;    @Multipart
+&nbsp;    @POST(&quot;api/booking/upload-photo&quot;)
+&nbsp;    Call&lt;BookingPhotoUpload&gt; bookingPhotoUpload(@Header(&quot;Authorization&quot;) String accessToken,
+&nbsp;                                                @Header(&quot;Type&quot;) String type,
+&nbsp;                                                @Part(&quot;booking_id&quot;) RequestBody bookingId,
+&nbsp;                                                @Part MultipartBody.Part file);
+&nbsp;
+&nbsp;    @DELETE(&quot;api/booking/photo/{id}&quot;)
+&nbsp;    Call&lt;BookingPhotoDelete&gt; bookingPhotoDelete(@HeaderMap Map&lt;String, String&gt; header, @Path(&quot;id&quot;) int id);
+&nbsp;
+&nbsp;    /**********************NOTIFICATION**********************/
+&nbsp;    @GET(&quot;api/patient/notifications&quot;)
+&nbsp;    Call&lt;NotificationReadAll&gt; notificationReadAll(@HeaderMap Map&lt;String, String&gt; header);
+&nbsp;
+&nbsp;
+&nbsp;    @POST(&quot;api/patient/notifications/mark-as-read/{id}&quot;)
+&nbsp;    Call&lt;NotificationMarkAsRead&gt; notificationMarkAsRead(@HeaderMap Map&lt;String, String&gt; header, @Path(&quot;id&quot;) String notificationId);
+&nbsp;
+&nbsp;
+&nbsp;    @POST(&quot;api/patient/notifications&quot;)
+&nbsp;    Call&lt;NotificationMarkAllAsRead&gt; notificationMarkAllAsRead(@HeaderMap Map &lt;String, String&gt; header);
+&nbsp;
+&nbsp;    @FormUrlEncoded
+&nbsp;    @PUT(&quot;api/patient/notifications&quot;)
+&nbsp;    Call&lt;NotificationCreate&gt; notificationCreate(@HeaderMap Map &lt;String, String&gt; header,
+&nbsp;                                                @Field(&quot;message&quot;) String message,
+&nbsp;                                                @Field(&quot;record_id&quot;) String recordId,
+&nbsp;                                                @Field(&quot;record_type&quot;) String recordType);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /************** BOOKING **********/
+&nbsp;    @GET(&quot;api/patient/booking/{id}&quot;)
+&nbsp;    Call&lt;BookingReadByID&gt; bookingReadByID(@HeaderMap Map &lt;String, String&gt; header, @Path(&quot;id&quot;) String bookingId);
+&nbsp;
+&nbsp;    @DELETE(&quot;api/patient/booking/{id}&quot;)
+&nbsp;    Call&lt;BookingCancel&gt; bookingCancel(@HeaderMap Map &lt;String, String&gt; header, @Path(&quot;id&quot;) String bookingId);
+&nbsp;
+&nbsp;
+&nbsp;    /************** BOOKING **********/
+&nbsp;    @GET(&quot;api/patient/appointments&quot;)
+&nbsp;    Call&lt;AppointmentReadAll&gt; appointmentReadAll(@HeaderMap Map &lt;String, String&gt; header, @QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;    @GET(&quot;api/patient/appointments/{id}&quot;)
+&nbsp;    Call&lt;AppointmentReadByID&gt; appointmentReadByID(@HeaderMap Map &lt;String, String&gt; header, @Path(&quot;id&quot;) String appointmentId);
+&nbsp;
+&nbsp;
+&nbsp;    /************** QUEUE **********/
+&nbsp;    @GET(&quot;api/appointment-queue&quot;)
+&nbsp;    Call&lt;AppointmentQueue&gt; appointmentQueue(@HeaderMap Map &lt;String, String&gt; header, @QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;
+&nbsp;
+&nbsp;    /************** RECORD **********/
+&nbsp;    @GET(&quot;api/patient/appointments/records/{id}&quot;)
+&nbsp;    Call&lt;RecordReadByID&gt; recordReadById(@HeaderMap Map &lt;String, String&gt; header, @Path(&quot;id&quot;) String recordId);
+&nbsp;
+&nbsp;
+&nbsp;    /************** TREATMENT **********/
+&nbsp;    @GET(&quot;api/patient/treatments/{id}&quot;)
+&nbsp;    Call&lt;TreatmentReadAll&gt; treatmentReadAll(@HeaderMap Map &lt;String, String&gt; header,  @Path(&quot;id&quot;) String appointmentId);
+&nbsp;
+&nbsp;    @GET(&quot;api/patient/treatment/{id}&quot;)
+&nbsp;    Call&lt;TreatmentReadByID&gt; treatmentReadByID(@HeaderMap Map &lt;String, String&gt; header, @Path(&quot;id&quot;) String treatmentId);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /************** WEATHER FORCASE - OPEN WEATHER MAP.ORG **********/
+&nbsp;    @GET(&quot;https://api.openweathermap.org/data/2.5/weather&quot;)
+&nbsp;    Call&lt;WeatherForecast&gt; getCurrentWeather(@QueryMap Map&lt;String, String&gt; parameters);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

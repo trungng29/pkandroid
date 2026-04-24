@@ -1,0 +1,287 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TreatmentFragment1</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Treatmentpage</a>
+</div>
+
+<h1>Coverage Summary for Class: TreatmentFragment1 (com.example.do_an_tot_nghiep.Treatmentpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TreatmentFragment1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/51)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Treatmentpage;
+&nbsp;
+&nbsp;import android.app.Activity;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.lifecycle.LifecycleOwner;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Alarmpage.AlarmpageFragment;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Treatment;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.TreatmentRecyclerView;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 30-11-2022
+&nbsp; *
+&nbsp; * this fragment will show all appointments to users selects one of them
+&nbsp; */
+<b class="nc">&nbsp;public class TreatmentFragment1 extends Fragment {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Treatment Fragment 1&quot;;</b>
+&nbsp;    private Context context;
+&nbsp;    private Activity activity;
+&nbsp;    private Dialog dialog;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;
+&nbsp;    private Map&lt;String, String&gt; header ;
+&nbsp;
+&nbsp;    private TreatmentpageViewModel viewModel;
+&nbsp;    private RecyclerView treatmentRecyclerView;
+&nbsp;    private String appointmentId;
+&nbsp;
+&nbsp;
+&nbsp;    private AppCompatButton btnSetTime;
+&nbsp;    private String message;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_treatment1, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 30-11-2022
+&nbsp;     * setup component()
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+<b class="nc">&nbsp;        context = requireContext();</b>
+<b class="nc">&nbsp;        activity = requireActivity();</b>
+<b class="nc">&nbsp;        dialog = new Dialog(context);</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(activity);</b>
+&nbsp;
+<b class="nc">&nbsp;        GlobalVariable globalVariable = (GlobalVariable) activity.getApplication();</b>
+&nbsp;
+<b class="nc">&nbsp;        appointmentId = activity.getIntent().getStringExtra(&quot;appointmentId&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        treatmentRecyclerView = view.findViewById(R.id.treatmentRecyclerView);</b>
+<b class="nc">&nbsp;        header = globalVariable.getHeaders();</b>
+&nbsp;
+<b class="nc">&nbsp;        btnSetTime = view.findViewById(R.id.btnSetAlarm);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+<b class="nc">&nbsp;        viewModel = new ViewModelProvider(this).get(TreatmentpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*prepare Header &amp; parameter*/
+<b class="nc">&nbsp;        viewModel.treatmentReadAll(header, appointmentId);</b>
+<b class="nc">&nbsp;        viewModel.getTreatmentReadAllResponse().observe((LifecycleOwner) context, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    List&lt;Treatment&gt; treatments = response.getData();</b>
+<b class="nc">&nbsp;                    message = treatments.get(0).getInstruction();</b>
+<b class="nc">&nbsp;                    setupRecyclerView(treatments);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if( result == 0)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    System.out.println(TAG + &quot;- result: &quot; + result);</b>
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        activity.finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;            catch(Exception ex)
+&nbsp;            {
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                System.out.println(TAG + &quot;- exception: &quot; + ex.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*animation*/
+<b class="nc">&nbsp;        viewModel.getAnimation().observe((LifecycleOwner) context, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if(aBoolean)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;        /*end animation*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 26-11-2022
+&nbsp;     * setup recycler view
+&nbsp;     */
+&nbsp;    private void setupRecyclerView(List&lt;Treatment&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        TreatmentRecyclerView treatmentAdapter = new TreatmentRecyclerView(context, list);</b>
+<b class="nc">&nbsp;        treatmentRecyclerView.setAdapter(treatmentAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        treatmentRecyclerView.setLayoutManager(manager);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * set up event
+&nbsp;     * @since 30-11-2022
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnSetTime.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            String fragmentTag = &quot;AlarmFragment&quot;;</b>
+<b class="nc">&nbsp;            Fragment nextFragment = new AlarmpageFragment();// this fragment creates alarm</b>
+&nbsp;
+<b class="nc">&nbsp;            Bundle bundle = new Bundle();</b>
+<b class="nc">&nbsp;            bundle.putString(&quot;message&quot;, message);</b>
+<b class="nc">&nbsp;            nextFragment.setArguments(bundle);</b>
+&nbsp;
+<b class="nc">&nbsp;            requireActivity().getSupportFragmentManager().beginTransaction()</b>
+<b class="nc">&nbsp;                    .replace(R.id.frameLayout, nextFragment, fragmentTag)</b>
+<b class="nc">&nbsp;                    .addToBackStack(fragmentTag)</b>
+<b class="nc">&nbsp;                    .commit();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

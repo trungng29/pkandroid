@@ -1,0 +1,219 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Notification</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Helper</a>
+</div>
+
+<h1>Coverage Summary for Class: Notification (com.example.do_an_tot_nghiep.Helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Notification</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Helper;
+&nbsp;
+&nbsp;import android.app.NotificationChannel;
+&nbsp;import android.app.NotificationManager;
+&nbsp;import android.app.PendingIntent;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.graphics.BitmapFactory;
+&nbsp;import android.os.Build;
+&nbsp;
+&nbsp;import androidx.core.app.NotificationCompat;
+&nbsp;import androidx.core.app.NotificationManagerCompat;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 18-11-2022
+&nbsp; * this class is used to create notification for this application
+&nbsp; */
+&nbsp;public class Notification extends android.app.Notification {
+&nbsp;
+<b class="nc">&nbsp;    int notificationID = 1896;</b>
+&nbsp;    private final Context context;
+<b class="nc">&nbsp;    private final String CHANNEL_ID = Constant.APP_NAME();</b>
+&nbsp;    private final NotificationManagerCompat notificationManager;
+&nbsp;    private NotificationCompat.Builder builder;
+&nbsp;
+&nbsp;    public Notification(Context context)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        notificationManager = NotificationManagerCompat.from(context);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 18-11-2022
+&nbsp;     * @see this function always runs whenever the application opens
+&nbsp;     *
+&nbsp;     * Notice 1:  that the NotificationCompat.Builder constructor requires that you provide a channel ID.
+&nbsp;     * This is required for compatibility with Android 8.0 (API level 26) and higher,
+&nbsp;     * but is ignored by older versions
+&nbsp;     *
+&nbsp;     * Notice 2: Before you can deliver the notification on Android 8.0 and higher,
+&nbsp;     * you must register your app&#39;s notification channel with the system by passing
+&nbsp;     * an instance of NotificationChannel to createNotificationChannel().
+&nbsp;     * So the following code is blocked by a condition on the SDK_INT version:
+&nbsp;     */
+&nbsp;    public void createChannel() {
+&nbsp;        // Create the NotificationChannel, but only on API 26+ because
+&nbsp;        // the NotificationChannel class is new and not in the support library
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</b>
+<b class="nc">&nbsp;            CharSequence name = context.getString(R.string.app_name);</b>
+<b class="nc">&nbsp;            String description = context.getString(R.string.app_description);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            int importance = NotificationManager.IMPORTANCE_HIGH;</b>
+<b class="nc">&nbsp;            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);</b>
+<b class="nc">&nbsp;            channel.setDescription(description);</b>
+&nbsp;
+&nbsp;
+&nbsp;            // Register the channel with the system; you can&#39;t change the importance
+&nbsp;            // or other notification behaviors after this
+<b class="nc">&nbsp;            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);</b>
+<b class="nc">&nbsp;            notificationManager.createNotificationChannel(channel);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this function setup content for notification
+&nbsp;     * @since 18-11-2022
+&nbsp;     * @param title is the title of notification
+&nbsp;     * @param text is the short content of notification
+&nbsp;     * @param bigText is the full content of notification
+&nbsp;     */
+&nbsp;    public void setup(String title, String text, String bigText)
+&nbsp;    {
+&nbsp;        /*Mo app khi nhan vao notification*/
+<b class="nc">&nbsp;        Intent intent = new Intent(context, HomepageActivity.class);</b>
+<b class="nc">&nbsp;        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);</b>
+<b class="nc">&nbsp;        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        this.builder = new NotificationCompat.Builder(context, CHANNEL_ID)</b>
+<b class="nc">&nbsp;                .setSmallIcon(R.drawable.ic_umbrella_round)</b>
+<b class="nc">&nbsp;                .setContentTitle(title)</b>
+<b class="nc">&nbsp;                .setContentText(text)</b>
+<b class="nc">&nbsp;                .setStyle(new NotificationCompat.BigTextStyle()</b>
+<b class="nc">&nbsp;                        .bigText(bigText))</b>
+<b class="nc">&nbsp;                .setPriority(NotificationCompat.PRIORITY_MAX)</b>
+<b class="nc">&nbsp;                .setContentIntent(pendingIntent)// Set the intent that will fire when the user taps the notification</b>
+<b class="nc">&nbsp;                .setAutoCancel(true);//Notice this code calls setAutoCancel(), which automatically removes the notification when the user taps it.</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void show()
+&nbsp;    {
+<b class="nc">&nbsp;        NotificationCompat.Builder builder = this.builder;</b>
+<b class="nc">&nbsp;        notificationManager.notify(notificationID, builder.build());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

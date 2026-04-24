@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MainActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep</a>
+</div>
+
+<h1>Coverage Summary for Class: MainActivity (com.example.do_an_tot_nghiep)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/62)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.net.ConnectivityManager;
+&nbsp;import android.net.NetworkCapabilities;
+&nbsp;import android.net.NetworkInfo;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.os.Handler;
+&nbsp;import android.os.Looper;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.appcompat.app.AppCompatDelegate;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Notification;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Loginpage.LoginActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.User;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;public class MainActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;MAIN ACTIVITY&quot;;</b>
+&nbsp;    private SharedPreferences sharedPreferences;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private Dialog dialog;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_main);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 0 - declare sharedPreferences &amp; globalVariable*/
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable)this.getApplication();</b>
+<b class="nc">&nbsp;        sharedPreferences = this.getApplication()</b>
+<b class="nc">&nbsp;                .getSharedPreferences(globalVariable.getSharedReferenceKey(), MODE_PRIVATE);</b>
+<b class="nc">&nbsp;        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);</b>
+<b class="nc">&nbsp;        dialog = new Dialog(this);</b>
+&nbsp;
+&nbsp;
+&nbsp;        //If we wanna use notification on Android 8 or higher, this function must be run
+<b class="nc">&nbsp;        Notification notification = new Notification(this);</b>
+<b class="nc">&nbsp;        notification.createChannel();</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 1 - does the application connect to Internet?*/
+<b class="nc">&nbsp;        boolean isConnected = isInternetAvailable();</b>
+<b class="nc">&nbsp;        if( !isConnected )</b>
+&nbsp;        {
+<b class="nc">&nbsp;            dialog.announce();</b>
+<b class="nc">&nbsp;            dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;            dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                dialog.close();</b>
+<b class="nc">&nbsp;                finish();</b>
+&nbsp;            });
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 2 - is dark mode turned on?*/
+<b class="nc">&nbsp;        int value = sharedPreferences.getInt(&quot;darkMode&quot;, 1);</b>
+<b class="nc">&nbsp;        AppCompatDelegate.setDefaultNightMode(value);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 4 - is AccessToken null?*/
+<b class="nc">&nbsp;        String accessToken = sharedPreferences.getString(&quot;accessToken&quot;, null);</b>
+<b class="nc">&nbsp;        if(accessToken != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            globalVariable.setAccessToken(accessToken);</b>
+<b class="nc">&nbsp;            Map&lt;String, String&gt; headers = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;            viewModel.readPersonalInformation(headers);</b>
+&nbsp;
+<b class="nc">&nbsp;            viewModel.getResponse().observe(this, response-&gt;{</b>
+&nbsp;                try
+&nbsp;                {
+<b class="nc">&nbsp;                    int result = response.getResult();</b>
+<b class="nc">&nbsp;                    if( result == 1)</b>
+&nbsp;                    {
+<b class="nc">&nbsp;                        User user = response.getData();</b>
+<b class="nc">&nbsp;                        globalVariable.setAuthUser( user );</b>
+&nbsp;
+<b class="nc">&nbsp;                        Intent intent = new Intent(MainActivity.this, HomepageActivity.class);</b>
+<b class="nc">&nbsp;                        startActivity(intent);</b>
+<b class="nc">&nbsp;                        finish();</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    if( result == 0)</b>
+&nbsp;                    {
+<b class="nc">&nbsp;                        sharedPreferences.edit().putString(&quot;accessToken&quot;,null).apply();</b>
+<b class="nc">&nbsp;                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);</b>
+<b class="nc">&nbsp;                        startActivity(intent);</b>
+<b class="nc">&nbsp;                        finish();</b>
+&nbsp;                    }
+&nbsp;
+&nbsp;                }
+&nbsp;                catch(Exception ex)
+&nbsp;                {
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;            });
+&nbsp;
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            Handler handler = new Handler(Looper.myLooper());</b>
+<b class="nc">&nbsp;            handler.postDelayed(() -&gt; {</b>
+<b class="nc">&nbsp;                Intent intent = new Intent(MainActivity.this, LoginActivity.class);</b>
+<b class="nc">&nbsp;                startActivity(intent);</b>
+<b class="nc">&nbsp;                finish();</b>
+&nbsp;            },1000);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onResume() {
+<b class="nc">&nbsp;        super.onResume();</b>
+<b class="nc">&nbsp;        Tooltip.setLocale(this, sharedPreferences);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Cải tiến hàm kiểm tra Internet để hoạt động tốt trên cả máy thật và máy ảo
+&nbsp;     */
+&nbsp;    public boolean isInternetAvailable() {
+<b class="nc">&nbsp;        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);</b>
+<b class="nc">&nbsp;        if (connectivityManager == null) return false;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) {</b>
+<b class="nc">&nbsp;            android.net.Network network = connectivityManager.getActiveNetwork();</b>
+<b class="nc">&nbsp;            if (network == null) return false;</b>
+<b class="nc">&nbsp;            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);</b>
+<b class="nc">&nbsp;            return capabilities != null &amp;&amp; (</b>
+<b class="nc">&nbsp;                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||</b>
+<b class="nc">&nbsp;                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||</b>
+<b class="nc">&nbsp;                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));</b>
+&nbsp;        } else {
+&nbsp;            // Hỗ trợ các phiên bản Android cũ hơn
+<b class="nc">&nbsp;            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();</b>
+<b class="nc">&nbsp;            return activeNetworkInfo != null &amp;&amp; activeNetworkInfo.isConnected();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

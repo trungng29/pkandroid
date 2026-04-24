@@ -1,0 +1,552 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppointmentpageService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Appointmentpage</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentpageService (com.example.do_an_tot_nghiep.Appointmentpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentpageService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/87)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppointmentpageService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentpageService$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AppointmentpageService$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/112)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Appointmentpage;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.app.IntentService;
+&nbsp;import android.app.Notification;
+&nbsp;import android.app.PendingIntent;
+&nbsp;import android.content.Intent;
+&nbsp;import android.media.MediaPlayer;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.CountDownTimer;
+&nbsp;import android.os.PowerManager;
+&nbsp;import android.os.SystemClock;
+&nbsp;import android.util.Log;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import androidx.core.app.NotificationCompat;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentQueue;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationCreate;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Queue;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.Calendar;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.TimeZone;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 26-11-2022
+&nbsp; * this intent service run every 30 seconds to update appointment queue for
+&nbsp; * the patient. If next patient or next third patient is user. The device goes off
+&nbsp; * with a notification and sound to remind the user
+&nbsp; *
+&nbsp; *
+&nbsp; * Every 45 seconds, the service will send a GET request to check current patient.
+&nbsp; */
+<b class="nc">&nbsp;public class AppointmentpageService extends IntentService {</b>
+&nbsp;
+&nbsp;
+&nbsp;    public static final String TAG = &quot;Appointment-page Service&quot;;
+&nbsp;    private PowerManager.WakeLock wakeLock;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private MediaPlayer mediaPlayer;
+&nbsp;
+&nbsp;
+&nbsp;    private String recordId;// record id is the id of appointment that user is waiting for examining
+&nbsp;    private String recordType;// record type is the key to create message for BOOKING or APPOINTMENT
+&nbsp;    private String position;// it is the position in the queue that if current Position = position=&gt; it&#39;s the user&#39;s turn
+&nbsp;    private String doctorId;// is the id of doctor that the user are waiting for.
+&nbsp;    private String doctorName;// is the name of doctor
+<b class="nc">&nbsp;    private boolean isNotify = false;</b>
+&nbsp;
+&nbsp;    public AppointmentpageService() {
+<b class="nc">&nbsp;        super(&quot;NotificationService&quot;);</b>
+<b class="nc">&nbsp;        setIntentRedelivery(true);// if system kills this service, it will be created again</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;InvalidWakeLockTag&quot;)
+&nbsp;    @Override
+&nbsp;    public void onCreate() {
+<b class="nc">&nbsp;        super.onCreate();</b>
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        Log.d(TAG, &quot;onCreate&quot;);</b>
+&nbsp;
+&nbsp;        /*Phone screen can turn off but CPU keeps running to complete the task*/
+<b class="nc">&nbsp;        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);</b>
+<b class="nc">&nbsp;        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, &quot;Appointment-page Service - WakeLock&quot;);</b>
+<b class="nc">&nbsp;        wakeLock.acquire(2*60*1000L /*2 minutes*/);//turn off wake lock after 2 minutes.</b>
+<b class="nc">&nbsp;        Log.d(TAG, &quot;onCreate - wakeLock acquire&quot;);</b>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;        /*show notification that the application is running*/
+<b class="nc">&nbsp;        if(Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Notification notification = new NotificationCompat.Builder(this, Constant.APP_NAME())</b>
+<b class="nc">&nbsp;                    .setContentTitle(Constant.APP_NAME())</b>
+<b class="nc">&nbsp;                    .setContentText(getString(R.string.umbreall_health_is_running_in_background))</b>
+<b class="nc">&nbsp;                    .setSmallIcon(R.drawable.ic_umbrella_round)</b>
+<b class="nc">&nbsp;                    .build();</b>
+&nbsp;
+<b class="nc">&nbsp;            startForeground(10, notification);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 26-11-2022
+&nbsp;     * @param intent is the intent sent from Appointment Recycler View
+&nbsp;     * this function run first whenever the service is called.
+&nbsp;     */
+<b class="nc">&nbsp;    boolean running = canServiceRun();</b>
+&nbsp;    @Override
+&nbsp;    protected void onHandleIntent(@Nullable Intent intent) {
+<b class="nc">&nbsp;        Log.d(TAG, &quot;onHandleIntent&quot;);</b>
+<b class="nc">&nbsp;        assert intent != null;</b>
+<b class="nc">&nbsp;        doctorId = intent.getStringExtra(&quot;doctorId&quot;);</b>
+<b class="nc">&nbsp;        doctorName = intent.getStringExtra(&quot;doctorName&quot;);</b>
+<b class="nc">&nbsp;        position = intent.getStringExtra(&quot;position&quot;);</b>
+<b class="nc">&nbsp;        recordId = intent.getStringExtra(&quot;recordId&quot;);</b>
+<b class="nc">&nbsp;        recordType = intent.getStringExtra(&quot;recordType&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        int interval = 1000*45;/*Run this function every 45 seconds*/</b>
+<b class="nc">&nbsp;        System.out.println(&quot;First create - is running: &quot; + running);</b>
+&nbsp;
+<b class="nc">&nbsp;        while(running)</b>
+&nbsp;        {
+&nbsp;            /*DEBUG*/
+&nbsp;            /*print time now on console &amp; notification*/
+&nbsp;//            TimeZone timeZone = TimeZone.getTimeZone(&quot;Asia/Ho_Chi_Minh&quot;);
+&nbsp;//            Calendar calendar = Calendar.getInstance(timeZone);
+&nbsp;//            int nowHour = calendar.get(Calendar.HOUR_OF_DAY);
+&nbsp;//            int nowMinute = calendar.get(Calendar.MINUTE);
+&nbsp;
+&nbsp;            /*show message*/
+&nbsp;//            String nowValue = &quot;It&#39;s &quot; + nowHour + &quot;:&quot; + nowMinute;
+&nbsp;//            System.out.println(&quot;===============================&quot;);
+&nbsp;//            System.out.println(nowValue);
+&nbsp;//            System.out.println(&quot;is Notify = &quot; + isNotify);
+&nbsp;
+&nbsp;            /*end DEBUG*/
+&nbsp;
+&nbsp;            /*GET request every 30 second*/
+<b class="nc">&nbsp;            running = canServiceRun();/*Run function canServiceRun() to know it can be continue or not*/</b>
+<b class="nc">&nbsp;            System.out.println(&quot;is running: &quot; + running);</b>
+<b class="nc">&nbsp;            if( !running )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                stopSelf();</b>
+<b class="nc">&nbsp;                System.out.println(&quot;intent service is killed!&quot;);</b>
+&nbsp;                return;
+&nbsp;            }
+<b class="nc">&nbsp;            getAppointmentQueue();</b>
+<b class="nc">&nbsp;            SystemClock.sleep(interval);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onDestroy() {
+<b class="nc">&nbsp;        super.onDestroy();</b>
+<b class="nc">&nbsp;        Log.d(TAG, &quot;onDestroy&quot;);</b>
+<b class="nc">&nbsp;        wakeLock.release();</b>
+<b class="nc">&nbsp;        if(mediaPlayer != null) {</b>
+<b class="nc">&nbsp;            mediaPlayer.release();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        Log.d(TAG, &quot;onDestroy - wakeLock release&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void getAppointmentQueue()
+&nbsp;    {
+&nbsp;        /*Step 1 - prepare header &amp; parameters*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; headers = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;        Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        parameters.put(&quot;doctor_id&quot;, doctorId);</b>
+<b class="nc">&nbsp;        parameters.put(&quot;date&quot;, Tooltip.getToday());</b>
+<b class="nc">&nbsp;        parameters.put(&quot;order[column]&quot;, &quot;position&quot; );</b>
+<b class="nc">&nbsp;        parameters.put(&quot;order[dir]&quot;, &quot;asc&quot;);</b>
+<b class="nc">&nbsp;        parameters.put(&quot;length&quot;, &quot;3&quot;);</b>
+<b class="nc">&nbsp;        parameters.put(&quot;status&quot;, &quot;processing&quot;);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 2 - prepare API*/
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;        /*Step 3*/
+<b class="nc">&nbsp;        Call&lt;AppointmentQueue&gt; container = api.appointmentQueue(headers, parameters);</b>
+&nbsp;
+&nbsp;        /*Step 4*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;AppointmentQueue&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;AppointmentQueue&gt; call, @NonNull Response&lt;AppointmentQueue&gt; response) {
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    AppointmentQueue content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+<b class="nc">&nbsp;                    List&lt;Queue&gt; list = content.getData();</b>
+<b class="nc">&nbsp;                    checkNextPatientAndShowNotification(list);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println( e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;AppointmentQueue&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                System.out.println(&quot;Appointment-page Service - doSomething - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * this function returns boolean flag that this service can be run or not?
+&nbsp;     * @since 20-11-2022
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @return boolean
+&nbsp;     * YES, isNotify == false || 7 &lt;= hour &lt;= 18
+&nbsp;     * NO, if the device have gone off notification and sound || current time &lt;= 7 || current time &gt; 18
+&nbsp;     */
+&nbsp;    public boolean canServiceRun()
+&nbsp;    {
+<b class="nc">&nbsp;        TimeZone timeZone = TimeZone.getTimeZone(&quot;Asia/Ho_Chi_Minh&quot;);</b>
+<b class="nc">&nbsp;        Calendar now = Calendar.getInstance(timeZone);</b>
+<b class="nc">&nbsp;        int hour = now.get(Calendar.HOUR_OF_DAY);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(isNotify)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            System.out.println(&quot;can not run by isNotify&quot;);</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(  hour &lt; 7 || hour &gt; 18)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            System.out.println(&quot;can not run by working hour&quot;);</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 26-11-2022
+&nbsp;     * @param text is the short text
+&nbsp;     * @param bigText is the full text
+&nbsp;     */
+&nbsp;    public void showMessageInDevice(String text, String bigText)
+&nbsp;    {
+&nbsp;        /*tao noi dung cho Notification*/
+<b class="nc">&nbsp;        com.example.do_an_tot_nghiep.Helper.Notification notification = new com.example.do_an_tot_nghiep.Helper.Notification(this);</b>
+<b class="nc">&nbsp;        String title = this.getString(R.string.app_name);</b>
+<b class="nc">&nbsp;        notification.setup(title, text, bigText );</b>
+<b class="nc">&nbsp;        notification.show();</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*phat am thanh*/
+<b class="nc">&nbsp;        mediaPlayer= MediaPlayer.create(this, R.raw.alarm_sound_3);</b>
+<b class="nc">&nbsp;        int duration = 1000*10;// media player run for 10 second</b>
+<b class="nc">&nbsp;        int interval = 1000;// count down every 1 second</b>
+<b class="nc">&nbsp;        CountDownTimer timer = new CountDownTimer(duration, interval) {</b>
+&nbsp;            public void onTick(long millisUntilFinished) {
+<b class="nc">&nbsp;                mediaPlayer.start();</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            public void onFinish() {
+<b class="nc">&nbsp;                mediaPlayer.stop();</b>
+&nbsp;            }
+&nbsp;        };
+<b class="nc">&nbsp;        timer.start();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 26-11-2022
+&nbsp;     * check Next Patient And Show Notification
+&nbsp;     *
+&nbsp;     * This function loop through the list of next 3 patients
+&nbsp;     * If one patient of the list is the user&#39;s position, the device will show notification and sound to remind user.
+&nbsp;     */
+&nbsp;    private void checkNextPatientAndShowNotification(List&lt;Queue&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        String text = this.getString(R.string.it_is_your_turn);</b>
+<b class="nc">&nbsp;        String bigText = globalVariable.getAuthUser().getName() +&quot; ơi! &quot; +</b>
+&nbsp;                &quot;Hãy chuẩn bị, sắp đến lượt khám của bạn với &quot; + doctorName + &quot; rồi&quot;;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        for(Queue element: list)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            int positionInQueue = element.getPosition();</b>
+<b class="nc">&nbsp;            if( positionInQueue == Integer.parseInt(position) )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                isNotify = true;</b>
+<b class="nc">&nbsp;                showMessageInDevice(text, bigText);</b>
+<b class="nc">&nbsp;                createNotificationInServer(bigText);</b>
+<b class="nc">&nbsp;                super.onDestroy();</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;    * @since 26-11-2022
+&nbsp;    * create notification in server
+&nbsp;    * this function creates a notification in server to help users to watch notification again.
+&nbsp;    * */
+&nbsp;    private void createNotificationInServer(String message)
+&nbsp;    {
+&nbsp;        /*Step 1 - prepare header &amp; parameters*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; headers = globalVariable.getHeaders();</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 2 - prepare API*/
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;        /*Step 3 - send request to server*/
+<b class="nc">&nbsp;        Call&lt;NotificationCreate&gt; container = api.notificationCreate(headers, message, recordId, recordType);</b>
+&nbsp;
+&nbsp;        /*Step 4 - listen for response*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;NotificationCreate&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;NotificationCreate&gt; call, @NonNull Response&lt;NotificationCreate&gt; response) {
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    NotificationCreate content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+<b class="nc">&nbsp;                    System.out.println(TAG);</b>
+<b class="nc">&nbsp;                    System.out.println(content.getMsg());</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println( e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;NotificationCreate&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                System.out.println(&quot;Appointment-page Service - create notification in server - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });/*end Step 4*/
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

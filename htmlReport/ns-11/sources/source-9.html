@@ -1,0 +1,277 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > NotificationRecyclerView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.RecyclerView</a>
+</div>
+
+<h1>Coverage Summary for Class: NotificationRecyclerView (com.example.do_an_tot_nghiep.RecyclerView)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NotificationRecyclerView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">NotificationRecyclerView$Callback</td>
+  </tr>
+  <tr>
+    <td class="name">NotificationRecyclerView$ViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.RecyclerView;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.LinearLayout;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Appointmentpage.AppointmentpageInfoActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Bookingpage.BookingpageInfoActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Notification;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class NotificationRecyclerView extends RecyclerView.Adapter&lt;NotificationRecyclerView.ViewHolder&gt;{
+&nbsp;
+&nbsp;
+&nbsp;    private final Context context;
+&nbsp;    private final List&lt;Notification&gt; list;
+&nbsp;    private final NotificationRecyclerView.Callback callback;
+&nbsp;
+&nbsp;
+&nbsp;    public NotificationRecyclerView(Context context, List&lt;Notification&gt; list, NotificationRecyclerView.Callback callback)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.list = list;</b>
+<b class="nc">&nbsp;        this.callback = callback;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        View view = LayoutInflater</b>
+<b class="nc">&nbsp;                .from(parent.getContext())</b>
+<b class="nc">&nbsp;                .inflate(R.layout.recycler_view_element_notification, parent, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new NotificationRecyclerView.ViewHolder(view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+<b class="nc">&nbsp;        Notification notification = list.get(position);</b>
+&nbsp;
+<b class="nc">&nbsp;        int id = notification.getId();</b>
+<b class="nc">&nbsp;        String message = notification.getMessage();</b>
+<b class="nc">&nbsp;        int recordId = notification.getRecordId();</b>
+<b class="nc">&nbsp;        String recordType = notification.getRecordType();</b>
+<b class="nc">&nbsp;        String createAt = Tooltip.beautifierDatetime(context, notification.getCreateAt() );</b>
+<b class="nc">&nbsp;        int isRead = notification.getIsRead();</b>
+&nbsp;
+&nbsp;        /*set text color*/
+<b class="nc">&nbsp;        int colorRead = context.getColor(R.color.colorTextBlack);</b>
+<b class="nc">&nbsp;        holder.message.setTextColor(colorRead);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*set text color for unread notification*/
+<b class="nc">&nbsp;        if( isRead == 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            int colorUnread = context.getColor(R.color.colorBlue);</b>
+<b class="nc">&nbsp;            holder.message.setTextColor(colorUnread);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        holder.datetime.setText(createAt);</b>
+<b class="nc">&nbsp;        holder.message.setText(message);</b>
+<b class="nc">&nbsp;        holder.layout.setOnClickListener(view-&gt;{</b>
+&nbsp;            /*set color for notification we clicks on*/
+<b class="nc">&nbsp;            holder.message.setTextColor(colorRead);</b>
+&nbsp;
+&nbsp;            /*update its status from UNREAD to READ*/
+<b class="nc">&nbsp;            if(isRead == 0)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                callback.markAsRead( String.valueOf(id) );</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            /*base on record type to open corresponding activity*/
+&nbsp;            Intent intent;
+<b class="nc">&nbsp;            if(Objects.equals(recordType, &quot;booking&quot;))</b>
+&nbsp;            {
+<b class="nc">&nbsp;                intent = new Intent(context, BookingpageInfoActivity.class);</b>
+&nbsp;
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                intent = new Intent(context, AppointmentpageInfoActivity.class);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            intent.putExtra(&quot;id&quot;, String.valueOf(recordId));</b>
+<b class="nc">&nbsp;            context.startActivity(intent);</b>
+&nbsp;        });
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return list.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public static class ViewHolder extends RecyclerView.ViewHolder{</b>
+&nbsp;
+&nbsp;        private final LinearLayout layout;
+&nbsp;        private final TextView message;
+&nbsp;        private final TextView datetime;
+&nbsp;
+&nbsp;        public ViewHolder(@NonNull View itemView) {
+<b class="nc">&nbsp;            super(itemView);</b>
+<b class="nc">&nbsp;            layout = itemView.findViewById(R.id.elementLayout);</b>
+<b class="nc">&nbsp;            message = itemView.findViewById(R.id.elementMessage);</b>
+<b class="nc">&nbsp;            datetime = itemView.findViewById(R.id.elementDatetime);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public interface Callback{
+&nbsp;        void markAsRead(String notificationId);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

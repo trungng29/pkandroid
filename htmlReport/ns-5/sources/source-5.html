@@ -1,0 +1,514 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookingpageInfoActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Bookingpage</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingpageInfoActivity (com.example.do_an_tot_nghiep.Bookingpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingpageInfoActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/112)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BookingpageInfoActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/134)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Bookingpage;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.content.Intent;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingCancel;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Booking;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.text.ParseException;
+&nbsp;import java.text.SimpleDateFormat;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author  Phong-Kaster
+&nbsp; * @since 24-11-2022
+&nbsp; * BOOKING PAGE ACTIVITY
+&nbsp; * this activity shows all information of a booking created by patient
+&nbsp; */
+<b class="nc">&nbsp;public class BookingpageInfoActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Booking-page Info Activity&quot;;</b>
+&nbsp;
+&nbsp;    private String bookingId;
+&nbsp;    private String bookingStatus;
+&nbsp;
+&nbsp;
+&nbsp;    private TextView txtBookingName;
+&nbsp;    private TextView txtBookingPhone;
+&nbsp;    private TextView txtPatientName;
+&nbsp;    private TextView txtPatientGender;
+&nbsp;
+&nbsp;    private TextView txtPatientBirthday;
+&nbsp;    private TextView txtPatientAddress;
+&nbsp;    private TextView txtPatientReason;
+&nbsp;    private TextView txtDatetime;
+&nbsp;
+&nbsp;    private TextView txtBookingStatus;
+&nbsp;
+&nbsp;    private ImageView imgServiceAvatar;
+&nbsp;    private TextView txtServiceName;
+&nbsp;
+&nbsp;    private androidx.appcompat.widget.AppCompatButton btnPhoto;
+&nbsp;    private androidx.appcompat.widget.AppCompatButton btnCancel;
+&nbsp;    private ImageButton btnBack;
+&nbsp;
+&nbsp;    private Map&lt;String, String&gt; header;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_bookingpage_info);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 25-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        GlobalVariable globalVariable = (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        header = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;        bookingId = getIntent().getStringExtra(&quot;id&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog = new Dialog(this);</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtBookingName =findViewById(R.id.txtBookingName);</b>
+<b class="nc">&nbsp;        txtBookingPhone = findViewById(R.id.txtBookingPhone);</b>
+<b class="nc">&nbsp;        txtPatientName = findViewById(R.id.txtPatientName);</b>
+<b class="nc">&nbsp;        txtPatientAddress = findViewById(R.id.txtPatientAddress);</b>
+<b class="nc">&nbsp;        txtPatientBirthday = findViewById(R.id.txtPatientBirthday);</b>
+<b class="nc">&nbsp;        txtDatetime = findViewById(R.id.txtDatetime);</b>
+<b class="nc">&nbsp;        txtPatientGender = findViewById(R.id.txtPatientGender);</b>
+<b class="nc">&nbsp;        txtPatientReason = findViewById(R.id.txtPatientReason);</b>
+<b class="nc">&nbsp;        txtBookingStatus = findViewById(R.id.txtBookingStatus);</b>
+&nbsp;
+<b class="nc">&nbsp;        btnPhoto = findViewById(R.id.btnPhoto);</b>
+<b class="nc">&nbsp;        btnCancel = findViewById(R.id.btnCancel);</b>
+<b class="nc">&nbsp;        btnBack = findViewById(R.id.btnBack);</b>
+&nbsp;
+<b class="nc">&nbsp;        imgServiceAvatar = findViewById(R.id.imgServiceAvatar);</b>
+<b class="nc">&nbsp;        txtServiceName = findViewById(R.id.txtServiceName);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 25-11-2022
+&nbsp;     * setup view model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+&nbsp;        /*declare*/
+<b class="nc">&nbsp;        BookingpageViewModel viewModel = new ViewModelProvider(this).get(BookingpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*SEND REQUEST TO SERVER*/
+<b class="nc">&nbsp;        viewModel.bookingReadByID(header, bookingId);</b>
+<b class="nc">&nbsp;        viewModel.getBookingReadByIdResponse().observe(this, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    Booking booking = response.getData();</b>
+<b class="nc">&nbsp;                    printBookingInfo(booking);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if( result == 0)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;            catch(Exception ex)
+&nbsp;            {
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                    dialog.close();</b>
+<b class="nc">&nbsp;                    finish();</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;        });/*end SEND REQUEST*/
+&nbsp;
+&nbsp;        /*ANIMATION*/
+<b class="nc">&nbsp;        viewModel.getAnimation().observe(this, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;        /*end ANIMATION*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 25-11-2022
+&nbsp;     * setup event
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnBack.setOnClickListener(view-&gt;finish());</b>
+<b class="nc">&nbsp;        btnPhoto.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(this, BookingpagePhotoActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;bookingId&quot;, bookingId);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;bookingStatus&quot;, bookingStatus);</b>
+<b class="nc">&nbsp;            startActivity(intent);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        btnCancel.setOnClickListener(view-&gt;{</b>
+&nbsp;
+<b class="nc">&nbsp;            Dialog dialog = new Dialog(this);</b>
+<b class="nc">&nbsp;            dialog.confirm();</b>
+<b class="nc">&nbsp;            dialog.show(R.string.attention, getString(R.string.are_you_sure_about_that), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;            dialog.btnOK.setOnClickListener(view1-&gt;{</b>
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+<b class="nc">&nbsp;                sendCancelRequest();</b>
+&nbsp;                dialog.close();
+&nbsp;            });
+<b class="nc">&nbsp;            dialog.btnCancel.setOnClickListener(view1-&gt; dialog.close());</b>
+&nbsp;
+&nbsp;
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 25-11-2022
+&nbsp;     * print booking information
+&nbsp;     */
+&nbsp;    private void printBookingInfo(Booking booking) throws ParseException {
+&nbsp;        /*Step 1 - get data*/
+<b class="nc">&nbsp;        String bookingName = booking.getBookingName();</b>
+<b class="nc">&nbsp;        String bookingPhone = booking.getBookingPhone();</b>
+&nbsp;
+<b class="nc">&nbsp;        String name = booking.getName();</b>
+<b class="nc">&nbsp;        String address = booking.getAddress();</b>
+&nbsp;
+<b class="nc">&nbsp;        String birthday = booking.getBirthday();</b>
+<b class="nc">&nbsp;        String date = booking.getAppointmentDate();</b>
+&nbsp;
+<b class="nc">&nbsp;        String time = booking.getAppointmentTime();</b>
+<b class="nc">&nbsp;        String datetime = date + &quot; &quot; + getString(R.string.at) + &quot; &quot; + time;</b>
+&nbsp;
+<b class="nc">&nbsp;        String gender = booking.getGender() == 1 ? getString(R.string.male) : getString(R.string.female);</b>
+<b class="nc">&nbsp;        String reason = booking.getReason();</b>
+&nbsp;
+<b class="nc">&nbsp;        String serviceName = booking.getService().getName();</b>
+<b class="nc">&nbsp;        String serviceImage = Constant.UPLOAD_URI() + booking.getService().getImage();</b>
+&nbsp;
+<b class="nc">&nbsp;        String status = booking.getStatus();</b>
+<b class="nc">&nbsp;        bookingStatus = status;</b>
+&nbsp;        @SuppressLint(&quot;SimpleDateFormat&quot;)
+<b class="nc">&nbsp;        SimpleDateFormat formatter = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</b>
+&nbsp;
+&nbsp;        /*Step 2 - calculate difference between today &amp; appointment date. If difference &lt; 0,
+&nbsp;        * this mean this booking happened yesterday =&gt; Disable CANCEL button */
+<b class="nc">&nbsp;        Date dateFormatted = formatter.parse(date);</b>
+<b class="nc">&nbsp;        Date today = new Date();</b>
+<b class="nc">&nbsp;        assert dateFormatted != null;</b>
+<b class="nc">&nbsp;        long difference = Tooltip.getDateDifference(today, dateFormatted, TimeUnit.DAYS);</b>
+<b class="nc">&nbsp;        if( !Objects.equals(status, &quot;processing&quot;) || difference &lt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            btnCancel.setVisibility(TextView.GONE);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        String verified = this.getString(R.string.verified);</b>
+<b class="nc">&nbsp;        String processing = this.getString(R.string.processing);</b>
+<b class="nc">&nbsp;        String cancelled = this.getString(R.string.cancel);</b>
+<b class="nc">&nbsp;        int colorProcessing = this.getColor(R.color.colorGreen);</b>
+<b class="nc">&nbsp;        int colorCancelled = this.getColor(R.color.colorRed);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(Objects.equals(status, &quot;verified&quot;))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            txtBookingStatus.setText(verified);</b>
+<b class="nc">&nbsp;            txtBookingStatus.setTextColor(colorProcessing);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if( Objects.equals(status, &quot;processing&quot;))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            txtBookingStatus.setText(processing);</b>
+<b class="nc">&nbsp;            txtBookingStatus.setTextColor(colorProcessing);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            txtBookingStatus.setText(cancelled);</b>
+<b class="nc">&nbsp;            txtBookingStatus.setTextColor(colorCancelled);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 3 - print booking info to UI*/
+<b class="nc">&nbsp;        if( booking.getService().getImage().length() &gt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Picasso.get().load(serviceImage).into(imgServiceAvatar);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        txtServiceName.setText(serviceName);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtBookingName.setText(bookingName);</b>
+<b class="nc">&nbsp;        txtBookingPhone.setText(bookingPhone);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtPatientName.setText(name);</b>
+<b class="nc">&nbsp;        txtPatientGender.setText(gender);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtPatientBirthday.setText(birthday);</b>
+<b class="nc">&nbsp;        txtPatientAddress.setText(address);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtPatientReason.setText(reason);</b>
+<b class="nc">&nbsp;        txtDatetime.setText(datetime);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @since 25-11-2022
+&nbsp;     * this function send a request to CANCEL booking
+&nbsp;     */
+&nbsp;    private void sendCancelRequest()
+&nbsp;    {
+&nbsp;        /*Step 2*/
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Call&lt;BookingCancel&gt; container = api.bookingCancel(header, bookingId);</b>
+&nbsp;
+&nbsp;        /*Step 4*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;BookingCancel&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;BookingCancel&gt; call, @NonNull Response&lt;BookingCancel&gt; response) {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+&nbsp;                    /*show dialog message*/
+<b class="nc">&nbsp;                    BookingCancel content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+&nbsp;
+<b class="nc">&nbsp;                    System.out.println(content.getResult());</b>
+<b class="nc">&nbsp;                    System.out.println(content.getMsg());</b>
+&nbsp;
+<b class="nc">&nbsp;                    String title = getString(R.string.success);</b>
+<b class="nc">&nbsp;                    String message = getString(R.string.successful_action);</b>
+&nbsp;
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(title, message, R.drawable.ic_check );</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;dialog.close());</b>
+&nbsp;
+&nbsp;                    /*hide button CANCEL*/
+<b class="nc">&nbsp;                    btnCancel.setVisibility(View.GONE);</b>
+&nbsp;
+&nbsp;                    /*update number of unread notifications*/
+<b class="nc">&nbsp;                    HomepageActivity.getInstance().setNumberOnNotificationIcon();</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println(TAG);</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println(TAG);</b>
+<b class="nc">&nbsp;                        System.out.println( e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;BookingCancel&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Booking-page Info Activity - Cancel - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

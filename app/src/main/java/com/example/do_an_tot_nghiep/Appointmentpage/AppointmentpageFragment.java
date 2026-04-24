@@ -65,6 +65,8 @@ public class AppointmentpageFragment extends Fragment {
         GlobalVariable globalVariable = (GlobalVariable) activity.getApplication();
         header = globalVariable.getHeaders();
 
+        System.out.println("TOKEN = " + globalVariable.getAccessToken());
+
         loadingScreen = new LoadingScreen(activity);
         dialog = new Dialog(context);
 
@@ -95,32 +97,35 @@ public class AppointmentpageFragment extends Fragment {
         viewModel.getReadAllResponse().observe((LifecycleOwner) context, response->{
             try
             {
+                if (response == null) {
+                    dialog.announce();
+                    dialog.show(R.string.attention, "Lỗi kết nối API (Response Null)", R.drawable.ic_info);
+                    return;
+                }
+
                 int result = response.getResult();
+                String message = response.getMsg();
+
                 /*result == 1 => luu thong tin nguoi dung va vao homepage*/
                 if( result == 1)
                 {
                     List<Appointment> appointments = response.getData();
                     setupRecyclerView(appointments);
                 }
-                /*result == 0 => thong bao va thoat ung dung*/
+                /*result == 0 => Hiển thị lỗi thật từ Server thay vì báo lỗi Internet */
                 if( result == 0)
                 {
-                    System.out.println(TAG + "- result: " + result);
                     dialog.announce();
-                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
-                    dialog.btnOK.setOnClickListener(view->{
-                        dialog.close();
-                        activity.finish();
-                    });
+                    dialog.show(getString(R.string.attention), message, R.drawable.ic_info);
+                    dialog.btnOK.setOnClickListener(v -> dialog.close());
                 }
 
             }
             catch(Exception ex)
             {
-                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
                 System.out.println(TAG + "- exception: " + ex.getMessage());
             }
-        });/*end LISTEN FOR RESPONSE*/
+        });
 
         /*ANIMATION*/
         viewModel.getAnimation().observe((LifecycleOwner) context, aBoolean -> {
@@ -132,7 +137,7 @@ public class AppointmentpageFragment extends Fragment {
             {
                 loadingScreen.stop();
             }
-        });/*end ANIMATION*/
+        });
     }
 
     /**

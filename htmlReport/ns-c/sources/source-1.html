@@ -1,0 +1,646 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HomeFragment</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Homepage</a>
+</div>
+
+<h1>Coverage Summary for Class: HomeFragment (com.example.do_an_tot_nghiep.Homepage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HomeFragment</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/153)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">HomeFragment$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/164)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Homepage;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.EditText;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;import androidx.recyclerview.widget.GridLayoutManager;
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.WeatherForecast;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Doctor;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Handbook;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Setting;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Speciality;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.ButtonRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.DoctorRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.HandbookRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.SpecialityRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.Searchpage.SearchpageActivity;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Date;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 17-11-2022
+&nbsp; * Home fragment
+&nbsp; */
+<b class="nc">&nbsp;public class HomeFragment extends Fragment{</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Home Fragment&quot;;</b>
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;
+&nbsp;    private RecyclerView recyclerViewSpeciality;
+&nbsp;    private RecyclerView recyclerViewDoctor;
+&nbsp;    private RecyclerView recyclerViewHandbook;
+&nbsp;    private RecyclerView recyclerViewRecommendedPages;
+&nbsp;
+&nbsp;
+&nbsp;    private EditText searchBar;
+&nbsp;    private TextView txtReadMoreSpeciality;
+&nbsp;    private TextView txtReadMoreDoctor;
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;    private RecyclerView recyclerViewButton;
+&nbsp;
+&nbsp;    private TextView txtDate;
+&nbsp;    private TextView txtWeather;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+&nbsp;        // Inflate the layout for this fragment
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_home, container, false);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+&nbsp;
+<b class="nc">&nbsp;        setupEvent();</b>
+<b class="nc">&nbsp;        getCurrentWeather();</b>
+&nbsp;
+<b class="nc">&nbsp;        setupRecyclerViewButton();</b>
+<b class="nc">&nbsp;        setupRecyclerViewHandbook();</b>
+<b class="nc">&nbsp;        setupRecyclerViewRecommendedPages();</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 17-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+<b class="nc">&nbsp;        context = requireContext();</b>
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable) requireActivity().getApplication();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        recyclerViewSpeciality = view.findViewById(R.id.recyclerViewSpeciality);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor = view.findViewById(R.id.recyclerViewDoctor);</b>
+<b class="nc">&nbsp;        recyclerViewButton = view.findViewById(R.id.recyclerViewButton);</b>
+<b class="nc">&nbsp;        recyclerViewHandbook = view.findViewById(R.id.recyclerViewHandbook);</b>
+<b class="nc">&nbsp;        recyclerViewRecommendedPages = view.findViewById(R.id.recyclerViewRecommendedPages);</b>
+&nbsp;
+<b class="nc">&nbsp;        searchBar = view.findViewById(R.id.searchBar);</b>
+<b class="nc">&nbsp;        txtReadMoreSpeciality = view.findViewById(R.id.txtReadMoreSpeciality);</b>
+<b class="nc">&nbsp;        txtReadMoreDoctor = view.findViewById(R.id.txtReadMoreDoctor);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtWeather = view.findViewById(R.id.txtWeather);</b>
+<b class="nc">&nbsp;        txtDate = view.findViewById(R.id.txtDate);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 17-11-2022
+&nbsp;     * setup View model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+&nbsp;        /*Step 1 - declare*/
+<b class="nc">&nbsp;        HomepageViewModel viewModel = new ViewModelProvider(this).get(HomepageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*Step 2 - prepare header &amp; parameters*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; header = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;        header.put(&quot;type&quot;, &quot;patient&quot;);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 3 - listen speciality Read All */
+<b class="nc">&nbsp;        Map&lt;String, String&gt; paramsSpeciality = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        viewModel.specialityReadAll(header, paramsSpeciality);</b>
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getSpecialityReadAllResponse().observe(getViewLifecycleOwner(), response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if( result == 1)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                List&lt;Speciality&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                setupRecyclerViewSpeciality(list);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*Step 4 - listen doctor read all*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; paramsDoctor = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        viewModel.doctorReadAll(header, paramsDoctor);</b>
+&nbsp;
+&nbsp;//        for (Map.Entry&lt;String,String&gt; entry : paramsDoctor.entrySet())
+&nbsp;//            System.out.println(&quot;Key = &quot; + entry.getKey() +
+&nbsp;//                    &quot;, Value = &quot; + entry.getValue());
+&nbsp;//
+&nbsp;//        for (Map.Entry&lt;String,String&gt; entry : header.entrySet())
+&nbsp;//            System.out.println(&quot;Key = &quot; + entry.getKey() +
+&nbsp;//                    &quot;, Value = &quot; + entry.getValue());
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getDoctorReadAllResponse().observe(getViewLifecycleOwner(), response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if( result == 1)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                List&lt;Doctor&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                setupRecyclerViewDoctor(list);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 17-11-2022
+&nbsp;     * setup recycler view speciality
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewSpeciality(List&lt;Speciality&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        SpecialityRecyclerView specialityAdapter = new SpecialityRecyclerView(requireActivity(), list, R.layout.recycler_view_element_speciality);</b>
+<b class="nc">&nbsp;        recyclerViewSpeciality.setAdapter(specialityAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);</b>
+<b class="nc">&nbsp;        recyclerViewSpeciality.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 17-11-2022
+&nbsp;     * setup recycler view doctor
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewDoctor(List&lt;Doctor&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        DoctorRecyclerView doctorAdapter = new DoctorRecyclerView(requireActivity(), list);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor.setAdapter(doctorAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 18-11-2022
+&nbsp;     * setup event for buttons
+&nbsp;     */
+&nbsp;    @SuppressLint({&quot;UnspecifiedImmutableFlag&quot;, &quot;ShortAlarm&quot;})
+&nbsp;    private void setupEvent()
+&nbsp;    {
+&nbsp;        /*SEARCH BAR*/
+<b class="nc">&nbsp;        searchBar.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(requireContext(), SearchpageActivity.class);</b>
+<b class="nc">&nbsp;            startActivity(intent);</b>
+&nbsp;        });
+&nbsp;
+&nbsp;
+&nbsp;        /*TXT READ MORE SPECIALITY*/
+<b class="nc">&nbsp;        txtReadMoreSpeciality.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, SearchpageActivity.class);</b>
+<b class="nc">&nbsp;            String filterKey  = context.getString(R.string.speciality);</b>
+&nbsp;
+<b class="nc">&nbsp;            intent.putExtra(&quot;filterKey&quot;, filterKey );</b>
+<b class="nc">&nbsp;            startActivity(intent);</b>
+&nbsp;        });
+&nbsp;
+&nbsp;        /*TXT READ MORE DOCTOR*/
+<b class="nc">&nbsp;        txtReadMoreDoctor.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, SearchpageActivity.class);</b>
+<b class="nc">&nbsp;            String filterKey  = context.getString(R.string.doctor);</b>
+&nbsp;
+<b class="nc">&nbsp;            intent.putExtra(&quot;filterKey&quot;, filterKey );</b>
+<b class="nc">&nbsp;            startActivity(intent);</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-12-2022
+&nbsp;     * setup recycler view button
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewButton()
+&nbsp;    {
+<b class="nc">&nbsp;        Setting setting0 = new Setting(R.drawable.ic_i_exam_speciality, &quot;specialityExamination&quot;, getString(R.string.speciality_examination) );</b>
+<b class="nc">&nbsp;        Setting setting1 = new Setting(R.drawable.ic_exam_general, &quot;generalExamination&quot;, getString(R.string.general_examination) );</b>
+<b class="nc">&nbsp;        Setting setting2 = new Setting(R.drawable.ic_exam_heart, &quot;heartExamination&quot;, getString(R.string.heart_examination) );</b>
+<b class="nc">&nbsp;        Setting setting3 = new Setting(R.drawable.ic_exam_pregnant, &quot;pregnantExamination&quot;, getString(R.string.pregnant_examination) );</b>
+<b class="nc">&nbsp;        Setting setting4 = new Setting(R.drawable.ic_exam_tooth, &quot;toothExamination&quot;, context.getString(R.string.tooth_examination));</b>
+<b class="nc">&nbsp;        Setting setting5 = new Setting(R.drawable.ic_exam_eye, &quot;eyeExamination&quot;, getString(R.string.eye_examination) );</b>
+<b class="nc">&nbsp;        Setting setting6 = new Setting(R.drawable.ic_exam_medical_test, &quot;medicalTestExamination&quot;, context.getString(R.string.medical_test_examination));</b>
+<b class="nc">&nbsp;        Setting setting7 = new Setting(R.drawable.ic_exam_covid19, &quot;covid19&quot;, context.getString(R.string.covid19_examination));</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Setting&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        list.add(setting0);</b>
+<b class="nc">&nbsp;        list.add(setting1);</b>
+<b class="nc">&nbsp;        list.add(setting2);</b>
+<b class="nc">&nbsp;        list.add(setting3);</b>
+<b class="nc">&nbsp;        list.add(setting4);</b>
+<b class="nc">&nbsp;        list.add(setting5);</b>
+<b class="nc">&nbsp;        list.add(setting6);</b>
+<b class="nc">&nbsp;        list.add(setting7);</b>
+&nbsp;
+<b class="nc">&nbsp;        ButtonRecyclerView buttonAdapter = new ButtonRecyclerView(requireActivity(), list);</b>
+<b class="nc">&nbsp;        recyclerViewButton.setAdapter(buttonAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        GridLayoutManager manager = new GridLayoutManager(requireContext(), 3);</b>
+<b class="nc">&nbsp;        recyclerViewButton.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-12-2022
+&nbsp;     * setup recycler view handbook
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewHandbook()
+&nbsp;    {
+<b class="nc">&nbsp;        Handbook handbook0 = new Handbook(</b>
+&nbsp;                &quot;https://static-images.vnncdn.net/files/publish/2022/12/20/benh-vien-viet-duc-290.jpg&quot;,
+&nbsp;                &quot;Ba tiếng chờ đợi, 10 phút khám - Xếp hàng dài, căng tai nghe để không mất lượt&quot;,
+&nbsp;                &quot;https://vietnamnet.vn/ba-tieng-cho-doi-10-phut-kham-2092139.html&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook1 = new Handbook(</b>
+&nbsp;                &quot;https://i.ytimg.com/vi/muEAnbsjzQ4/maxresdefault.jpg&quot;,
+&nbsp;                &quot;Umbrella Corporation - luôn bảo vệ sức khỏe bạn&quot;,
+&nbsp;                &quot;https://www.youtube.com/watch?v=W4JA4dbscis&amp;ab_channel=UmbrellaCorporation4&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook2 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/uqvpoqiw/2022_12_18/giay-ve-sinh-9535.jpg&quot;,
+&nbsp;                &quot;Chuyên gia nói gì về giờ đi vệ sinh tốt nhất trong ngày?&quot;,
+&nbsp;                &quot;https://thanhnien.vn/chuyen-gia-noi-gi-ve-gio-di-ve-sinh-tot-nhat-trong-ngay-post1533096.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook3 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/wobjohb/2022_12_17/p1-9988.jpeg&quot;,
+&nbsp;                &quot;Đâu là dấu hiệu cảnh báo một người sắp qua đời?&quot;,
+&nbsp;                &quot;https://thanhnien.vn/dau-la-dau-hieu-canh-bao-mot-nguoi-sap-qua-doi-post1533048.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook4 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/uqvpoqiw/2022_12_18/intermittent-fasting3-8817.jpg&quot;,
+&nbsp;                &quot;Đã tìm ra cách có thể &#39;chữa khỏi&#39; bệnh tiểu đường?&quot;,
+&nbsp;                &quot;https://thanhnien.vn/da-tim-ra-cach-co-the-chua-khoi-benh-tieu-duong-post1532438.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook5 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/aeymrexqam/2022_12_19/ph-1-3698.jpg&quot;,
+&nbsp;                &quot;Giải pháp cải thiện ho, khò khè, khó thở&quot;,
+&nbsp;                &quot;https://thanhnien.vn/giai-phap-cai-thien-ho-kho-khe-kho-tho-post1533364.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook6 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/otpfeclyrbn/2022_12_19/1-4028.jpg&quot;,
+&nbsp;                &quot;Vì sao thủy đậu, sởi nguy hiểm dịp tết?&quot;,
+&nbsp;                &quot;https://thanhnien.vn/vi-sao-thuy-dau-soi-nguy-hiem-dip-tet-post1533380.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook7 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/pwvosgyk/2022_12_16/image1-725.jpg&quot;,
+&nbsp;                &quot;Sữa tắm chiết xuất lá trầu không với công thức kháng khuẩn không gây khô da&quot;,
+&nbsp;                &quot;https://thanhnien.vn/sua-tam-chiet-xuat-la-trau-khong-voi-cong-thuc-khang-khuan-khong-gay-kho-da-post1532652.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook8 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/uqvpoqiw/2022_12_10/whole-grain-bread-1-4791.jpg&quot;,
+&nbsp;                &quot;5 loại thực phẩm phổ biến có thể gây mệt mỏi kinh niên&quot;,
+&nbsp;                &quot;https://thanhnien.vn/5-loai-thuc-pham-pho-bien-co-the-gay-met-moi-kinh-nien-post1530554.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook9 = new Handbook(</b>
+&nbsp;                &quot;https://image.thanhnien.vn/w2048/Uploaded/2022/wobjohb/2022_12_19/skmoi-4370.png&quot;,
+&nbsp;                &quot;Làm điều này sau mỗi bữa ăn, bạn sẽ sống thọ hơn&quot;,
+&nbsp;                &quot;https://thanhnien.vn/lam-dieu-nay-sau-moi-bua-an-ban-se-song-tho-hon-post1532440.html&quot;);
+<b class="nc">&nbsp;        Handbook handbook10 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/12/18/photo-1671368369791-16713683707381806268917.jpg&quot;,
+&nbsp;                &quot;Chế độ ăn uống lành mạnh có lợi cho mạch máu&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/che-do-an-uong-lanh-manh-co-loi-cho-mach-mau-169221218202106904.htm&quot;);
+<b class="nc">&nbsp;        Handbook handbook11 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/12/18/benh-phoi-tac-nghen-man-tinh-nen-an-gi1-167137876802272682938.jpg&quot;,
+&nbsp;                &quot;Người bệnh phổi tắc nghẽn mạn tính cần được chăm sóc và ăn uống thế nào trong mùa đông?&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/nguoi-benh-phoi-tac-nghen-man-tinh-can-duoc-cham-soc-va-an-uong-the-nao-trong-mua-dong-169221218231139085.htm&quot;
+&nbsp;        );
+<b class="nc">&nbsp;        Handbook handbook12 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/12/16/photo-1671178122606-16711781237731874719199.jpg&quot;,
+&nbsp;                &quot;8 thực phẩm bổ dưỡng giúp bạn ấm áp trong thời tiết lạnh&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/8-thuc-pham-bo-duong-giup-ban-am-ap-trong-thoi-tiet-lanh-169221216152025663.htm&quot;);
+<b class="nc">&nbsp;        Handbook handbook13 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/12/16/ca-rota-1671208804452168719323.jpg&quot;,
+&nbsp;                &quot;7 loại rau củ tốt nhất cho người bệnh gan nhiễm mỡ&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/7-loai-rau-cu-tot-nhat-cho-nguoi-benh-gan-nhiem-mo-169221216234817123.htm&quot;);
+<b class="nc">&nbsp;        Handbook handbook14 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/12/16/a-va-nguoi-benh-dai-thao-duong-an-gao-lut-the-nao-16711647068152070374816.jpg&quot;,
+&nbsp;                &quot;Bí quyết ăn cơm gạo lứt tốt nhất cho người bệnh đái tháo đường&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/bi-quyet-an-com-gao-lut-tot-nhat-cho-nguoi-benh-dai-thao-duong-169221216114128467.htm&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook15 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2022/12/1/dtd2-16698836686521411857134.jpg&quot;,
+&nbsp;                &quot;10 loại thực phẩm người bệnh đái tháo đường nên tránh&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/10-loai-thuc-pham-nguoi-benh-dai-thao-duong-nen-tranh-169221201153930742.htm&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook16 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2022/12/12/rau-16708612126451164928123.jpg&quot;,
+&nbsp;                &quot;Lời khuyên về chế độ ăn uống và lối sống dành cho người bệnh gan nhiễm mỡ&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/loi-khuyen-ve-che-do-an-uong-va-loi-song-danh-cho-nguoi-benh-gan-nhiem-mo-169221212231350623.htm&quot;
+&nbsp;        );
+<b class="nc">&nbsp;        Handbook handbook17 = new Handbook(</b>
+&nbsp;                &quot;https://cdn.bookingcare.vn/fr/w1000/2022/12/18/164937-dia-chi-kham-tai-mui-hong-quan-binh-thanh.png&quot;,
+&nbsp;                &quot;Top 5 phòng khám Tai mũi họng tốt quận Bình Thạnh&quot;,
+&nbsp;                &quot;https://bookingcare.vn/cam-nang/top-5-phong-kham-tai-mui-hong-tot-quan-binh-thanh-p3048.html&quot;);
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Handbook&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        list.add(handbook0);</b>
+<b class="nc">&nbsp;        list.add(handbook1);</b>
+<b class="nc">&nbsp;        list.add(handbook2);</b>
+<b class="nc">&nbsp;        list.add(handbook3);</b>
+<b class="nc">&nbsp;        list.add(handbook4);</b>
+<b class="nc">&nbsp;        list.add(handbook5);</b>
+<b class="nc">&nbsp;        list.add(handbook6);</b>
+<b class="nc">&nbsp;        list.add(handbook7);</b>
+<b class="nc">&nbsp;        list.add(handbook8);</b>
+<b class="nc">&nbsp;        list.add(handbook9);</b>
+<b class="nc">&nbsp;        list.add(handbook10);</b>
+<b class="nc">&nbsp;        list.add(handbook11);</b>
+<b class="nc">&nbsp;        list.add(handbook12);</b>
+<b class="nc">&nbsp;        list.add(handbook13);</b>
+<b class="nc">&nbsp;        list.add(handbook14);</b>
+<b class="nc">&nbsp;        list.add(handbook15);</b>
+<b class="nc">&nbsp;        list.add(handbook16);</b>
+<b class="nc">&nbsp;        list.add(handbook17);</b>
+&nbsp;
+<b class="nc">&nbsp;        HandbookRecyclerView handbookAdapter = new HandbookRecyclerView(requireActivity(), list, R.layout.recycler_view_element_handbook);</b>
+<b class="nc">&nbsp;        recyclerViewHandbook.setAdapter(handbookAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);</b>
+<b class="nc">&nbsp;        recyclerViewHandbook.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-12-2022
+&nbsp;     * setup recycler view recommended pages
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewRecommendedPages()
+&nbsp;    {
+<b class="nc">&nbsp;        Handbook handbook0 = new Handbook(</b>
+&nbsp;                &quot;https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/1200/324455921873985536/2021/10/10/baoskds-1633861575912643818497-49-0-295-393-crop-1633861583124643700229.png&quot;,
+&nbsp;                &quot;Báo sức khỏe đời sống - cơ quan ngôn luận của Bộ Y tế&quot;,
+&nbsp;                &quot;https://suckhoedoisong.vn/dinh-duong.htm&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook1 = new Handbook(</b>
+&nbsp;                &quot;https://play-lh.googleusercontent.com/WKLidAunta9pcv-nvtXaln9LY6YkGUdYN3GOfivc4ti4mfGEHEq1MOM0DN8U2Ic6oJw=w480-h960-rw&quot;,
+&nbsp;                &quot;Sức Khoẻ - Sổ tay dinh dưỡng, giữ gìn đời sống gia đình&quot;,
+&nbsp;                &quot;https://thanhnien.vn/suc-khoe/&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook2 = new Handbook(</b>
+&nbsp;                &quot;https://static.mediacdn.vn/covid19.gov.vn/image/default_share.jpg&quot;,
+&nbsp;                &quot;Bộ Y tế - Cổng thông tin điện tử&quot;,
+&nbsp;                &quot;https://moh.gov.vn/&quot;);
+&nbsp;
+<b class="nc">&nbsp;        Handbook handbook3 = new Handbook(</b>
+&nbsp;                &quot;https://upload.wikimedia.org/wikipedia/vi/thumb/2/22/Vietnamnet-Logo.png/285px-Vietnamnet-Logo.png&quot;,
+&nbsp;                &quot;Sức khỏe đời sống - Cẩm nang chăm sóc sức khỏe gia đình&quot;,
+&nbsp;                &quot;https://vietnamnet.vn/suc-khoe&quot;
+&nbsp;        );
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Handbook&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        list.add(handbook0);</b>
+<b class="nc">&nbsp;        list.add(handbook1);</b>
+<b class="nc">&nbsp;        list.add(handbook2);</b>
+<b class="nc">&nbsp;        list.add(handbook3);</b>
+&nbsp;
+<b class="nc">&nbsp;        HandbookRecyclerView handbookAdapter = new HandbookRecyclerView(requireActivity(), list, R.layout.recycler_view_element_handbook_2);</b>
+<b class="nc">&nbsp;        recyclerViewRecommendedPages.setAdapter(handbookAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);</b>
+<b class="nc">&nbsp;        recyclerViewRecommendedPages.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 22-12-2022
+&nbsp;     */
+&nbsp;    private void getCurrentWeather()
+&nbsp;    {
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getOpenWeatherMapInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;        /*Step 3*/
+<b class="nc">&nbsp;        Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        String latitude = &quot;10.8333&quot;;// kinh độ TP.HCM</b>
+<b class="nc">&nbsp;        String longitude = &quot;106.6667&quot;;// vĩ độ TP.HCM</b>
+<b class="nc">&nbsp;        String apiKey = Constant.OPEN_WEATHER_MAP_API_KEY();// api key của mình trên open weather map.org</b>
+&nbsp;
+<b class="nc">&nbsp;        parameters.put(&quot;lat&quot;, latitude);</b>
+<b class="nc">&nbsp;        parameters.put(&quot;lon&quot;, longitude);</b>
+<b class="nc">&nbsp;        parameters.put(&quot;appid&quot;, apiKey);</b>
+<b class="nc">&nbsp;        Call&lt;WeatherForecast&gt; container = api.getCurrentWeather(parameters);</b>
+&nbsp;
+&nbsp;        /*Step 4*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;WeatherForecast&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;WeatherForecast&gt; call, @NonNull Response&lt;WeatherForecast&gt; response) {
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    WeatherForecast content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+&nbsp;//                    System.out.println(TAG);
+&nbsp;//                    System.out.println(&quot;timezone: &quot; + content.getTimeZone());
+&nbsp;//                    System.out.println(&quot;name: &quot; + content.getName());
+<b class="nc">&nbsp;                    printDateAndWeather(content);</b>
+&nbsp;
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println( e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;WeatherForecast&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                System.out.println(TAG);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 22-12-2022
+&nbsp;     * in ngày hôm nay và thời tiết lên màn hình
+&nbsp;     */
+&nbsp;    private void printDateAndWeather(WeatherForecast content)
+&nbsp;    {
+<b class="nc">&nbsp;        String today = Tooltip.getReadableToday(context);</b>
+<b class="nc">&nbsp;        txtDate.setText(today);</b>
+&nbsp;
+<b class="nc">&nbsp;        String temperature = String.valueOf(content.getMain().getTemp());</b>
+<b class="nc">&nbsp;        String weatherInfo = temperature.substring(0,2) + getString(R.string.celsius);</b>
+<b class="nc">&nbsp;        txtWeather.setText(weatherInfo);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

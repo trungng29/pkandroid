@@ -1,0 +1,304 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppointmentRecyclerView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.RecyclerView</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentRecyclerView (com.example.do_an_tot_nghiep.RecyclerView)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentRecyclerView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppointmentRecyclerView$ViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/60)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.RecyclerView;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.LinearLayout;
+&nbsp;import android.widget.TextView;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.core.content.ContextCompat;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Appointmentpage.AppointmentpageInfoActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Appointmentpage.AppointmentpageService;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Appointment;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class AppointmentRecyclerView extends RecyclerView.Adapter&lt;AppointmentRecyclerView.ViewHolder&gt; {
+&nbsp;
+&nbsp;    private final Context context;
+&nbsp;    private final List&lt;Appointment&gt; list;
+&nbsp;
+&nbsp;    public AppointmentRecyclerView(Context context, List&lt;Appointment&gt; list)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.list = list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        View view = LayoutInflater</b>
+<b class="nc">&nbsp;                .from(parent.getContext())</b>
+<b class="nc">&nbsp;                .inflate(R.layout.recycler_view_element_appointment, parent, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new AppointmentRecyclerView.ViewHolder(view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ViewHolder holder, int index) {
+<b class="nc">&nbsp;        Appointment appointment = list.get(index);</b>
+&nbsp;
+<b class="nc">&nbsp;        int recordId = appointment.getId();</b>
+<b class="nc">&nbsp;        int doctorId = appointment.getDoctor().getId();</b>
+<b class="nc">&nbsp;        int patientPosition = appointment.getPosition();</b>
+<b class="nc">&nbsp;        String doctorName = context.getString(R.string.doctor) + &quot; &quot; + appointment.getDoctor().getName();</b>
+<b class="nc">&nbsp;        String doctorAvatar = Constant.UPLOAD_URI() + appointment.getDoctor().getAvatar();</b>
+<b class="nc">&nbsp;        String location = appointment.getRoom().getLocation() + &quot;, &quot; + appointment.getRoom().getName();</b>
+&nbsp;
+<b class="nc">&nbsp;        String position = context.getString(R.string.your_position) + &quot; &quot; + appointment.getPosition();</b>
+<b class="nc">&nbsp;        String reason = context.getString(R.string.your_reason) + &quot; &quot; + appointment.getPatientReason();</b>
+&nbsp;
+<b class="nc">&nbsp;        String status = appointment.getStatus();</b>
+&nbsp;
+&nbsp;        /*GET NOTIFICATION WHEN CURRENT POSITION IN QUEUE EQUALS WITH USER&#39;S POSITION*/
+<b class="nc">&nbsp;        holder.btnRemindMe.setOnClickListener(view -&gt; {</b>
+&nbsp;
+<b class="nc">&nbsp;            Toast.makeText(context, context.getString(R.string.you_will_get_notification_as_soon_as_your_turn), Toast.LENGTH_LONG).show();</b>
+&nbsp;
+<b class="nc">&nbsp;            Intent intent = new Intent(context, AppointmentpageService.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;recordId&quot;, String.valueOf(recordId));</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;recordType&quot;, &quot;appointment&quot;);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;doctorName&quot;, doctorName);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;doctorId&quot;, String.valueOf(doctorId));</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;position&quot;, String.valueOf(patientPosition));</b>
+<b class="nc">&nbsp;            ContextCompat.startForegroundService(context, intent);</b>
+&nbsp;        });
+&nbsp;
+&nbsp;        /*Show appointment status or button remind me*/
+<b class="nc">&nbsp;        switch (status){</b>
+&nbsp;            case &quot;processing&quot;:
+<b class="nc">&nbsp;                holder.btnRemindMe.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;                holder.statusDone.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;                holder.statusCancel.setVisibility(ViewGroup.GONE);</b>
+&nbsp;                break;
+&nbsp;            case &quot;done&quot;:
+<b class="nc">&nbsp;                holder.btnRemindMe.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;                holder.statusDone.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;                holder.statusCancel.setVisibility(ViewGroup.GONE);</b>
+&nbsp;                break;
+&nbsp;            case &quot;cancelled&quot;:
+<b class="nc">&nbsp;                holder.btnRemindMe.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;                holder.statusDone.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;                holder.statusCancel.setVisibility(ViewGroup.VISIBLE);</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        if(appointment.getDoctor().getAvatar().length() &gt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Picasso.get().load(doctorAvatar).into(holder.doctorAvatar);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        holder.reason.setText(reason);</b>
+<b class="nc">&nbsp;        holder.position.setText(position);</b>
+<b class="nc">&nbsp;        holder.location.setText(location);</b>
+<b class="nc">&nbsp;        holder.doctorName.setText(doctorName);</b>
+<b class="nc">&nbsp;        holder.layout.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, AppointmentpageInfoActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;id&quot;, String.valueOf(recordId));</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;position&quot;, String.valueOf(patientPosition));</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;doctorId&quot;, String.valueOf(doctorId));</b>
+<b class="nc">&nbsp;            context.startActivity(intent);</b>
+&nbsp;        });
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return list.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    protected static class ViewHolder extends RecyclerView.ViewHolder{</b>
+&nbsp;
+&nbsp;        private final LinearLayout layout;
+&nbsp;        private final ImageView doctorAvatar;
+&nbsp;        private final TextView doctorName;
+&nbsp;
+&nbsp;        private final TextView location;
+&nbsp;        private final TextView position;
+&nbsp;        private final TextView reason;
+&nbsp;
+&nbsp;        private final AppCompatButton btnRemindMe;
+&nbsp;        private final TextView statusDone;
+&nbsp;        private final TextView statusCancel;
+&nbsp;
+&nbsp;
+&nbsp;        public ViewHolder(@NonNull View itemView) {
+<b class="nc">&nbsp;            super(itemView);</b>
+<b class="nc">&nbsp;            layout = itemView.findViewById(R.id.elementLayout);</b>
+<b class="nc">&nbsp;            doctorAvatar = itemView.findViewById(R.id.elementDoctorImage);</b>
+<b class="nc">&nbsp;            doctorName = itemView.findViewById(R.id.elementDoctorName);</b>
+&nbsp;
+<b class="nc">&nbsp;            location = itemView.findViewById(R.id.elementLocation);</b>
+<b class="nc">&nbsp;            position = itemView.findViewById(R.id.elementPosition);</b>
+<b class="nc">&nbsp;            reason = itemView.findViewById(R.id.elementReason);</b>
+&nbsp;
+<b class="nc">&nbsp;            btnRemindMe = itemView.findViewById(R.id.elementBtnRemindMe);</b>
+&nbsp;
+<b class="nc">&nbsp;            statusDone = itemView.findViewById(R.id.elementStatusDone);</b>
+<b class="nc">&nbsp;            statusCancel = itemView.findViewById(R.id.elementStatusCancel);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

@@ -5,10 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.do_an_tot_nghiep.Container.DoctorReadAll;
 import com.example.do_an_tot_nghiep.Container.ServiceReadByID;
-import com.example.do_an_tot_nghiep.Container.SpecialityReadByID;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
 import com.example.do_an_tot_nghiep.Repository.ServiceRepository;
-import com.example.do_an_tot_nghiep.Repository.SpecialityRepository;
 
 import java.util.Map;
 
@@ -20,14 +19,14 @@ import java.util.Map;
 public class ServicepageViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> animation;
-    private MutableLiveData<ServiceReadByID> response;
+    private SingleLiveEvent<ServiceReadByID> response = new SingleLiveEvent<>();
     private ServiceRepository repository;
     private DoctorRepository doctorRepository;
     public MutableLiveData<Boolean> getAnimation() {
         return animation;
     }
 
-    public MutableLiveData<ServiceReadByID> getResponse() {
+    public SingleLiveEvent<ServiceReadByID> getResponse() {
         return response;
     }
 
@@ -54,18 +53,20 @@ public class ServicepageViewModel extends ViewModel {
      */
     public void readById(Map<String, String> header, String serviceId)
     {
-        response = repository.readByID(header, serviceId);
+        repository.readByID(header, serviceId);
+        response = repository.getReadByIDResponse();
         animation = repository.getAnimation();
     }
 
     /************ DOCTOR - READ ALL ******************/
-    private MutableLiveData<DoctorReadAll> doctorReadAllResponse = new MutableLiveData<>();
-    public MutableLiveData<DoctorReadAll> getDoctorReadAllResponse() {
+    private SingleLiveEvent<DoctorReadAll> doctorReadAllResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<DoctorReadAll> getDoctorReadAllResponse() {
         return doctorReadAllResponse;
     }
     public void doctorReadAll(Map<String, String> header, Map<String, String> parameters)
     {
-        doctorReadAllResponse = doctorRepository.readAll(header, parameters);
+        doctorRepository.readAll(header, parameters);
+        doctorReadAllResponse = doctorRepository.getReadAllResponse();
         animation = doctorRepository.getAnimation();
     }
 }

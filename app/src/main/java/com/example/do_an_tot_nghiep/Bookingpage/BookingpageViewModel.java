@@ -7,6 +7,7 @@ import com.example.do_an_tot_nghiep.Container.BookingPhotoReadAll;
 import com.example.do_an_tot_nghiep.Container.BookingReadByID;
 import com.example.do_an_tot_nghiep.Container.DoctorReadByID;
 import com.example.do_an_tot_nghiep.Container.ServiceReadByID;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.BookingPhotoRepository;
 import com.example.do_an_tot_nghiep.Repository.BookingRepository;
 import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
@@ -21,10 +22,10 @@ import java.util.Map;
  */
 public class BookingpageViewModel extends ViewModel {
 
-    private MutableLiveData<ServiceReadByID> serviceReadByIdResponse;
-    private MutableLiveData<BookingReadByID> bookingReadByIdResponse;
+    private SingleLiveEvent<ServiceReadByID> serviceReadByIdResponse = new SingleLiveEvent<>();
+    private SingleLiveEvent<BookingReadByID> bookingReadByIdResponse = new SingleLiveEvent<>();
 
-    private MutableLiveData<Boolean> animation;
+    private MutableLiveData<Boolean> animation = new MutableLiveData<>();
     private ServiceRepository serviceRepository;
     private BookingRepository bookingRepository;
     private BookingPhotoRepository bookingPhotoRepository;
@@ -60,78 +61,50 @@ public class BookingpageViewModel extends ViewModel {
     }
 
     /************************SERVICE READ BY ID***************************/
-    public MutableLiveData<ServiceReadByID> getServiceReadByIdResponse() {
-        if( serviceReadByIdResponse == null)
-        {
-            serviceReadByIdResponse = new MutableLiveData<>();
-        }
+    public SingleLiveEvent<ServiceReadByID> getServiceReadByIdResponse() {
         return serviceReadByIdResponse;
     }
 
     public void serviceReadById(Map<String, String> header, String serviceId)
     {
-        serviceReadByIdResponse = serviceRepository.readByID(header, serviceId);
+        serviceRepository.readByID(header, serviceId);
+        serviceReadByIdResponse = serviceRepository.getReadByIDResponse();
         animation = serviceRepository.getAnimation();
     }
 
-    /* ***********************SERVICE READ BY ID**************************
-     * we do not use View model to observe send POST request to server
-     * */
-//    private BookingRepository bookingRepository;
-//    private MutableLiveData<BookingCreate> bookingCreateResponse;
-//    public MutableLiveData<BookingCreate> getBookingCreateResponse() {
-//        if(bookingCreateResponse == null)
-//        {
-//            bookingCreateResponse = new MutableLiveData<>();
-//        }
-//        return bookingCreateResponse;
-//    }
-//    public void bookingCreate(Map<String, String> header, Map<String, String> body)
-//    {
-//        bookingRepository.create(header, body);
-//        bookingCreateResponse = bookingRepository.create(header, body);
-//
-//        animation = bookingRepository.getAnimation();
-//    }
-
     /************************BOOKING READ BY ID***************************/
-    public MutableLiveData<BookingReadByID> getBookingReadByIdResponse() {
-        if( bookingReadByIdResponse == null )
-        {
-            bookingReadByIdResponse = new MutableLiveData<>();
-        }
+    public SingleLiveEvent<BookingReadByID> getBookingReadByIdResponse() {
         return bookingReadByIdResponse;
     }
     public void bookingReadByID(Map<String, String> header, String bookingId)
     {
-        bookingReadByIdResponse = bookingRepository.readByID(header, bookingId);
+        bookingRepository.readByID(header, bookingId);
+        bookingReadByIdResponse = bookingRepository.getReadByIDResponse();
         animation = bookingRepository.getAnimation();
     }
 
 
     /************************BOOKING PHOTO - READ ALL***************************/
-    private MutableLiveData<BookingPhotoReadAll> bookingPhotoReadAllResponse;
-    public MutableLiveData<BookingPhotoReadAll> getBookingPhotoReadAllResponse(){
-        if( bookingPhotoReadAllResponse == null )
-        {
-            bookingPhotoReadAllResponse = new MutableLiveData<>();
-        }
+    private SingleLiveEvent<BookingPhotoReadAll> bookingPhotoReadAllResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<BookingPhotoReadAll> getBookingPhotoReadAllResponse(){
         return bookingPhotoReadAllResponse;
     }
     public void bookingPhotoReadAll(Map<String, String> header, String bookingId)
     {
-        bookingPhotoReadAllResponse = bookingPhotoRepository.readAll(header, bookingId);
+        bookingPhotoRepository.readAll(header, bookingId);
+        bookingPhotoReadAllResponse = bookingPhotoRepository.getReadAllResponse();
         animation = bookingPhotoRepository.getAnimation();
     }
 
     /************************DOCTOR - READ BY ID***************************/
-    private MutableLiveData<DoctorReadByID> doctorReadById = new MutableLiveData<>();
-    public MutableLiveData<DoctorReadByID> getDoctorReadByIdResponse() {
+    private SingleLiveEvent<DoctorReadByID> doctorReadById = new SingleLiveEvent<>();
+    public SingleLiveEvent<DoctorReadByID> getDoctorReadByIdResponse() {
         return doctorReadById;
     }
     public void doctorReadByID(Map<String, String> header, String doctorId)
     {
+        doctorRepository.readById(header, doctorId);
+        doctorReadById = doctorRepository.getReadByIdResponse();
         animation = doctorRepository.getAnimation();
-        doctorReadById = doctorRepository.readById(header, doctorId);
     }
 }

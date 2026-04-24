@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EmailFragment1</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Emailpage</a>
+</div>
+
+<h1>Coverage Summary for Class: EmailFragment1 (com.example.do_an_tot_nghiep.Emailpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EmailFragment1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Emailpage;
+&nbsp;
+&nbsp;import android.os.Bundle;
+&nbsp;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.EditText;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 03-12-2022
+&nbsp; */
+<b class="nc">&nbsp;public class EmailFragment1 extends Fragment {</b>
+&nbsp;
+&nbsp;    private EditText txtTitle;
+&nbsp;    private EditText txtDescription;
+&nbsp;    private EditText txtContent;
+&nbsp;
+&nbsp;    private AppCompatButton btnNext;
+&nbsp;    private Dialog dialog;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+&nbsp;        // Inflate the layout for this fragment
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_email1, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 03-12-2022
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+<b class="nc">&nbsp;        txtTitle = view.findViewById(R.id.txtTitle);</b>
+<b class="nc">&nbsp;        txtContent = view.findViewById(R.id.txtContent);</b>
+<b class="nc">&nbsp;        txtDescription = view.findViewById(R.id.txtDescription);</b>
+<b class="nc">&nbsp;        btnNext = view.findViewById(R.id.btnNext);</b>
+<b class="nc">&nbsp;        dialog = new Dialog(requireContext());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 03-12-2022
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnNext.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            String title = txtTitle.getText().toString();</b>
+<b class="nc">&nbsp;            String content = txtContent.getText().toString();</b>
+<b class="nc">&nbsp;            String description = txtDescription.getText().toString();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            dialog.announce();</b>
+<b class="nc">&nbsp;            dialog.btnOK.setOnClickListener(view1-&gt;dialog.close());</b>
+<b class="nc">&nbsp;            if(TextUtils.isEmpty(title) || TextUtils.isEmpty(content) || TextUtils.isEmpty(description))</b>
+&nbsp;            {
+<b class="nc">&nbsp;                dialog.show(R.string.attention, requireContext().getString(R.string.you_are_missing_mandatory_field), R.drawable.ic_close);</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Fragment fragment = new EmailFragment2();</b>
+&nbsp;
+<b class="nc">&nbsp;            Bundle bundle = new Bundle();</b>
+<b class="nc">&nbsp;            bundle.putString(&quot;title&quot;, title);</b>
+<b class="nc">&nbsp;            bundle.putString(&quot;description&quot;, description);</b>
+<b class="nc">&nbsp;            bundle.putString(&quot;content&quot;, content);</b>
+<b class="nc">&nbsp;            fragment.setArguments(bundle);</b>
+&nbsp;
+<b class="nc">&nbsp;            requireActivity().getSupportFragmentManager().beginTransaction()</b>
+<b class="nc">&nbsp;                    .replace(R.id.frameLayout, fragment, &quot;EmailFragment2&quot;)</b>
+<b class="nc">&nbsp;                    .addToBackStack(null)</b>
+<b class="nc">&nbsp;                    .commit();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

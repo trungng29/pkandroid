@@ -1,0 +1,259 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SpecialityRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Repository</a>
+</div>
+
+<h1>Coverage Summary for Class: SpecialityRepository (com.example.do_an_tot_nghiep.Repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SpecialityRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (4/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (12/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SpecialityRepository$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.1%
+  </span>
+  <span class="absValue">
+    (4/7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SpecialityRepository$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (6/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (16/32)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Repository;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.SpecialityReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.SpecialityReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+<b class="fc">&nbsp;public class SpecialityRepository {</b>
+&nbsp;
+<b class="fc">&nbsp;    private final String TAG = &quot;SpecialityRepository&quot;;</b>
+<b class="fc">&nbsp;    private final MutableLiveData&lt;Boolean&gt; animation = new MutableLiveData&lt;&gt;();</b>
+<b class="fc">&nbsp;    public MutableLiveData&lt;Boolean&gt; getAnimation() { return animation; }</b>
+&nbsp;
+<b class="fc">&nbsp;    private final SingleLiveEvent&lt;SpecialityReadAll&gt; readAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="fc">&nbsp;    public SingleLiveEvent&lt;SpecialityReadAll&gt; getReadAllResponse() { return readAllResponse; }</b>
+&nbsp;
+&nbsp;    public void readAll(Map&lt;String, String&gt; headers, Map&lt;String,String&gt; parameters)
+&nbsp;    {
+<b class="fc">&nbsp;        animation.setValue(true);</b>
+<b class="fc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="fc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+<b class="fc">&nbsp;        Call&lt;SpecialityReadAll&gt; container = api.specialityReadAll(headers, parameters);</b>
+&nbsp;
+<b class="fc">&nbsp;        container.enqueue(new Callback&lt;SpecialityReadAll&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;SpecialityReadAll&gt; call, @NonNull Response&lt;SpecialityReadAll&gt; response) {
+<b class="fc">&nbsp;                animation.setValue(false);</b>
+<b class="pc">&nbsp;                if(response.isSuccessful()) {</b>
+<b class="nc">&nbsp;                    readAllResponse.setValue(response.body());</b>
+&nbsp;                } else {
+<b class="fc">&nbsp;                    readAllResponse.setValue(null);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;SpecialityReadAll&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                animation.setValue(false);</b>
+<b class="nc">&nbsp;                readAllResponse.setValue(null);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    private final SingleLiveEvent&lt;SpecialityReadByID&gt; readByIDResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    public SingleLiveEvent&lt;SpecialityReadByID&gt; getReadByIdResponse() { return readByIDResponse; }</b>
+&nbsp;
+&nbsp;    public void readById(Map&lt;String, String&gt; headers, String specialityId)
+&nbsp;    {
+<b class="nc">&nbsp;        animation.setValue(true);</b>
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+<b class="nc">&nbsp;        Call&lt;SpecialityReadByID&gt; container = api.specialityReadByID(headers, specialityId);</b>
+&nbsp;
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;SpecialityReadByID&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;SpecialityReadByID&gt; call, @NonNull Response&lt;SpecialityReadByID&gt; response) {
+<b class="nc">&nbsp;                animation.setValue(false);</b>
+<b class="nc">&nbsp;                if(response.isSuccessful()) {</b>
+<b class="nc">&nbsp;                    readByIDResponse.setValue(response.body());</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    readByIDResponse.setValue(null);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;SpecialityReadByID&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                animation.setValue(false);</b>
+<b class="nc">&nbsp;                readByIDResponse.setValue(null);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

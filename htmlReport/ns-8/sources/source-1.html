@@ -1,0 +1,330 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DoctorpageActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Doctorpage</a>
+</div>
+
+<h1>Coverage Summary for Class: DoctorpageActivity (com.example.do_an_tot_nghiep.Doctorpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DoctorpageActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/68)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Doctorpage;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.content.res.Configuration;
+&nbsp;import android.content.res.Resources;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.util.DisplayMetrics;
+&nbsp;import android.webkit.WebView;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.TextView;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Bookingpage.BookingpageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Doctor;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;import de.hdodenhof.circleimageview.CircleImageView;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 20-11-2022
+&nbsp; * Doctor-page Activity
+&nbsp; * this activity is used to show information of a doctor
+&nbsp; */
+<b class="nc">&nbsp;public class DoctorpageActivity extends AppCompatActivity {</b>
+&nbsp;    private static final String TAG = &quot;Doctor-page Activity&quot;;
+&nbsp;
+&nbsp;    private String doctorId;
+&nbsp;    private CircleImageView imgAvatar;
+&nbsp;    private TextView txtName;
+&nbsp;
+&nbsp;    private TextView txtSpeciality;
+&nbsp;    private TextView txtPhoneNumber;
+&nbsp;    private WebView wvwDescription;
+&nbsp;
+&nbsp;    private DoctorpageViewModel viewModel;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;
+&nbsp;    private ImageButton btnBack;
+&nbsp;    private AppCompatButton btnCreateBooking;
+&nbsp;    private SharedPreferences sharedPreferences;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_doctorpage);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onResume() {
+<b class="nc">&nbsp;        super.onResume();</b>
+&nbsp;        /*tu bo nho ROM cua thiet bi lay ra ngon ngu da cai dat cho ung dung*/
+<b class="nc">&nbsp;        String language = sharedPreferences.getString(&quot;language&quot;, getString(R.string.vietnamese));</b>
+&nbsp;
+&nbsp;
+&nbsp;//        System.out.println(TAG);
+&nbsp;//        System.out.println(language);
+<b class="nc">&nbsp;        String vietnamese = getString(R.string.vietnamese);</b>
+<b class="nc">&nbsp;        String deutsch = getString(R.string.deutsch);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Locale myLocale = new Locale(&quot;en&quot;);</b>
+<b class="nc">&nbsp;        if(Objects.equals(language, vietnamese))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            myLocale = new Locale(&quot;vi&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Objects.equals(language,deutsch))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            myLocale = new Locale(&quot;de&quot;);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Resources resources = getResources();</b>
+<b class="nc">&nbsp;        DisplayMetrics displayMetrics = resources.getDisplayMetrics();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Configuration configuration = resources.getConfiguration();</b>
+<b class="nc">&nbsp;        configuration.setLocale(myLocale);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Locale.setDefault(myLocale);</b>
+<b class="nc">&nbsp;        resources.updateConfiguration(configuration, displayMetrics);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        doctorId = getIntent().getStringExtra(&quot;doctorId&quot;);</b>
+<b class="nc">&nbsp;        wvwDescription = findViewById(R.id.wvwDescription);</b>
+&nbsp;
+<b class="nc">&nbsp;        imgAvatar = findViewById(R.id.imgAvatar);</b>
+<b class="nc">&nbsp;        txtName = findViewById(R.id.txtName);</b>
+<b class="nc">&nbsp;        txtPhoneNumber = findViewById(R.id.txtPhoneNumber);</b>
+<b class="nc">&nbsp;        txtSpeciality = findViewById(R.id.txtSpeciality);</b>
+&nbsp;
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        sharedPreferences = this.getApplication()</b>
+<b class="nc">&nbsp;                .getSharedPreferences(globalVariable.getSharedReferenceKey(), MODE_PRIVATE);</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(this);</b>
+<b class="nc">&nbsp;        btnBack = findViewById(R.id.btnBack);</b>
+<b class="nc">&nbsp;        btnCreateBooking = findViewById(R.id.btnCreateBooking);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-11-2022
+&nbsp;     * setup view model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+<b class="nc">&nbsp;        viewModel = new ViewModelProvider(this).get(DoctorpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+<b class="nc">&nbsp;        Map&lt;String, String&gt; headers = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;        viewModel.readById(headers, doctorId);</b>
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getResponse().observe(this, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    Doctor doctor = response.getData();</b>
+<b class="nc">&nbsp;                    printDoctorInfo(doctor);</b>
+&nbsp;                }
+&nbsp;                else
+&nbsp;                {
+<b class="nc">&nbsp;                    Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                    finish();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            catch (Exception ex)
+&nbsp;            {
+<b class="nc">&nbsp;                System.out.println(TAG);</b>
+<b class="nc">&nbsp;                System.out.println(ex.getMessage());</b>
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                finish();</b>
+&nbsp;            }
+&nbsp;
+&nbsp;
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getAnimation().observe(this, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 22-11-2022
+&nbsp;     * setup event
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnBack.setOnClickListener(view-&gt;finish());</b>
+&nbsp;
+<b class="nc">&nbsp;        btnCreateBooking.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(this, BookingpageActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;doctorId&quot;, doctorId);</b>
+<b class="nc">&nbsp;            startActivity(intent);</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 20-11-2022
+&nbsp;     * print doctor information
+&nbsp;     */
+&nbsp;    private void printDoctorInfo(Doctor doctor)
+&nbsp;    {
+<b class="nc">&nbsp;        String name = doctor.getName();</b>
+<b class="nc">&nbsp;        String avatar = Constant.UPLOAD_URI() + doctor.getAvatar();</b>
+<b class="nc">&nbsp;        String phone = doctor.getPhone();</b>
+<b class="nc">&nbsp;        String description = &quot;&lt;html&gt;&quot; +</b>
+&nbsp;                                &quot;&lt;style&gt;body{font-size: 11px}&lt;/style&gt;&quot;+
+<b class="nc">&nbsp;                                &quot;&lt;body&gt;&quot;+  doctor.getDescription() +</b>
+&nbsp;                                &quot;&lt;/body&gt;&quot; +
+&nbsp;                            &quot;&lt;/html&gt;&quot;;
+<b class="nc">&nbsp;        String speciality = doctor.getSpeciality().getName();</b>
+&nbsp;
+<b class="nc">&nbsp;        txtName.setText(name);</b>
+<b class="nc">&nbsp;        txtSpeciality.setText(speciality);</b>
+<b class="nc">&nbsp;        txtPhoneNumber.setText(phone);</b>
+<b class="nc">&nbsp;        Picasso.get().load(avatar).into(imgAvatar);</b>
+<b class="nc">&nbsp;        wvwDescription.loadDataWithBaseURL(null, description, &quot;text/HTML&quot;, &quot;UTF-8&quot;, null);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

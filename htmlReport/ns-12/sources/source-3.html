@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BookingPhotoRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Repository</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingPhotoRepository (com.example.do_an_tot_nghiep.Repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingPhotoRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BookingPhotoRepository$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.1%
+  </span>
+  <span class="absValue">
+    (4/7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (15/18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Repository;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.BookingPhotoReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+<b class="fc">&nbsp;public class BookingPhotoRepository {</b>
+&nbsp;
+<b class="fc">&nbsp;    private final String TAG = &quot;Booking Photo Repository&quot;;</b>
+<b class="fc">&nbsp;    private final MutableLiveData&lt;Boolean&gt; animation = new MutableLiveData&lt;&gt;();</b>
+&nbsp;    public MutableLiveData&lt;Boolean&gt; getAnimation() {
+<b class="fc">&nbsp;        return animation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /************************** READ ALL *******************************/
+<b class="fc">&nbsp;    private final SingleLiveEvent&lt;BookingPhotoReadAll&gt; readAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="fc">&nbsp;    public SingleLiveEvent&lt;BookingPhotoReadAll&gt; getReadAllResponse() { return readAllResponse; }</b>
+&nbsp;
+&nbsp;    public void readAll (Map&lt;String, String&gt; header, String bookingId)
+&nbsp;    {
+<b class="fc">&nbsp;        animation.setValue(true);</b>
+<b class="fc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="fc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+<b class="fc">&nbsp;        Call&lt;BookingPhotoReadAll&gt; container = api.bookingPhotoReadAll(header, bookingId);</b>
+&nbsp;
+<b class="fc">&nbsp;        container.enqueue(new Callback&lt;BookingPhotoReadAll&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;BookingPhotoReadAll&gt; call, @NonNull Response&lt;BookingPhotoReadAll&gt; response) {
+<b class="fc">&nbsp;                animation.setValue(false);</b>
+<b class="pc">&nbsp;                if(response.isSuccessful()) {</b>
+<b class="nc">&nbsp;                    readAllResponse.setValue(response.body());</b>
+&nbsp;                } else {
+<b class="fc">&nbsp;                    readAllResponse.setValue(null);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;BookingPhotoReadAll&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                animation.setValue(false);</b>
+<b class="nc">&nbsp;                readAllResponse.setValue(null);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

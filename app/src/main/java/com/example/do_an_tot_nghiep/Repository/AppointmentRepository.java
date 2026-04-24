@@ -7,6 +7,7 @@ import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
 import com.example.do_an_tot_nghiep.Configuration.HTTPService;
 import com.example.do_an_tot_nghiep.Container.AppointmentReadAll;
 import com.example.do_an_tot_nghiep.Container.AppointmentReadByID;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 
 import org.json.JSONObject;
 
@@ -26,115 +27,94 @@ public class AppointmentRepository {
     }
 
     /************************** READ ALL *******************************/
-    private final MutableLiveData<AppointmentReadAll> readAllResponse = new MutableLiveData<>();
+    // FIX 1: Dùng SingleLiveEvent để tránh sticky data phát lại lỗi khi quay lại màn hình
+    private final SingleLiveEvent<AppointmentReadAll> readAllResponse = new SingleLiveEvent<>();
 
-    public MutableLiveData<AppointmentReadAll> readAll(Map<String, String> header, Map<String, String> parameters)
+    public SingleLiveEvent<AppointmentReadAll> getReadAllResponse() {
+        return readAllResponse;
+    }
+
+    public void readAll(Map<String, String> header, Map<String, String> parameters)
     {
-        /*Step 1*/
         animation.setValue(true);
-
-
-        /*Step 2*/
         Retrofit service = HTTPService.getInstance();
         HTTPRequest api = service.create(HTTPRequest.class);
 
-
-        /*Step 3*/
+        // FIX 2: Đảm bảo header (chứa Authorization Token) được truyền vào call
         Call<AppointmentReadAll> container = api.appointmentReadAll(header, parameters);
 
-        /*Step 4*/
         container.enqueue(new Callback<AppointmentReadAll>() {
             @Override
             public void onResponse(@NonNull Call<AppointmentReadAll> call, @NonNull Response<AppointmentReadAll> response) {
+                animation.setValue(false);
                 if(response.isSuccessful())
                 {
                     AppointmentReadAll content = response.body();
                     assert content != null;
                     readAllResponse.setValue(content);
-                    animation.setValue(false);
-//                    System.out.println(TAG);
-//                    System.out.println("result: " + content.getResult());
-//                    System.out.println("msg: " + content.getMsg());
                 }
-                if(response.errorBody() != null)
+                else
                 {
                     try
                     {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        System.out.println( jObjError );
+                        if (response.errorBody() != null) {
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            System.out.println(TAG + " - Error: " + jObjError);
+                        }
                     }
                     catch (Exception e) {
-                        System.out.println( e.getMessage() );
+                        System.out.println(TAG + " - Exception: " + e.getMessage());
                     }
                     readAllResponse.setValue(null);
-                    animation.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<AppointmentReadAll> call, @NonNull Throwable t) {
-                System.out.println("Appointment Repository - Read All - error: " + t.getMessage());
-                //readAllResponse.setValue(null);
                 animation.setValue(false);
+                System.out.println("Appointment Repository - Read All - error: " + t.getMessage());
+                readAllResponse.setValue(null);
             }
         });
-
-        return readAllResponse;
     }
 
     /************************** READ BY ID *******************************/
-    private final MutableLiveData<AppointmentReadByID> readByIDResponse = new MutableLiveData<>();
-    public MutableLiveData<AppointmentReadByID> readByID(Map<String, String> header, String appointmentID)
+    private final SingleLiveEvent<AppointmentReadByID> readByIDResponse = new SingleLiveEvent<>();
+    
+    public SingleLiveEvent<AppointmentReadByID> getReadByIDResponse() {
+        return readByIDResponse;
+    }
+
+    public void readByID(Map<String, String> header, String appointmentID)
     {
-        /*Step 1*/
         animation.setValue(true);
-
-
-        /*Step 2*/
         Retrofit service = HTTPService.getInstance();
         HTTPRequest api = service.create(HTTPRequest.class);
 
-
-        /*Step 3*/
         Call<AppointmentReadByID> container = api.appointmentReadByID(header, appointmentID);
 
-        /*Step 4*/
         container.enqueue(new Callback<AppointmentReadByID>() {
             @Override
             public void onResponse(@NonNull Call<AppointmentReadByID> call, @NonNull Response<AppointmentReadByID> response) {
+                animation.setValue(false);
                 if(response.isSuccessful())
                 {
                     AppointmentReadByID content = response.body();
                     assert content != null;
                     readByIDResponse.setValue(content);
-                    animation.setValue(false);
-//                    System.out.println(TAG);
-//                    System.out.println("result: " + content.getResult());
-//                    System.out.println("msg: " + content.getMsg());
                 }
-                if(response.errorBody() != null)
+                else
                 {
-                    try
-                    {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        System.out.println( jObjError );
-                    }
-                    catch (Exception e) {
-                        System.out.println( e.getMessage() );
-                    }
                     readByIDResponse.setValue(null);
-                    animation.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<AppointmentReadByID> call, @NonNull Throwable t) {
-                System.out.println("Appointment Repository - Read By ID - error: " + t.getMessage());
-                //readAllResponse.setValue(null);
                 animation.setValue(false);
+                System.out.println("Appointment Repository - Read By ID - error: " + t.getMessage());
+                readByIDResponse.setValue(null);
             }
         });
-
-        return readByIDResponse;
     }
 }

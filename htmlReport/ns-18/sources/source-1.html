@@ -1,0 +1,239 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > WebpageActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Webpage</a>
+</div>
+
+<h1>Coverage Summary for Class: WebpageActivity (com.example.do_an_tot_nghiep.Webpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WebpageActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">WebpageActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Webpage;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.app.ProgressDialog;
+&nbsp;import android.graphics.Bitmap;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.view.View;
+&nbsp;import android.webkit.WebResourceError;
+&nbsp;import android.webkit.WebResourceRequest;
+&nbsp;import android.webkit.WebSettings;
+&nbsp;import android.webkit.WebView;
+&nbsp;import android.webkit.WebViewClient;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+<b class="nc">&nbsp;public class WebpageActivity extends AppCompatActivity {</b>
+&nbsp;
+&nbsp;    @SuppressLint(&quot;SetJavaScriptEnabled&quot;)
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_webpage);</b>
+&nbsp;
+<b class="nc">&nbsp;        String url = getIntent().getStringExtra(&quot;url&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        WebView webView = findViewById(R.id.webView);</b>
+&nbsp;//        webView.requestFocus();
+&nbsp;//        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+&nbsp;//        webView.getSettings().setJavaScriptEnabled(true);
+&nbsp;//        webView.getSettings().setGeolocationEnabled(true);
+&nbsp;//        webView.setWebViewClient(new WebViewClient());
+&nbsp;//        webView.loadUrl(url);
+&nbsp;
+<b class="nc">&nbsp;        WebSettings settings = webView.getSettings();</b>
+&nbsp;
+<b class="nc">&nbsp;        settings.setJavaScriptEnabled(true);</b>
+<b class="nc">&nbsp;        webView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);</b>
+&nbsp;
+<b class="nc">&nbsp;        webView.getSettings().setBuiltInZoomControls(true);</b>
+<b class="nc">&nbsp;        webView.getSettings().setUseWideViewPort(true);</b>
+<b class="nc">&nbsp;        webView.getSettings().setLoadWithOverviewMode(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        ProgressDialog progressDialog = new ProgressDialog(this);</b>
+<b class="nc">&nbsp;        progressDialog.setMessage(&quot;Loading...&quot;);</b>
+<b class="nc">&nbsp;        progressDialog.show();</b>
+&nbsp;
+<b class="nc">&nbsp;        webView.setWebViewClient(new WebViewClient() {</b>
+&nbsp;            @Override
+&nbsp;            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+<b class="nc">&nbsp;                view.loadUrl(url);</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+<b class="nc">&nbsp;                super.onPageStarted(view, url, favicon);</b>
+<b class="nc">&nbsp;                if (!progressDialog.isShowing()) {</b>
+<b class="nc">&nbsp;                    progressDialog.show();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            public void onPageFinished(WebView view, String url) {
+<b class="nc">&nbsp;                if (progressDialog.isShowing()) {</b>
+<b class="nc">&nbsp;                    progressDialog.dismiss();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+<b class="nc">&nbsp;                super.onReceivedError(view, request, error);</b>
+<b class="nc">&nbsp;                if (progressDialog.isShowing()) {</b>
+<b class="nc">&nbsp;                    progressDialog.dismiss();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        });
+<b class="nc">&nbsp;        webView.loadUrl(url);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        ImageButton btnBack = findViewById(R.id.btnBack);</b>
+<b class="nc">&nbsp;        btnBack.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            finish();</b>
+<b class="nc">&nbsp;            webView.destroy();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SearchpageViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Searchpage</a>
+</div>
+
+<h1>Coverage Summary for Class: SearchpageViewModel (com.example.do_an_tot_nghiep.Searchpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SearchpageViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Searchpage;
+&nbsp;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;import androidx.lifecycle.ViewModel;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Container.DoctorReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.ServiceReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.SpecialityReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.ServiceRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.SpecialityRepository;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 21-11-2022
+&nbsp; * Search-page view model
+&nbsp; */
+<b class="nc">&nbsp;public class SearchpageViewModel extends ViewModel {</b>
+&nbsp;
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;SpecialityReadAll&gt; specialityReadAll = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;DoctorReadAll&gt; doctorReadAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;ServiceReadAll&gt; serviceReadAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    private MutableLiveData&lt;Boolean&gt; animation = new MutableLiveData&lt;&gt;();</b>
+&nbsp;
+&nbsp;
+&nbsp;    private SpecialityRepository specialityRepository;
+&nbsp;    private DoctorRepository doctorRepository;
+&nbsp;    private ServiceRepository serviceRepository;
+&nbsp;
+&nbsp;    /*GETTER*/
+&nbsp;    public MutableLiveData&lt;Boolean&gt; getAnimation() {
+<b class="nc">&nbsp;        return animation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public SingleLiveEvent&lt;SpecialityReadAll&gt; getSpecialityReadAll() {
+<b class="nc">&nbsp;        return specialityReadAll;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public SingleLiveEvent&lt;DoctorReadAll&gt; getDoctorReadAllResponse() {
+<b class="nc">&nbsp;        return doctorReadAllResponse;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public SingleLiveEvent&lt;ServiceReadAll&gt; getServiceReadAllResponse() {
+<b class="nc">&nbsp;        return serviceReadAllResponse;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * create repository
+&nbsp;     */
+&nbsp;    public void instantiate()
+&nbsp;    {
+<b class="nc">&nbsp;        if(specialityRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            specialityRepository = new SpecialityRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( doctorRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            doctorRepository = new DoctorRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( serviceRepository == null )</b>
+&nbsp;        {
+<b class="nc">&nbsp;            serviceRepository = new ServiceRepository();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /* ******************** DOCTOR READ ALL ********************/
+&nbsp;    public void doctorReadAll(Map&lt;String, String&gt; headers, Map&lt;String, String&gt; parameters)
+&nbsp;    {
+<b class="nc">&nbsp;        doctorRepository.readAll(headers, parameters);</b>
+<b class="nc">&nbsp;        doctorReadAllResponse = doctorRepository.getReadAllResponse();</b>
+<b class="nc">&nbsp;        animation = doctorRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /* ******************** SPECIALITY READ ALL ********************/
+&nbsp;    public void specialityReadAll(Map&lt;String, String&gt; headers, Map&lt;String, String&gt; parameters)
+&nbsp;    {
+<b class="nc">&nbsp;        specialityRepository.readAll(headers, parameters);</b>
+<b class="nc">&nbsp;        specialityReadAll = specialityRepository.getReadAllResponse();</b>
+<b class="nc">&nbsp;        animation = specialityRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /* ******************** SERVICE READ ALL ********************/
+&nbsp;    public void serviceReadAll(Map&lt;String, String&gt; headers, Map&lt;String, String&gt; parameters)
+&nbsp;    {
+<b class="nc">&nbsp;        serviceRepository.readAll(headers, parameters);</b>
+<b class="nc">&nbsp;        serviceReadAllResponse = serviceRepository.getReadAllResponse();</b>
+<b class="nc">&nbsp;        animation = serviceRepository.getAnimation();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

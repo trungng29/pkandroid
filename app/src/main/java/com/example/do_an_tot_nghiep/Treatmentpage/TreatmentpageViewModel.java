@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.do_an_tot_nghiep.Container.AppointmentReadAll;
 import com.example.do_an_tot_nghiep.Container.TreatmentReadAll;
 import com.example.do_an_tot_nghiep.Container.TreatmentReadByID;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.AppointmentRepository;
 import com.example.do_an_tot_nghiep.Repository.TreatmentRepository;
 
@@ -34,37 +35,40 @@ public class TreatmentpageViewModel extends ViewModel {
     }
 
     /**************** APPOINTMENT - READ ALL********************/
-    private MutableLiveData<AppointmentReadAll> appointmentReadAllResponse = new MutableLiveData<>();
-    public MutableLiveData<AppointmentReadAll> getAppointmentReadAllResponse()
+    private SingleLiveEvent<AppointmentReadAll> appointmentReadAllResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<AppointmentReadAll> getAppointmentReadAllResponse()
     {
         return appointmentReadAllResponse;
     }
     public void appointmentReadAll(Map<String, String> header, Map<String, String> parameters)
     {
+        appointmentRepository.readAll(header, parameters);
+        appointmentReadAllResponse = appointmentRepository.getReadAllResponse();
         animation = appointmentRepository.getAnimation();
-        appointmentReadAllResponse = appointmentRepository.readAll(header, parameters);
     }
 
     /**************** TREATMENT - READ ALL of AN APPOINTMENT********************/
-    private MutableLiveData<TreatmentReadAll> treatmentReadAllResponse = new MutableLiveData<>();
-    public MutableLiveData<TreatmentReadAll> getTreatmentReadAllResponse() {
+    private SingleLiveEvent<TreatmentReadAll> treatmentReadAllResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<TreatmentReadAll> getTreatmentReadAllResponse() {
         return treatmentReadAllResponse;
     }
     public void treatmentReadAll(Map<String, String> header, String appointmentId)
     {
+        treatmentRepository.readAll(header, appointmentId);
+        treatmentReadAllResponse = treatmentRepository.getReadAllResponse();
         animation = treatmentRepository.getAnimation();
-        treatmentReadAllResponse = treatmentRepository.readAll(header, appointmentId);
     }
 
 
     /**************** TREATMENT - READ BY ID of a treatment from AN APPOINTMENT********************/
-    private MutableLiveData<TreatmentReadByID> treatmentReadByIDResponse = new MutableLiveData<>();
-    public MutableLiveData<TreatmentReadByID> getTreatmentReadByIDResponse() {
+    private SingleLiveEvent<TreatmentReadByID> treatmentReadByIDResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<TreatmentReadByID> getTreatmentReadByIDResponse() {
         return treatmentReadByIDResponse;
     }
     public void treatmentReadByID(Map<String, String> header, String treatmentId)
     {
+        treatmentRepository.readByID(header, treatmentId);
+        treatmentReadByIDResponse = treatmentRepository.getReadByIDResponse();
         animation = treatmentRepository.getAnimation();
-        treatmentReadByIDResponse = treatmentRepository.readByID(header, treatmentId);
     }
 }

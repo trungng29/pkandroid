@@ -1,0 +1,309 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RecordpageActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Recordpage</a>
+</div>
+
+<h1>Coverage Summary for Class: RecordpageActivity (com.example.do_an_tot_nghiep.Recordpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RecordpageActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/74)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Recordpage;
+&nbsp;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.webkit.WebView;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Record;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * Record-page activity
+&nbsp; * this activity show full information about a appointment&#39;s medical record
+&nbsp; */
+<b class="nc">&nbsp;public class RecordpageActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Record-page activity&quot;;</b>
+&nbsp;    private String appointmentId;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;    private Map&lt;String, String&gt; header;
+&nbsp;
+&nbsp;    private ImageView imgDoctorAvatar;
+&nbsp;    private TextView txtDoctorName;
+&nbsp;    private TextView txtSpecialityName;
+&nbsp;    private TextView txtDatetime;
+&nbsp;
+&nbsp;    private TextView txtAppointmentReason;
+&nbsp;    private TextView txtStatusBefore;
+&nbsp;    private TextView txtStatusAfter;
+&nbsp;
+&nbsp;    private TextView txtReason;
+&nbsp;    private WebView wvwDescription;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_recordpage);</b>
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 28-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        dialog = new Dialog(this);</b>
+<b class="nc">&nbsp;        GlobalVariable globalVariable = (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        header = globalVariable.getHeaders();</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        appointmentId = getIntent().getStringExtra(&quot;appointmentId&quot;);</b>
+<b class="nc">&nbsp;        if(TextUtils.isEmpty(appointmentId) )</b>
+&nbsp;        {
+<b class="nc">&nbsp;            System.out.println(TAG);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;appointmentId is empty !&quot;);</b>
+<b class="nc">&nbsp;            dialog.announce();</b>
+<b class="nc">&nbsp;            dialog.show(R.string.attention, getString(R.string.oops_there_is_an_issue), R.drawable.ic_close);</b>
+<b class="nc">&nbsp;            dialog.btnOK.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;                dialog.close();</b>
+<b class="nc">&nbsp;                this.finish();</b>
+&nbsp;            });
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        imgDoctorAvatar = findViewById(R.id.imgDoctorAvatar);</b>
+<b class="nc">&nbsp;        txtDoctorName = findViewById(R.id.txtDoctorName);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtSpecialityName = findViewById(R.id.txtSpecialityName);</b>
+<b class="nc">&nbsp;        txtDatetime = findViewById(R.id.txtDatetime);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtAppointmentReason = findViewById(R.id.txtAppointmentReason);</b>
+<b class="nc">&nbsp;        txtStatusAfter = findViewById(R.id.txtStatusAfter);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtStatusBefore = findViewById(R.id.txtStatusBefore);</b>
+<b class="nc">&nbsp;        txtReason = findViewById(R.id.txtReason);</b>
+<b class="nc">&nbsp;        wvwDescription = findViewById(R.id.wvwDescription);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 28-11-2022
+&nbsp;     * setup view model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+&nbsp;        /*SET UP VIEW MODEL*/
+<b class="nc">&nbsp;        RecordpageViewModel viewModel = new ViewModelProvider(this).get(RecordpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*SEND REQUEST*/
+<b class="nc">&nbsp;        viewModel.readByID(header, appointmentId);</b>
+<b class="nc">&nbsp;        viewModel.getReadByIDResponse().observe(this, response-&gt;{</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if (result == 1) {</b>
+<b class="nc">&nbsp;                    Record record = response.getData();</b>
+<b class="nc">&nbsp;                    printRecordInfo(record);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if (result == 0) {</b>
+<b class="nc">&nbsp;                    System.out.println(TAG);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;READ ALL&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;shut down by result == 0&quot;);</b>
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            } catch (Exception ex) {
+<b class="nc">&nbsp;                System.out.println(TAG);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;READ ALL&quot;);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;shut down by exception&quot;);</b>
+<b class="nc">&nbsp;                System.out.println(ex);</b>
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;                    dialog.close();</b>
+<b class="nc">&nbsp;                    finish();</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*ANIMATION*/
+<b class="nc">&nbsp;        viewModel.getAnimation().observe(this, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;        /*end ANIMATION*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 28-11-2022
+&nbsp;     * print record information to the screen
+&nbsp;     */
+&nbsp;    private void printRecordInfo(Record record)
+&nbsp;    {
+&nbsp;        /*DOCTOR INFO*/
+<b class="nc">&nbsp;        if( record.getDoctor().getAvatar().length() &gt; 0)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            String avatar = Constant.UPLOAD_URI() + record.getDoctor().getAvatar();</b>
+<b class="nc">&nbsp;            Picasso.get().load(avatar).into(imgDoctorAvatar);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        String doctorName = getString(R.string.doctor) + &quot; &quot; + record.getDoctor().getName();</b>
+<b class="nc">&nbsp;        txtDoctorName.setText(doctorName);</b>
+&nbsp;
+<b class="nc">&nbsp;        String datetime = Tooltip.beautifierDatetime(this, record.getCreateAt());</b>
+<b class="nc">&nbsp;        txtDatetime.setText(datetime);</b>
+&nbsp;
+<b class="nc">&nbsp;        String appointmentReason = record.getAppointment().getPatientReason();</b>
+<b class="nc">&nbsp;        txtAppointmentReason.setText(appointmentReason);</b>
+&nbsp;
+<b class="nc">&nbsp;        String statusBefore = record.getStatusBefore();</b>
+<b class="nc">&nbsp;        txtStatusBefore.setText(statusBefore);</b>
+&nbsp;
+<b class="nc">&nbsp;        String statusAfter = record.getStatusAfter();</b>
+<b class="nc">&nbsp;        txtStatusAfter.setText(statusAfter);</b>
+&nbsp;
+<b class="nc">&nbsp;        String description = &quot;&lt;html&gt;&quot; +</b>
+&nbsp;                &quot;&lt;style&gt;body{font-size: 11px}&lt;/style&gt;&quot; +
+<b class="nc">&nbsp;                &quot;&lt;body&gt;&quot;+ record.getDescription()</b>
+&nbsp;                +&quot;&lt;/body&gt;&lt;/html&gt;&quot;;
+<b class="nc">&nbsp;        wvwDescription.loadDataWithBaseURL(null, description, &quot;text/HTML&quot;, &quot;UTF-8&quot;, null);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

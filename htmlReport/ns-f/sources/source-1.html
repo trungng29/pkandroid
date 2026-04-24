@@ -1,0 +1,498 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > NotificationFragment</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Notificationpage</a>
+</div>
+
+<h1>Coverage Summary for Class: NotificationFragment (com.example.do_an_tot_nghiep.Notificationpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NotificationFragment</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/59)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">NotificationFragment$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">NotificationFragment$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/94)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Notificationpage;
+&nbsp;
+&nbsp;import android.app.Activity;
+&nbsp;import android.content.Context;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;import androidx.lifecycle.LifecycleOwner;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPRequest;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.HTTPService;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationMarkAllAsRead;
+&nbsp;import com.example.do_an_tot_nghiep.Container.NotificationMarkAsRead;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Notification;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.NotificationRecyclerView;
+&nbsp;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import retrofit2.Call;
+&nbsp;import retrofit2.Callback;
+&nbsp;import retrofit2.Response;
+&nbsp;import retrofit2.Retrofit;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 18-11-2022
+&nbsp; */
+<b class="nc">&nbsp;public class NotificationFragment extends Fragment implements NotificationRecyclerView.Callback {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;NotificationFragment&quot;;</b>
+&nbsp;
+&nbsp;    private RecyclerView recyclerView;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;    private Activity activity;
+&nbsp;
+&nbsp;    private TextView txtMarkAllAsRead;
+&nbsp;    private NotificationViewModel viewModel;
+&nbsp;
+&nbsp;    private SwipeRefreshLayout swipeRefreshLayout;
+&nbsp;    private Map&lt;String, String&gt; header;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+&nbsp;        // Inflate the layout for this fragment
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_notification, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 24-11-2022
+&nbsp;     * @param view is the view of fragment
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+<b class="nc">&nbsp;        recyclerView = view.findViewById(R.id.recyclerView);</b>
+<b class="nc">&nbsp;        GlobalVariable globalVariable = (GlobalVariable) requireActivity().getApplication();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        context = requireContext();</b>
+<b class="nc">&nbsp;        activity = requireActivity();</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog = new Dialog(context);</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(activity);</b>
+&nbsp;
+<b class="nc">&nbsp;        txtMarkAllAsRead = view.findViewById(R.id.txtMarkAllAsRead);</b>
+<b class="nc">&nbsp;        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);</b>
+&nbsp;
+<b class="nc">&nbsp;        header = globalVariable.getHeaders();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 24-11-2022
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+&nbsp;        /*Step 1 - declare*/
+<b class="nc">&nbsp;        viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /*Step 2 - prepare header &amp; parameters*/
+<b class="nc">&nbsp;        viewModel.readAll(header);</b>
+&nbsp;
+&nbsp;        /*Step 3 - listen for response*/
+<b class="nc">&nbsp;        viewModel.getReadAllResponse().observe((LifecycleOwner) context, response-&gt;{</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                int result = response.getResult();</b>
+&nbsp;                /*result == 1 =&gt; luu thong tin nguoi dung va vao homepage*/
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+&nbsp;
+&nbsp;
+&nbsp;                    /*print notification*/
+<b class="nc">&nbsp;                    List&lt;Notification&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                    setupRecyclerView(list);</b>
+&nbsp;                }
+&nbsp;                /*result == 0 =&gt; thong bao va thoat ung dung*/
+<b class="nc">&nbsp;                if( result == 0)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    dialog.announce();</b>
+<b class="nc">&nbsp;                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                    dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                        dialog.close();</b>
+<b class="nc">&nbsp;                        activity.finish();</b>
+&nbsp;                    });
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;            catch(Exception ex)
+&nbsp;            {
+&nbsp;                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
+<b class="nc">&nbsp;                dialog.announce();</b>
+<b class="nc">&nbsp;                dialog.show(R.string.attention, this.getString(R.string.check_your_internet_connection), R.drawable.ic_info);</b>
+<b class="nc">&nbsp;                dialog.btnOK.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;                    dialog.close();</b>
+<b class="nc">&nbsp;                    activity.finish();</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*Step 4 - get animation*/
+<b class="nc">&nbsp;        viewModel.getAnimation().observe((LifecycleOwner) context, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupEvent()
+&nbsp;    {
+&nbsp;        /*TXT MARK ALL NOTIFICATION AS READ*/
+<b class="nc">&nbsp;        txtMarkAllAsRead.setOnClickListener(view-&gt; {</b>
+<b class="nc">&nbsp;            loadingScreen.start();</b>
+<b class="nc">&nbsp;            markAllAsRead();</b>
+&nbsp;        });
+&nbsp;
+&nbsp;        /*SWIPE REFRESH LAYOUT*/
+<b class="nc">&nbsp;        swipeRefreshLayout.setOnRefreshListener(() -&gt; {</b>
+<b class="nc">&nbsp;            viewModel.readAll(header);</b>
+<b class="nc">&nbsp;            HomepageActivity.getInstance().setNumberOnNotificationIcon();</b>
+<b class="nc">&nbsp;            swipeRefreshLayout.setRefreshing(false);</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 24-11-2022
+&nbsp;     * @param list is the list of notifications
+&nbsp;     */
+&nbsp;    private void setupRecyclerView(List&lt;Notification&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        NotificationRecyclerView notificationAdapter = new NotificationRecyclerView(context, list, this);</b>
+<b class="nc">&nbsp;        recyclerView.setAdapter(notificationAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        recyclerView.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 24-11-2022
+&nbsp;     * @param notificationId is the is of notification which is being marked as read
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void markAsRead(String notificationId) {
+&nbsp;
+<b class="nc">&nbsp;        if(TextUtils.isEmpty(notificationId) )</b>
+&nbsp;        {
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*Step 3*/
+<b class="nc">&nbsp;        Call&lt;NotificationMarkAsRead&gt; container = api.notificationMarkAsRead(header, notificationId);</b>
+&nbsp;
+&nbsp;        /*Step 4*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;NotificationMarkAsRead&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;NotificationMarkAsRead&gt; call, @NonNull Response&lt;NotificationMarkAsRead&gt; response) {
+&nbsp;                /*Step 4 - Case 1 - if successful, update the number of unread notifications*/
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    NotificationMarkAsRead content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+<b class="nc">&nbsp;                    int result = content.getResult();</b>
+<b class="nc">&nbsp;                    if( result == 1)</b>
+&nbsp;                    {
+<b class="nc">&nbsp;                        HomepageActivity.getInstance().setNumberOnNotificationIcon();</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;                /*Step 4 - Case 2 - if failed, show message*/
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    System.out.println(response);</b>
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println(TAG);</b>
+<b class="nc">&nbsp;                        System.out.println( &quot;Error: &quot; + e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;NotificationMarkAsRead&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                System.out.println(&quot;Notification Fragment markAsRead - Read All - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 24-11-2022
+&nbsp;     * mark all notifications as read
+&nbsp;     */
+&nbsp;    public void markAllAsRead()
+&nbsp;    {
+&nbsp;        /*Step 1 - setup Retrofit*/
+<b class="nc">&nbsp;        Retrofit service = HTTPService.getInstance();</b>
+<b class="nc">&nbsp;        HTTPRequest api = service.create(HTTPRequest.class);</b>
+&nbsp;
+&nbsp;        /*Step 2 - prepare HEADER*/
+&nbsp;
+&nbsp;        /*Step 3 - make request*/
+<b class="nc">&nbsp;        Call&lt;NotificationMarkAllAsRead&gt; container = api.notificationMarkAllAsRead(header);</b>
+&nbsp;
+&nbsp;        /*Step 4 - listen for response*/
+<b class="nc">&nbsp;        container.enqueue(new Callback&lt;NotificationMarkAllAsRead&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onResponse(@NonNull Call&lt;NotificationMarkAllAsRead&gt; call, @NonNull Response&lt;NotificationMarkAllAsRead&gt; response) {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+<b class="nc">&nbsp;                if(response.isSuccessful())</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    NotificationMarkAllAsRead content = response.body();</b>
+<b class="nc">&nbsp;                    assert content != null;</b>
+<b class="nc">&nbsp;                    int result = content.getResult();</b>
+<b class="nc">&nbsp;                    if( result == 1)</b>
+&nbsp;                    {
+&nbsp;                        /*update recycler view &amp; the number of unread notification*/
+<b class="nc">&nbsp;                        viewModel.readAll(header);</b>
+<b class="nc">&nbsp;                        HomepageActivity.getInstance().setNumberOnNotificationIcon();</b>
+&nbsp;
+&nbsp;
+&nbsp;                        /*show successful message dialog*/
+<b class="nc">&nbsp;                        Dialog dialog = new Dialog(context);</b>
+<b class="nc">&nbsp;                        dialog.announce();</b>
+<b class="nc">&nbsp;                        dialog.btnOK.setOnClickListener(view-&gt;dialog.close());</b>
+<b class="nc">&nbsp;                        String title = context.getString(R.string.success);</b>
+<b class="nc">&nbsp;                        String message = context.getString(R.string.successful_action);</b>
+<b class="nc">&nbsp;                        dialog.show(title, message, R.drawable.ic_check);</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="nc">&nbsp;                if(response.errorBody() != null)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    System.out.println(response);</b>
+&nbsp;                    try
+&nbsp;                    {
+<b class="nc">&nbsp;                        JSONObject jObjError = new JSONObject(response.errorBody().string());</b>
+<b class="nc">&nbsp;                        System.out.println( jObjError );</b>
+&nbsp;                    }
+&nbsp;                    catch (Exception e) {
+<b class="nc">&nbsp;                        System.out.println( &quot;Error: &quot; + e.getMessage() );</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void onFailure(@NonNull Call&lt;NotificationMarkAllAsRead&gt; call, @NonNull Throwable t) {
+<b class="nc">&nbsp;                System.out.println(&quot;Notification Fragment markAllAsRead - Read All - error: &quot; + t.getMessage());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

@@ -1,10 +1,7 @@
 package com.example.do_an_tot_nghiep.Specialitypage;
 
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,16 +26,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
-/**
- * @author Phong-Kaster
- * @since 21-11-2022
- * Speciality page activity
- * this activity is used to show speciality's information and related doctors
- */
 public class SpecialitypageActivity extends AppCompatActivity {
 
     private final String TAG = "Speciality-page Activity";
@@ -73,10 +62,6 @@ public class SpecialitypageActivity extends AppCompatActivity {
         Tooltip.setLocale(this, sharedPreferences);
     }
 
-    /**
-     * @since 21-11-2022
-     * setup component
-     */
     private void setupComponent()
     {
         txtName = findViewById(R.id.txtName);
@@ -97,20 +82,15 @@ public class SpecialitypageActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
     }
 
-    /**
-     * @since 21-11-2022
-     * setup view model
-     */
     private void setupViewModel()
     {
-        /*declare*/
         SpecialitypageViewModel viewModel = new ViewModelProvider(this).get(SpecialitypageViewModel.class);
         viewModel.instantiate();
 
 
-        /*setup headers & send request*/
         Map<String, String> header = globalVariable.getHeaders();
-        viewModel.specialityReadById(header, specialityId);
+        // FIX: Gọi đúng tên hàm trong ViewModel
+        viewModel.readById(header, specialityId);
 
 
         Map<String, String> parameters = new HashMap<>();
@@ -118,24 +98,16 @@ public class SpecialitypageActivity extends AppCompatActivity {
         viewModel.doctorReadAll(header, parameters);
 
 
-        /*animation*/
         viewModel.getAnimation().observe(this, aBoolean -> {
-            if(aBoolean)
-            {
-                loadingScreen.start();
-            }
-            else
-            {
-                loadingScreen.stop();
-            }
+            if(aBoolean) loadingScreen.start();
+            else loadingScreen.stop();
         });
 
 
 
-        /*listen for response*/
         viewModel.getDoctorReadAllResponse().observe(this, response->{
+            if (response == null) return;
             int result = response.getResult();
-
             try
             {
                 if( result == 1)
@@ -145,20 +117,18 @@ public class SpecialitypageActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(this, response.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
             catch (Exception ex)
             {
-                System.out.println(TAG);
-                System.out.println(ex.getMessage());
-                Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
 
-        viewModel.getSpecialityReadByIdResponse().observe(this, response->{
+        // FIX: Gọi đúng tên hàm lấy dữ liệu trong ViewModel
+        viewModel.getResponse().observe(this, response->{
+            if (response == null) return;
             int result = response.getResult();
             try
             {
@@ -169,57 +139,34 @@ public class SpecialitypageActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();
-                    finish();
+                    Toast.makeText(this, response.getMsg(), Toast.LENGTH_SHORT).show();
                 }
             }
             catch (Exception ex)
             {
-                System.out.println(TAG);
-                System.out.println(ex.getMessage());
-                Toast.makeText(this, getString(R.string.oops_there_is_an_issue), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
     }
 
-    /**
-     * @since 22-11-2022
-     */
     private void setupEvent()
     {
         btnBack.setOnClickListener(view->finish());
     }
 
-    /**
-     * @author Phong-Kaster
-     * @since 21-11-2022
-     * setup doctor recycler view
-     */
     private void setupDoctorRecyclerView(List<Doctor> list)
     {
         DoctorRecyclerView doctorAdapter = new DoctorRecyclerView(this, list);
         recyclerViewDoctor.setAdapter(doctorAdapter);
-
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewDoctor.setLayoutManager(manager);
     }
 
-
-    /**
-     * @since 21-11-2022
-     * @param speciality is the speciality that users have clicked from HomepageActivity
-     */
     private void printSpecialityInformation(Speciality speciality)
     {
         String name = speciality.getName();
-        String description = "<html>" +
-                "<style>body{font-size: 11px}</style>"+
-                "<body>"+  speciality.getDescription() +
-                "</body>" +
-                "</html>";
+        String description = "<html><style>body{font-size: 11px}</style><body>"+  speciality.getDescription() +"</body></html>";
         String image = Constant.UPLOAD_URI() + speciality.getImage();
-
         txtName.setText(name);
         Picasso.get().load(image).into(imgAvatar);
         wvwDescription.loadDataWithBaseURL(null, description, "text/HTML", "UTF-8", null);

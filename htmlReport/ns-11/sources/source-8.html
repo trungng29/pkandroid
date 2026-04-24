@@ -1,0 +1,221 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HandbookRecyclerView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.RecyclerView</a>
+</div>
+
+<h1>Coverage Summary for Class: HandbookRecyclerView (com.example.do_an_tot_nghiep.RecyclerView)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HandbookRecyclerView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">HandbookRecyclerView$ViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.RecyclerView;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.LinearLayout;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Handbook;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.Webpage.WebpageActivity;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class HandbookRecyclerView extends RecyclerView.Adapter&lt;HandbookRecyclerView.ViewHolder&gt; {
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;    private List&lt;Handbook&gt; list;
+&nbsp;    private int layout;
+&nbsp;
+<b class="nc">&nbsp;    public HandbookRecyclerView(Context context, List&lt;Handbook&gt; list, int layout) {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.list = list;</b>
+<b class="nc">&nbsp;        this.layout = layout;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        View view = LayoutInflater</b>
+<b class="nc">&nbsp;                .from(parent.getContext())</b>
+<b class="nc">&nbsp;                .inflate(layout, parent, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new ViewHolder(view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+<b class="nc">&nbsp;        Handbook handbook = list.get(position);</b>
+<b class="nc">&nbsp;        String image = handbook.getImage();</b>
+<b class="nc">&nbsp;        String title = handbook.getTitle();</b>
+<b class="nc">&nbsp;        String url = handbook.getUrl();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Picasso.get().load(image).into(holder.image);</b>
+<b class="nc">&nbsp;        holder.name.setText(title);</b>
+&nbsp;
+<b class="nc">&nbsp;        holder.name.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, WebpageActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;url&quot;, url);</b>
+<b class="nc">&nbsp;            context.startActivity(intent);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        holder.image.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, WebpageActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;url&quot;, url);</b>
+<b class="nc">&nbsp;            context.startActivity(intent);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        holder.layout.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Intent intent = new Intent(context, WebpageActivity.class);</b>
+<b class="nc">&nbsp;            intent.putExtra(&quot;url&quot;, url);</b>
+<b class="nc">&nbsp;            context.startActivity(intent);</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return list.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    protected static class ViewHolder extends RecyclerView.ViewHolder{</b>
+&nbsp;
+&nbsp;        private final LinearLayout layout;
+&nbsp;        private final ImageView image;
+&nbsp;        private final TextView name;
+&nbsp;
+&nbsp;
+&nbsp;        public ViewHolder(@NonNull View itemView) {
+<b class="nc">&nbsp;            super(itemView);</b>
+<b class="nc">&nbsp;            layout = itemView.findViewById(R.id.elementLayout);</b>
+<b class="nc">&nbsp;            image = itemView.findViewById(R.id.elementImage);</b>
+<b class="nc">&nbsp;            name = itemView.findViewById(R.id.elementName);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

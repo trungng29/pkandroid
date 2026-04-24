@@ -1,0 +1,529 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > LoginActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Loginpage</a>
+</div>
+
+<h1>Coverage Summary for Class: LoginActivity (com.example.do_an_tot_nghiep.Loginpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/103)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LoginActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/124)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Loginpage;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.util.Log;
+&nbsp;import android.widget.EditText;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.activity.result.ActivityResultLauncher;
+&nbsp;import androidx.activity.result.contract.ActivityResultContracts;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.User;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.google.android.gms.auth.api.signin.GoogleSignIn;
+&nbsp;import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+&nbsp;import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+&nbsp;import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+&nbsp;import com.google.firebase.FirebaseException;
+&nbsp;import com.google.firebase.auth.FirebaseAuth;
+&nbsp;import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+&nbsp;import com.google.firebase.auth.FirebaseUser;
+&nbsp;import com.google.firebase.auth.PhoneAuthCredential;
+&nbsp;import com.google.firebase.auth.PhoneAuthOptions;
+&nbsp;import com.google.firebase.auth.PhoneAuthProvider;
+&nbsp;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+<b class="nc">&nbsp;public class LoginActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Login Activity&quot;;</b>
+&nbsp;    private EditText txtPhoneNumber;
+&nbsp;    private AppCompatButton btnGetVerificationCode;
+&nbsp;    private ImageButton btnGoogleLogin;
+&nbsp;    private String phoneNumber;
+&nbsp;
+&nbsp;    // login with phone number
+&nbsp;    private FirebaseAuth firebaseAuth;
+&nbsp;
+&nbsp;    //login with google account
+&nbsp;    private GoogleSignInOptions googleSignInOption;
+&nbsp;    private GoogleSignInClient googleSignInClient;
+&nbsp;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;    private LoginViewModel viewModel;
+&nbsp;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private SharedPreferences sharedPreferences;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_login);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @since 15-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        txtPhoneNumber = findViewById(R.id.txtPhoneNumber);</b>
+<b class="nc">&nbsp;        btnGetVerificationCode = findViewById(R.id.btnGetVerificationCode);</b>
+<b class="nc">&nbsp;        btnGoogleLogin = findViewById(R.id.btnGoogleLogin);</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog = new Dialog(this);</b>
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(this);</b>
+&nbsp;
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable)this.getApplication();</b>
+<b class="nc">&nbsp;        sharedPreferences = this.getApplication()</b>
+<b class="nc">&nbsp;                .getSharedPreferences(globalVariable.getSharedReferenceKey(), MODE_PRIVATE);</b>
+&nbsp;
+&nbsp;        //login with phone number
+<b class="nc">&nbsp;        firebaseAuth = FirebaseAuth.getInstance();</b>
+<b class="nc">&nbsp;        firebaseAuth.setLanguageCode(&quot;vi&quot;);</b>
+&nbsp;
+&nbsp;        //login with google account
+<b class="nc">&nbsp;        googleSignInOption = new GoogleSignInOptions</b>
+&nbsp;                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+<b class="nc">&nbsp;                .requestEmail()</b>
+<b class="nc">&nbsp;                .build();</b>
+<b class="nc">&nbsp;        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOption);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @since 15-11-2022
+&nbsp;     * setup event
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+&nbsp;        /*BUTTON GET CONFIRM CODE*/
+<b class="nc">&nbsp;        btnGetVerificationCode.setOnClickListener(view -&gt; {</b>
+<b class="nc">&nbsp;            phoneNumber = txtPhoneNumber.getText().toString();</b>
+&nbsp;
+&nbsp;            /*Step 1 - verify input */
+<b class="nc">&nbsp;            if(TextUtils.isEmpty(phoneNumber) )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                Toast.makeText(this, R.string.do_not_let_phone_number_empty, Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            }
+<b class="nc">&nbsp;            if(phoneNumber.length() == 10)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                Toast.makeText(this, R.string.only_enter_number_except_first_zero, Toast.LENGTH_SHORT).show();</b>
+&nbsp;                return;
+&nbsp;            }
+<b class="nc">&nbsp;            String phoneNumberFormatted = &quot;+84&quot; + phoneNumber;</b>
+&nbsp;
+&nbsp;            /*Step 2 - setup phone auth options*/
+<b class="nc">&nbsp;            PhoneAuthOptions options =</b>
+<b class="nc">&nbsp;                    PhoneAuthOptions.newBuilder(firebaseAuth)</b>
+<b class="nc">&nbsp;                            .setPhoneNumber(phoneNumberFormatted)       // Phone number to verify</b>
+<b class="nc">&nbsp;                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit</b>
+<b class="nc">&nbsp;                            .setActivity(this)                 // Activity (for callback binding)</b>
+<b class="nc">&nbsp;                            .setCallbacks(</b>
+<b class="nc">&nbsp;                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {</b>
+&nbsp;
+&nbsp;                                        @Override
+&nbsp;                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
+&nbsp;                                            // This callback will be invoked in two situations:
+&nbsp;                                            // 1 - Instant verification. In some cases the phone number can be instantly
+&nbsp;                                            //     verified without needing to send or enter a verification code.
+&nbsp;                                            // 2 - Auto-retrieval. On some devices Google Play services can automatically
+&nbsp;                                            //     detect the incoming verification SMS and perform verification without
+&nbsp;                                            //     user action.
+&nbsp;                                            //Log.d(TAG, &quot;onVerificationCompleted:&quot; + credential);
+&nbsp;
+<b class="nc">&nbsp;                                            System.out.println(TAG);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;onVerificationCompleted&quot;);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;signInWithPhoneAuthCredential has been called !&quot;);</b>
+<b class="nc">&nbsp;                                            signInWithPhoneAuthCredential(credential);</b>
+&nbsp;                                        }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;                                        @Override
+&nbsp;                                        public void onVerificationFailed(@NonNull FirebaseException e) {
+&nbsp;                                            // This callback is invoked in an invalid request for verification is made,
+&nbsp;                                            // for instance if the the phone number format is not valid.
+&nbsp;
+<b class="nc">&nbsp;                                            Toast.makeText(LoginActivity.this, getString(R.string.verification_failed), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                                            System.out.println(TAG);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;Error: &quot;+e.getMessage());</b>
+<b class="nc">&nbsp;                                            System.out.println(e);</b>
+&nbsp;
+&nbsp;                                        }
+&nbsp;
+&nbsp;                                        @Override
+&nbsp;                                        public void onCodeSent(@NonNull String verificationId,
+&nbsp;                                                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
+&nbsp;                                            // The SMS verification code has been sent to the provided phone number, we
+&nbsp;                                            // now need to ask the user to enter the code and then construct a credential
+&nbsp;                                            // by combining the code with a verification ID.
+&nbsp;
+<b class="nc">&nbsp;                                            System.out.println(TAG);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;onCodeSent&quot;);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;phone number: &quot; + phoneNumber);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;verification Id: &quot; + verificationId);</b>
+&nbsp;
+<b class="nc">&nbsp;                                            Intent intent = new Intent(LoginActivity.this, VerificationActivity.class);</b>
+<b class="nc">&nbsp;                                            intent.putExtra(&quot;verificationId&quot;, verificationId);</b>
+<b class="nc">&nbsp;                                            intent.putExtra(&quot;phoneNumber&quot;, phoneNumber);</b>
+<b class="nc">&nbsp;                                            startActivity(intent);</b>
+&nbsp;                                        }
+&nbsp;
+&nbsp;
+&nbsp;                                        @Override
+&nbsp;                                        public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
+<b class="nc">&nbsp;                                            super.onCodeAutoRetrievalTimeOut(s);</b>
+<b class="nc">&nbsp;                                            System.out.println(TAG);</b>
+<b class="nc">&nbsp;                                            System.out.println(&quot;onCodeAutoRetrievalTimeOut&quot;);</b>
+<b class="nc">&nbsp;                                            System.out.println(s);</b>
+&nbsp;                                        }
+&nbsp;                                    }
+&nbsp;                            )          // OnVerificationStateChangedCallbacks
+<b class="nc">&nbsp;                            .build();/*end Step 2*/</b>
+&nbsp;
+&nbsp;            /*Step 3 - setup phone auth provider*/
+<b class="nc">&nbsp;            PhoneAuthProvider.verifyPhoneNumber(options);</b>
+&nbsp;        });/*end BUTTON GET CONFIRM CODE*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;        /*BUTTON GOOGLE LOGIN*/
+<b class="nc">&nbsp;        btnGoogleLogin.setOnClickListener(view-&gt;{</b>
+<b class="nc">&nbsp;            Log.d(TAG, &quot;BUTTON GOOGLE LOGIN CLICKED&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            Intent intent = googleSignInClient.getSignInIntent();</b>
+<b class="nc">&nbsp;            startGoogleSignInForResult.launch(intent);</b>
+&nbsp;        });/*end BUTTON GOOGLE LOGIN*/
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @since 16-11-2022
+&nbsp;     * setup view model
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+<b class="nc">&nbsp;        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.getAnimation().observe(this, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if( aBoolean )</b>
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.start();</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                loadingScreen.stop();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /*set up dialog*/
+<b class="nc">&nbsp;        dialog.announce();</b>
+<b class="nc">&nbsp;        dialog.btnOK.setOnClickListener(view-&gt;dialog.close());</b>
+&nbsp;
+&nbsp;        /* *******************************OPTION LOGIN WITH PHONE NUMBER*********************************************/
+<b class="nc">&nbsp;        viewModel.getLoginWithPhoneResponse().observe(this, loginResponse -&gt; {</b>
+&nbsp;
+<b class="nc">&nbsp;            if (loginResponse == null) {</b>
+<b class="nc">&nbsp;                dialog.show(getString(R.string.attention),</b>
+<b class="nc">&nbsp;                        getString(R.string.oops_there_is_an_issue),</b>
+<b class="nc">&nbsp;                        R.drawable.ic_close);</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            int result = loginResponse.getResult();</b>
+<b class="nc">&nbsp;            String message = loginResponse.getMsg();</b>
+&nbsp;
+&nbsp;            /*Case 1 - login successfully*/
+<b class="nc">&nbsp;            if( result == 1)</b>
+&nbsp;            {
+&nbsp;                /*Lay du lieu tu API ra*/
+<b class="nc">&nbsp;                String token = loginResponse.getAccessToken();</b>
+<b class="nc">&nbsp;                User user = loginResponse.getData();</b>
+&nbsp;
+&nbsp;
+&nbsp;                /*Lay du lieu vao Global Variable*/
+<b class="nc">&nbsp;                globalVariable.setAccessToken( &quot;JWT &quot; + token );</b>
+<b class="nc">&nbsp;                globalVariable.setAuthUser(user);</b>
+&nbsp;
+&nbsp;                /*luu accessToken vao Shared Reference*/
+<b class="nc">&nbsp;                sharedPreferences.edit().putString(&quot;accessToken&quot;, &quot;JWT &quot; + token.trim()).apply();</b>
+&nbsp;
+&nbsp;                /*hien thi thong bao la dang nhap thanh cong*/
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.login_successfully), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);</b>
+<b class="nc">&nbsp;                startActivity(intent);</b>
+&nbsp;            }
+&nbsp;            /*Case 2 - login failed*/
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                dialog.show(getString(R.string.attention),</b>
+&nbsp;                        message,
+<b class="nc">&nbsp;                        R.drawable.ic_close);</b>
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show();</b>
+&nbsp;
+&nbsp;            }
+&nbsp;
+&nbsp;        });/*end OPTION LOGIN WITH PHONE NUMBER*/
+&nbsp;
+&nbsp;
+&nbsp;        /* *******************************OPTION LOGIN WITH GOOGLE*********************************************/
+<b class="nc">&nbsp;        viewModel.getLoginWithGoogleResponse().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            String message = response.getMsg();</b>
+&nbsp;
+<b class="nc">&nbsp;            if( result == 1)</b>
+&nbsp;            {
+&nbsp;                /*Lay du lieu tu API ra*/
+<b class="nc">&nbsp;                String token = response.getAccessToken();</b>
+<b class="nc">&nbsp;                User user = response.getData();</b>
+&nbsp;
+&nbsp;
+&nbsp;                /*Lay du lieu vao Global Variable*/
+<b class="nc">&nbsp;                globalVariable.setAccessToken( &quot;JWT &quot; + token );</b>
+<b class="nc">&nbsp;                globalVariable.setAuthUser(user);</b>
+&nbsp;
+&nbsp;                /*luu accessToken vao Shared Reference*/
+<b class="nc">&nbsp;                sharedPreferences.edit().putString(&quot;accessToken&quot;, &quot;JWT &quot; + token.trim()).apply();</b>
+&nbsp;
+&nbsp;                /*hien thi thong bao la dang nhap thanh cong*/
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.login_successfully), Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);</b>
+<b class="nc">&nbsp;                startActivity(intent);</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                dialog.show(getString(R.string.attention),</b>
+&nbsp;                        message,
+<b class="nc">&nbsp;                        R.drawable.ic_close);</b>
+<b class="nc">&nbsp;                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show();</b>
+&nbsp;            }
+&nbsp;        });/*end OPTION LOGIN WITH GOOGLE*/
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * @since 15-11-2022
+&nbsp;     * LOGIN WITH PHONE NUMBER
+&nbsp;     * sign in with phone auth credential
+&nbsp;     */
+&nbsp;    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential)
+&nbsp;    {
+<b class="nc">&nbsp;        firebaseAuth.signInWithCredential(credential)</b>
+<b class="nc">&nbsp;                .addOnCompleteListener(this, task -&gt; {</b>
+<b class="nc">&nbsp;                    if (task.isSuccessful())</b>
+&nbsp;                    {
+<b class="nc">&nbsp;                        FirebaseUser user = task.getResult().getUser();</b>
+&nbsp;
+<b class="nc">&nbsp;                        assert user != null;</b>
+<b class="nc">&nbsp;                        String phone = &quot;0&quot; + phoneNumber;// append the zero letter in the first position of phone number</b>
+<b class="nc">&nbsp;                        String password = user.getUid();</b>
+&nbsp;                        
+&nbsp;                        // IN RA UID ĐỂ COPY VÀO DATABASE
+<b class="nc">&nbsp;                        Log.d(&quot;BYPASS_INFO&quot;, &quot;Số điện thoại: &quot; + phone);</b>
+<b class="nc">&nbsp;                        Log.d(&quot;BYPASS_INFO&quot;, &quot;Mã UID (Copy cái này dán vào cột password trong MySQL): &quot; + password);</b>
+&nbsp;
+<b class="nc">&nbsp;                        viewModel.loginWithPhone(phone, password);</b>
+&nbsp;                    }
+&nbsp;                    else
+&nbsp;                    {
+<b class="nc">&nbsp;                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {</b>
+&nbsp;                            // The verification code entered was invalid
+<b class="nc">&nbsp;                            Toast.makeText(LoginActivity.this, &quot;Exception&quot;, Toast.LENGTH_SHORT).show();</b>
+<b class="nc">&nbsp;                            Log.d(TAG, &quot;error: &quot; + task.getException() );</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                });
+&nbsp;    }//** end signInWithPhoneAuthCredential
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 16-11-2022
+&nbsp;     * @author Phong-Kaster
+&nbsp;     * LOGIN WITH GOOGLE ACCOUNT
+&nbsp;     * START SIGN UP ACTIVITY FOR RESULT
+&nbsp;     */
+<b class="nc">&nbsp;    private final ActivityResultLauncher&lt;Intent&gt; startGoogleSignInForResult = registerForActivityResult(</b>
+&nbsp;            new ActivityResultContracts.StartActivityForResult(),
+&nbsp;            result -&gt; {
+<b class="nc">&nbsp;                int statusResult = result.getResultCode();</b>
+<b class="nc">&nbsp;                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);</b>
+&nbsp;
+<b class="nc">&nbsp;                if( statusResult == RESULT_OK)</b>
+&nbsp;                {
+&nbsp;                    /*Step 1 - get email &amp; password to server to authentication | sign up*/
+<b class="nc">&nbsp;                    assert account != null;</b>
+<b class="nc">&nbsp;                    String email = account.getEmail();</b>
+<b class="nc">&nbsp;                    String password = account.getId();</b>
+&nbsp;
+&nbsp;                    /*Step 2 - login*/
+<b class="nc">&nbsp;                    viewModel.loginWithGoogle(email, password);</b>
+&nbsp;                }
+&nbsp;                else
+&nbsp;                {
+<b class="nc">&nbsp;                    Toast.makeText(this, R.string.oops_there_is_an_issue, Toast.LENGTH_SHORT).show();</b>
+&nbsp;                }
+&nbsp;            });/*end startGoogleSignInForResult*/
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

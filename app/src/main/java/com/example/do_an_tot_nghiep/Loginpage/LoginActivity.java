@@ -330,9 +330,10 @@ public class LoginActivity extends AppCompatActivity {
                         assert user != null;
                         String phone = "0" + phoneNumber;// append the zero letter in the first position of phone number
                         String password = user.getUid();
-                        System.out.println(TAG);
-                        System.out.println("phone: " + phone);
-                        System.out.println("password: " + password);
+                        
+                        // IN RA UID ĐỂ COPY VÀO DATABASE
+                        Log.d("BYPASS_INFO", "Số điện thoại: " + phone);
+                        Log.d("BYPASS_INFO", "Mã UID (Copy cái này dán vào cột password trong MySQL): " + password);
 
                         viewModel.loginWithPhone(phone, password);
                     }

@@ -1,0 +1,260 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppointmentQueueRecyclerView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.RecyclerView</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentQueueRecyclerView (com.example.do_an_tot_nghiep.RecyclerView)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentQueueRecyclerView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/34)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppointmentQueueRecyclerView$ViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.RecyclerView;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Appointment;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Notification;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Queue;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class AppointmentQueueRecyclerView extends RecyclerView.Adapter&lt;AppointmentQueueRecyclerView.ViewHolder&gt; {
+&nbsp;
+&nbsp;    private final Context context;
+&nbsp;    private final List&lt;Queue&gt; list;
+&nbsp;    private final int myPosition;
+&nbsp;
+&nbsp;    public AppointmentQueueRecyclerView(Context context, List&lt;Queue&gt; list, int  myPosition)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.list = list;</b>
+<b class="nc">&nbsp;        this.myPosition = myPosition;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        View view = LayoutInflater</b>
+<b class="nc">&nbsp;                .from(parent.getContext())</b>
+<b class="nc">&nbsp;                .inflate(R.layout.recycler_view_element_appointment_queue, parent, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new AppointmentQueueRecyclerView.ViewHolder(view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+<b class="nc">&nbsp;        Queue appointment = list.get(position);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        int yourPosition = appointment.getPosition();// this is your position in queue</b>
+<b class="nc">&nbsp;        String numericalOrder = String.valueOf(appointment.getNumericalOrder());// this is your numerical order when you go to hospital</b>
+<b class="nc">&nbsp;        String patientName = appointment.getPatientName();</b>
+&nbsp;
+<b class="nc">&nbsp;        holder.elementNumericalOrder.setText(numericalOrder);</b>
+<b class="nc">&nbsp;        holder.elementPatientName.setText(patientName);</b>
+&nbsp;
+&nbsp;
+&nbsp;        /*position == 0 means he is the first one of the list*/
+<b class="nc">&nbsp;        if( position == 0 )</b>
+&nbsp;        {
+<b class="nc">&nbsp;            holder.elementStatus.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            holder.elementNumericalOrder.setTextColor(context.getResources().getColor(R.color.colorGreen, null));</b>
+<b class="nc">&nbsp;            holder.elementPatientName.setTextColor(context.getResources().getColor(R.color.colorGreen, null));</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            holder.elementStatus.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            holder.elementNumericalOrder.setTextColor(context.getResources().getColor(R.color.colorTextBlack, null));</b>
+<b class="nc">&nbsp;            holder.elementPatientName.setTextColor(context.getResources().getColor(R.color.colorTextBlack, null));</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /*if your position in queue lays on the list-&gt; highlight your position with orange color &amp; send notification*/
+<b class="nc">&nbsp;        if( yourPosition == myPosition)</b>
+&nbsp;        {
+&nbsp;            /*to mau CAM cho ten nguoi dung*/
+<b class="nc">&nbsp;            holder.elementStatus.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            holder.elementStatus.setText(R.string.you);</b>
+&nbsp;
+<b class="nc">&nbsp;            holder.elementStatus.setTextColor(context.getResources().getColor(R.color.colorOrange, null));</b>
+<b class="nc">&nbsp;            holder.elementPatientName.setTextColor(context.getResources().getColor(R.color.colorOrange, null));</b>
+<b class="nc">&nbsp;            holder.elementNumericalOrder.setTextColor(context.getResources().getColor(R.color.colorOrange, null));</b>
+&nbsp;
+&nbsp;            /*tao noi dung cho Notification*/
+<b class="nc">&nbsp;            com.example.do_an_tot_nghiep.Helper.Notification notification = new com.example.do_an_tot_nghiep.Helper.Notification(context);</b>
+<b class="nc">&nbsp;            String title = context.getString(R.string.app_name);</b>
+<b class="nc">&nbsp;            String text = context.getString(R.string.it_is_your_turn);</b>
+<b class="nc">&nbsp;            String bigText = patientName + &quot; ơi! Hãy chuẩn bị, sắp tới lượt khám của bạn rồi!&quot;;</b>
+<b class="nc">&nbsp;            notification.setup(title, text, bigText );</b>
+<b class="nc">&nbsp;            notification.show();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return list.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    protected static class ViewHolder extends RecyclerView.ViewHolder {</b>
+&nbsp;
+&nbsp;        private final TextView elementNumericalOrder;
+&nbsp;        private final TextView elementPatientName;
+&nbsp;        private final TextView elementStatus;
+&nbsp;
+&nbsp;        public ViewHolder(@NonNull View itemView) {
+<b class="nc">&nbsp;            super(itemView);</b>
+&nbsp;
+<b class="nc">&nbsp;            elementNumericalOrder = itemView.findViewById(R.id.elementNumericalOrder);</b>
+<b class="nc">&nbsp;            elementPatientName = itemView.findViewById(R.id.elementPatientName);</b>
+<b class="nc">&nbsp;            elementStatus = itemView.findViewById(R.id.elementStatus);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

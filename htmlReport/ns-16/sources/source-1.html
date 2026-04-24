@@ -1,0 +1,290 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SpecialitypageActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Specialitypage</a>
+</div>
+
+<h1>Coverage Summary for Class: SpecialitypageActivity (com.example.do_an_tot_nghiep.Specialitypage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SpecialitypageActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/57)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Specialitypage;
+&nbsp;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.webkit.WebView;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.TextView;
+&nbsp;import android.widget.Toast;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.LoadingScreen;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Doctor;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Speciality;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.DoctorRecyclerView;
+&nbsp;import com.squareup.picasso.Picasso;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+<b class="nc">&nbsp;public class SpecialitypageActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Speciality-page Activity&quot;;</b>
+&nbsp;    private TextView txtName;
+&nbsp;    private WebView wvwDescription;
+&nbsp;    private RecyclerView recyclerViewDoctor;
+&nbsp;
+&nbsp;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private String specialityId;
+&nbsp;
+&nbsp;    private LoadingScreen loadingScreen;
+&nbsp;    private Dialog dialog;
+&nbsp;    private ImageView imgAvatar;
+&nbsp;
+&nbsp;    private ImageButton btnBack;
+&nbsp;    private SharedPreferences sharedPreferences;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_specialitypage);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onResume() {
+<b class="nc">&nbsp;        super.onResume();</b>
+<b class="nc">&nbsp;        Tooltip.setLocale(this, sharedPreferences);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        txtName = findViewById(R.id.txtName);</b>
+<b class="nc">&nbsp;        wvwDescription = findViewById(R.id.wvwDescription);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor = findViewById(R.id.recyclerViewDoctor);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        globalVariable = (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        sharedPreferences = this.getApplication()</b>
+<b class="nc">&nbsp;                .getSharedPreferences(globalVariable.getSharedReferenceKey(), MODE_PRIVATE);</b>
+<b class="nc">&nbsp;        specialityId = getIntent().getStringExtra(&quot;specialityId&quot;);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        loadingScreen = new LoadingScreen(this);</b>
+<b class="nc">&nbsp;        dialog = new Dialog(this);</b>
+<b class="nc">&nbsp;        imgAvatar = findViewById(R.id.imgAvatar);</b>
+&nbsp;
+<b class="nc">&nbsp;        btnBack = findViewById(R.id.btnBack);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+<b class="nc">&nbsp;        SpecialitypageViewModel viewModel = new ViewModelProvider(this).get(SpecialitypageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Map&lt;String, String&gt; header = globalVariable.getHeaders();</b>
+&nbsp;        // FIX: Gọi đúng tên hàm trong ViewModel
+<b class="nc">&nbsp;        viewModel.readById(header, specialityId);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Map&lt;String, String&gt; parameters = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        parameters.put(&quot;speciality_id&quot;, specialityId);</b>
+<b class="nc">&nbsp;        viewModel.doctorReadAll(header, parameters);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getAnimation().observe(this, aBoolean -&gt; {</b>
+<b class="nc">&nbsp;            if(aBoolean) loadingScreen.start();</b>
+<b class="nc">&nbsp;            else loadingScreen.stop();</b>
+&nbsp;        });
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        viewModel.getDoctorReadAllResponse().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            if (response == null) return;</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    List&lt;Doctor&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                    setupDoctorRecyclerView(list);</b>
+&nbsp;                }
+&nbsp;                else
+&nbsp;                {
+<b class="nc">&nbsp;                    Toast.makeText(this, response.getMsg(), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            catch (Exception ex)
+&nbsp;            {
+<b class="nc">&nbsp;                finish();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        // FIX: Gọi đúng tên hàm lấy dữ liệu trong ViewModel
+<b class="nc">&nbsp;        viewModel.getResponse().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            if (response == null) return;</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+&nbsp;            try
+&nbsp;            {
+<b class="nc">&nbsp;                if( result == 1)</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    Speciality speciality = response.getData();</b>
+<b class="nc">&nbsp;                    printSpecialityInformation(speciality);</b>
+&nbsp;                }
+&nbsp;                else
+&nbsp;                {
+<b class="nc">&nbsp;                    Toast.makeText(this, response.getMsg(), Toast.LENGTH_SHORT).show();</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            catch (Exception ex)
+&nbsp;            {
+<b class="nc">&nbsp;                finish();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnBack.setOnClickListener(view-&gt;finish());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupDoctorRecyclerView(List&lt;Doctor&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        DoctorRecyclerView doctorAdapter = new DoctorRecyclerView(this, list);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor.setAdapter(doctorAdapter);</b>
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        recyclerViewDoctor.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printSpecialityInformation(Speciality speciality)
+&nbsp;    {
+<b class="nc">&nbsp;        String name = speciality.getName();</b>
+<b class="nc">&nbsp;        String description = &quot;&lt;html&gt;&lt;style&gt;body{font-size: 11px}&lt;/style&gt;&lt;body&gt;&quot;+  speciality.getDescription() +&quot;&lt;/body&gt;&lt;/html&gt;&quot;;</b>
+<b class="nc">&nbsp;        String image = Constant.UPLOAD_URI() + speciality.getImage();</b>
+<b class="nc">&nbsp;        txtName.setText(name);</b>
+<b class="nc">&nbsp;        Picasso.get().load(image).into(imgAvatar);</b>
+<b class="nc">&nbsp;        wvwDescription.loadDataWithBaseURL(null, description, &quot;text/HTML&quot;, &quot;UTF-8&quot;, null);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

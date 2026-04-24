@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Constant</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Configuration</a>
+</div>
+
+<h1>Coverage Summary for Class: Constant (com.example.do_an_tot_nghiep.Configuration)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Constant</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    18.2%
+  </span>
+  <span class="absValue">
+    (2/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    18.2%
+  </span>
+  <span class="absValue">
+    (2/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Configuration;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 18-11-2022
+&nbsp; * this class contains all constant variable in this application
+&nbsp; */
+<b class="nc">&nbsp;public class Constant {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 17-11-2022
+&nbsp;     */
+&nbsp;    public static String UPLOAD_URI()
+&nbsp;    {
+&nbsp;        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
+<b class="nc">&nbsp;        return &quot;http://192.168.1.57:8080/assets/uploads/&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 18-11-2022
+&nbsp;     * Use this APP_PATH if testing device is a real hardware device
+&nbsp;     */
+&nbsp;    public static String APP_PATH()
+&nbsp;    {
+&nbsp;        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
+<b class="fc">&nbsp;        return &quot;http://192.168.1.57:8080/&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 18-11-2022
+&nbsp;     * Use this APP_PATH if testing device is the Android emulator
+&nbsp;     */
+&nbsp;    public static String APP_PATH_EMULATOR()
+&nbsp;    {
+<b class="nc">&nbsp;        return &quot;http://192.168.1.57:8080/&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 18-11-2022
+&nbsp;     * application name
+&nbsp;     */
+&nbsp;    public static String APP_NAME()
+&nbsp;    {
+<b class="nc">&nbsp;        return &quot;Umbrella Health&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String accessToken;
+&nbsp;    public static void setAccessToken(String accessToken)
+&nbsp;    {
+<b class="nc">&nbsp;        Constant.accessToken = accessToken;</b>
+&nbsp;    }
+&nbsp;    public static String getAccessToken()
+&nbsp;    {
+<b class="nc">&nbsp;        return Constant.accessToken;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 30-11-2022
+&nbsp;     * umbrella video
+&nbsp;     */
+&nbsp;    public static String VIDEO_PATH()
+&nbsp;    {
+<b class="nc">&nbsp;        return &quot;https://www.youtube.com/watch?v=W4JA4dbscis&amp;ab_channel=UmbrellaCorporation4&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 22-12-2022
+&nbsp;     */
+&nbsp;    public static String OPEN_WEATHER_MAP_API_KEY()
+&nbsp;    {
+<b class="nc">&nbsp;        return &quot;4167c6d6038647807b56abd84b7d6626&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static  String OPEN_WEATHER_MAP_API_KEY_2()
+&nbsp;    {
+<b class="nc">&nbsp;        return &quot;fc07e74110a9bcbc166c7887e51ec2db&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String OPEN_WEATHER_MAP_PATH()
+&nbsp;    {
+<b class="fc">&nbsp;        return &quot;https://api.openweathermap.org/data/2.5/weather/&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

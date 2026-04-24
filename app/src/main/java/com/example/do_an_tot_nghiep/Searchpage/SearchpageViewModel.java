@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.do_an_tot_nghiep.Container.DoctorReadAll;
 import com.example.do_an_tot_nghiep.Container.ServiceReadAll;
 import com.example.do_an_tot_nghiep.Container.SpecialityReadAll;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
 import com.example.do_an_tot_nghiep.Repository.ServiceRepository;
 import com.example.do_an_tot_nghiep.Repository.SpecialityRepository;
@@ -19,9 +20,9 @@ import java.util.Map;
  */
 public class SearchpageViewModel extends ViewModel {
 
-    private MutableLiveData<SpecialityReadAll> specialityReadAll = new MutableLiveData<>();
-    private MutableLiveData<DoctorReadAll> doctorReadAllResponse = new MutableLiveData<>();
-    private MutableLiveData<ServiceReadAll> serviceReadAllResponse = new MutableLiveData<>();
+    private SingleLiveEvent<SpecialityReadAll> specialityReadAll = new SingleLiveEvent<>();
+    private SingleLiveEvent<DoctorReadAll> doctorReadAllResponse = new SingleLiveEvent<>();
+    private SingleLiveEvent<ServiceReadAll> serviceReadAllResponse = new SingleLiveEvent<>();
     private MutableLiveData<Boolean> animation = new MutableLiveData<>();
 
 
@@ -34,15 +35,15 @@ public class SearchpageViewModel extends ViewModel {
         return animation;
     }
 
-    public MutableLiveData<SpecialityReadAll> getSpecialityReadAll() {
+    public SingleLiveEvent<SpecialityReadAll> getSpecialityReadAll() {
         return specialityReadAll;
     }
 
-    public MutableLiveData<DoctorReadAll> getDoctorReadAllResponse() {
+    public SingleLiveEvent<DoctorReadAll> getDoctorReadAllResponse() {
         return doctorReadAllResponse;
     }
 
-    public MutableLiveData<ServiceReadAll> getServiceReadAllResponse() {
+    public SingleLiveEvent<ServiceReadAll> getServiceReadAllResponse() {
         return serviceReadAllResponse;
     }
 
@@ -70,21 +71,24 @@ public class SearchpageViewModel extends ViewModel {
     /* ******************** DOCTOR READ ALL ********************/
     public void doctorReadAll(Map<String, String> headers, Map<String, String> parameters)
     {
-        doctorReadAllResponse = doctorRepository.readAll(headers, parameters);
+        doctorRepository.readAll(headers, parameters);
+        doctorReadAllResponse = doctorRepository.getReadAllResponse();
         animation = doctorRepository.getAnimation();
     }
 
     /* ******************** SPECIALITY READ ALL ********************/
     public void specialityReadAll(Map<String, String> headers, Map<String, String> parameters)
     {
-        specialityReadAll = specialityRepository.readAll(headers, parameters);
-        animation = doctorRepository.getAnimation();
+        specialityRepository.readAll(headers, parameters);
+        specialityReadAll = specialityRepository.getReadAllResponse();
+        animation = specialityRepository.getAnimation();
     }
 
     /* ******************** SERVICE READ ALL ********************/
     public void serviceReadAll(Map<String, String> headers, Map<String, String> parameters)
     {
-        serviceReadAllResponse = serviceRepository.readAll(headers, parameters);
+        serviceRepository.readAll(headers, parameters);
+        serviceReadAllResponse = serviceRepository.getReadAllResponse();
         animation = serviceRepository.getAnimation();
     }
 }

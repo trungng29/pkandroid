@@ -3,6 +3,7 @@ package com.example.do_an_tot_nghiep.Servicepage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,19 +25,12 @@ import com.example.do_an_tot_nghiep.Model.Doctor;
 import com.example.do_an_tot_nghiep.Model.Service;
 import com.example.do_an_tot_nghiep.R;
 import com.example.do_an_tot_nghiep.RecyclerView.DoctorRecyclerView;
-import com.example.do_an_tot_nghiep.RecyclerView.SpecialityRecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Phong-Kaster
- * @since 22-11-2022
- * Service-page activity
- * this activity shows service's information and button booking
- */
 public class ServicepageActivity extends AppCompatActivity {
 
     private final String TAG = "Service-page Activity";
@@ -72,10 +66,6 @@ public class ServicepageActivity extends AppCompatActivity {
         Tooltip.setLocale(this, sharedPreferences);
     }
 
-    /**
-     * @since 22-11-2022
-     * setup component
-     */
     private void setupComponent()
     {
         serviceId = getIntent().getStringExtra("serviceId");
@@ -95,122 +85,79 @@ public class ServicepageActivity extends AppCompatActivity {
         doctorRecyclerView = findViewById(R.id.doctorRecyclerView);
     }
 
-    /**
-     * @since 22-11-2022
-     * setup view model
-     */
     private void setupViewModel()
     {
         ServicepageViewModel viewModel = new ViewModelProvider(this).get(ServicepageViewModel.class);
         viewModel.instantiate();
 
-        /*prepare HEADER*/
         Map<String, String> header = globalVariable.getHeaders();
 
-        /*listen for response*/
         viewModel.readById(header, serviceId);
         viewModel.getResponse().observe(this, response->{
+            if (isFinishing()) return;
             try
             {
+                if (response == null) {
+                    dialog.show(getString(R.string.attention), "API Service trả về NULL", R.drawable.ic_info);
+                    return;
+                }
                 int result = response.getResult();
-                /*result == 1 => luu thong tin nguoi dung va vao homepage*/
                 if( result == 1)
                 {
                     Service service = response.getData();
                     printServiceInformation(service);
                 }
-                /*result == 0 => thong bao va thoat ung dung*/
                 if( result == 0)
                 {
                     dialog.announce();
-                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
-                    dialog.btnOK.setOnClickListener(view->{
-                        dialog.close();
-                        finish();
-                    });
+                    // Hiển thị message thật từ server thay vì báo lỗi internet
+                    dialog.show(getString(R.string.attention), response.getMsg(), R.drawable.ic_info);
+                    dialog.btnOK.setOnClickListener(view-> dialog.close());
                 }
-
             }
             catch(Exception ex)
             {
-                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
-                dialog.announce();
-                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
-                dialog.btnOK.setOnClickListener(view->{
-                    dialog.close();
-                    finish();
-                });
-            }
-        });/*end viewModel.getResponse()*/
-
-
-        /*animation*/
-        viewModel.getAnimation().observe(this, aBoolean -> {
-            if( aBoolean )
-            {
-                loadingScreen.start();
-            }
-            else
-            {
-                loadingScreen.stop();
+                Log.e(TAG, "Error: " + ex.getMessage());
             }
         });
 
-        /*doctor read all*/
+        viewModel.getAnimation().observe(this, aBoolean -> {
+            if( aBoolean ) loadingScreen.start();
+            else loadingScreen.stop();
+        });
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put("service_id", serviceId);
         viewModel.doctorReadAll(header, parameters);
         viewModel.getDoctorReadAllResponse().observe(this, response->{
+            if (isFinishing()) return;
             try
             {
+                if (response == null) return;
                 int result = response.getResult();
-                /*result == 1 => luu thong tin nguoi dung va vao homepage*/
                 if( result == 1)
                 {
                     List<Doctor> list = response.getData();
                     setupRecyclerView(list);
                 }
-                /*result == 0 => thong bao va thoat ung dung*/
-                if( result == 0)
-                {
-                    dialog.announce();
-                    dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
-                    dialog.btnOK.setOnClickListener(view->{
-                        dialog.close();
-                        finish();
-                    });
+                else if (result == 0 && !isFinishing()) {
+                    dialog.show(getString(R.string.attention), "Không tìm thấy bác sĩ cho dịch vụ này", R.drawable.ic_info);
                 }
-
             }
             catch(Exception ex)
             {
-                /*Neu truy van lau qua ma khong nhan duoc phan hoi thi cung dong ung dung*/
-                dialog.announce();
-                dialog.show(R.string.attention, getString(R.string.check_your_internet_connection), R.drawable.ic_info);
-                dialog.btnOK.setOnClickListener(view->{
-                    dialog.close();
-                    finish();
-                });
+                Log.e(TAG, "Doctor list error: " + ex.getMessage());
             }
         });
     }
 
-
-    /**
-     * @since 22-11-2022
-     * setup event
-     */
     private void printServiceInformation(Service service)
     {
         String image = Constant.UPLOAD_URI() + service.getImage();
         String name = service.getName();
-        String description = "<html>"+
-                "<style>body{font-size: 11px}</style>"+
-                service.getDescription() + "</body></html>";
-
+        String description = "<html><style>body{font-size: 11px}</style>"+ service.getDescription() + "</body></html>";
         txtName.setText(name);
-
-        if( service.getImage().length() > 0)
+        if( service.getImage() != null && service.getImage().length() > 0)
         {
             Picasso.get().load(image).into(imgAvatar);
         }
@@ -220,8 +167,6 @@ public class ServicepageActivity extends AppCompatActivity {
     private void setupEvent()
     {
         btnBack.setOnClickListener(view->finish());
-
-
         btnCreateBooking.setOnClickListener(view->{
             Intent intent = new Intent(this, BookingpageActivity.class);
             intent.putExtra("serviceId", serviceId);
@@ -229,16 +174,19 @@ public class ServicepageActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * @since 19-12-2022
-     * @param list is list<doctor>
-     */
     private void setupRecyclerView(List<Doctor> list)
     {
         DoctorRecyclerView doctorAdapter = new DoctorRecyclerView(this, list);
         doctorRecyclerView.setAdapter(doctorAdapter);
-
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         doctorRecyclerView.setLayoutManager(manager);
+    }
+    
+    @Override
+    protected void onDestroy() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.close();
+        }
+        super.onDestroy();
     }
 }

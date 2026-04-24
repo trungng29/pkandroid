@@ -1,0 +1,187 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppointmentpageViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Appointmentpage</a>
+</div>
+
+<h1>Coverage Summary for Class: AppointmentpageViewModel (com.example.do_an_tot_nghiep.Appointmentpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppointmentpageViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Appointmentpage;
+&nbsp;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;import androidx.lifecycle.ViewModel;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentQueue;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentReadAll;
+&nbsp;import com.example.do_an_tot_nghiep.Container.AppointmentReadByID;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.AppointmentQueueRepository;
+&nbsp;import com.example.do_an_tot_nghiep.Repository.AppointmentRepository;
+&nbsp;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 26-11-2022
+&nbsp; * Appointment-page view model
+&nbsp; */
+<b class="nc">&nbsp;public class AppointmentpageViewModel extends ViewModel {</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    private MutableLiveData&lt;Boolean&gt; animation = new MutableLiveData&lt;&gt;();</b>
+&nbsp;    public MutableLiveData&lt;Boolean&gt; getAnimation() {
+<b class="nc">&nbsp;        return animation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private AppointmentRepository repository;
+&nbsp;    private AppointmentQueueRepository queueRepository;
+&nbsp;    public void instantiate()
+&nbsp;    {
+<b class="nc">&nbsp;        if( repository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            repository = new AppointmentRepository();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if( queueRepository == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            queueRepository = new AppointmentQueueRepository();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************ APPOINTMENTS - READ ALL ***************************/
+&nbsp;    // FIX: Dùng SingleLiveEvent để tránh lặp lại Dialog lỗi
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;AppointmentReadAll&gt; readAllResponse = new SingleLiveEvent&lt;&gt;();</b>
+&nbsp;    public SingleLiveEvent&lt;AppointmentReadAll&gt; getReadAllResponse() {
+<b class="nc">&nbsp;        return readAllResponse;</b>
+&nbsp;    }
+&nbsp;    public void readAll(Map&lt;String, String&gt; header, Map&lt;String, String&gt; parameters)
+&nbsp;    {
+<b class="nc">&nbsp;        animation = repository.getAnimation();</b>
+<b class="nc">&nbsp;        repository.readAll(header, parameters);</b>
+<b class="nc">&nbsp;        readAllResponse = repository.getReadAllResponse();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************ APPOINTMENTS - READ BY ID ***************************/
+<b class="nc">&nbsp;    private SingleLiveEvent&lt;AppointmentReadByID&gt; readByIDResponse = new SingleLiveEvent&lt;&gt;();</b>
+<b class="nc">&nbsp;    public SingleLiveEvent&lt;AppointmentReadByID&gt; getReadByIDResponse(){return readByIDResponse;}</b>
+&nbsp;    public void readByID(Map&lt;String, String&gt; header, String appointmentID)
+&nbsp;    {
+<b class="nc">&nbsp;        repository.readByID(header, appointmentID);</b>
+<b class="nc">&nbsp;        readByIDResponse = repository.getReadByIDResponse();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /************************ QUEUE - READ BY ID ***************************/
+<b class="nc">&nbsp;    private MutableLiveData&lt;AppointmentQueue&gt; appointmentQueueResponse = new MutableLiveData&lt;&gt;();</b>
+<b class="nc">&nbsp;    public MutableLiveData&lt;AppointmentQueue&gt; getAppointmentQueueResponse(){ return appointmentQueueResponse;}</b>
+&nbsp;    public void getQueue(Map&lt;String, String&gt; header, Map&lt;String, String&gt; parameter)
+&nbsp;    {
+<b class="nc">&nbsp;        appointmentQueueResponse = queueRepository.getAppointmentQueue(header, parameter);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

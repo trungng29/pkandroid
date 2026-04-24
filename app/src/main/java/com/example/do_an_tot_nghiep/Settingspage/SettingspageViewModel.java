@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.do_an_tot_nghiep.Container.AppointmentReadAll;
 import com.example.do_an_tot_nghiep.Container.BookingReadAll;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.AppointmentQueueRepository;
 import com.example.do_an_tot_nghiep.Repository.AppointmentRepository;
 import com.example.do_an_tot_nghiep.Repository.BookingRepository;
@@ -31,31 +32,33 @@ public class SettingspageViewModel extends ViewModel {
         {
             appointmentRepository = new AppointmentRepository();
         }
-        if( bookingRepository == null);
+        if( bookingRepository == null)
         {
             bookingRepository = new BookingRepository();
         }
     }
 
     /************************ APPOINTMENTS - READ ALL ***************************/
-    private MutableLiveData<AppointmentReadAll> readAllResponse = new MutableLiveData<>();
-    public MutableLiveData<AppointmentReadAll> getReadAllResponse() {
+    private SingleLiveEvent<AppointmentReadAll> readAllResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<AppointmentReadAll> getReadAllResponse() {
         return readAllResponse;
     }
     public void readAll(Map<String, String> header, Map<String, String> parameters)
     {
         animation = appointmentRepository.getAnimation();
-        readAllResponse = appointmentRepository.readAll(header, parameters);
+        appointmentRepository.readAll(header, parameters);
+        readAllResponse = appointmentRepository.getReadAllResponse();
     }
 
     /************************ BOOKING - READ ALL ***************************/
-    private MutableLiveData<BookingReadAll> bookingReadAll = new MutableLiveData<>();
-    public MutableLiveData<BookingReadAll> getBookingReadAll() {
+    private SingleLiveEvent<BookingReadAll> bookingReadAll = new SingleLiveEvent<>();
+    public SingleLiveEvent<BookingReadAll> getBookingReadAll() {
         return bookingReadAll;
     }
     public void bookingReadAll(Map<String, String> header, Map<String, String> parameters)
     {
         animation = bookingRepository.getAnimation();
-        bookingReadAll = bookingRepository.readAll(header, parameters);
+        bookingRepository.readAll(header, parameters);
+        bookingReadAll = bookingRepository.getReadAllResponse();
     }
 }

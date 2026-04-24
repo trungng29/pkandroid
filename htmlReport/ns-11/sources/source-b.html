@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SettingRecyclerView</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.RecyclerView</a>
+</div>
+
+<h1>Coverage Summary for Class: SettingRecyclerView (com.example.do_an_tot_nghiep.RecyclerView)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SettingRecyclerView</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SettingRecyclerView$ViewHolder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.RecyclerView;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;import android.widget.ImageView;
+&nbsp;import android.widget.LinearLayout;
+&nbsp;import android.widget.TextView;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Alarmpage.AlarmpageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Configuration.Constant;
+&nbsp;import com.example.do_an_tot_nghiep.Emailpage.EmailpageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Guidepage.GuidepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Homepage.HomepageActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Setting;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.Settingspage.AppearanceActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Settingspage.AppointmentHistoryActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Settingspage.BookingHistoryActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Settingspage.InformationActivity;
+&nbsp;import com.example.do_an_tot_nghiep.Webpage.WebpageActivity;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public class SettingRecyclerView extends RecyclerView.Adapter&lt;SettingRecyclerView.ViewHolder&gt; {
+&nbsp;
+&nbsp;    private final Context context;
+&nbsp;    private final List&lt;Setting&gt; list;
+&nbsp;
+&nbsp;    public SettingRecyclerView(Context context, List&lt;Setting&gt; list)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+<b class="nc">&nbsp;        this.list = list;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @NonNull
+&nbsp;    @Override
+&nbsp;    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+<b class="nc">&nbsp;        View view = LayoutInflater</b>
+<b class="nc">&nbsp;                .from(parent.getContext())</b>
+<b class="nc">&nbsp;                .inflate(R.layout.recycler_view_element_setting, parent, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new ViewHolder(view);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+<b class="nc">&nbsp;        Setting element = list.get(position);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        holder.icon.setImageResource( element.getIcon() );</b>
+<b class="nc">&nbsp;        holder.name.setText( element.getName() );</b>
+<b class="nc">&nbsp;        holder.layout.setOnClickListener(view -&gt; {</b>
+&nbsp;            Intent intent;
+<b class="nc">&nbsp;            switch (element.getId()){</b>
+&nbsp;                case &quot;appearance&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, AppearanceActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;appointmentHistory&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, AppointmentHistoryActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;bookingHistory&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, BookingHistoryActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;exit&quot;:
+<b class="nc">&nbsp;                    HomepageActivity.getInstance().exit();</b>
+&nbsp;                    break;
+&nbsp;                case &quot;aboutUs&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, WebpageActivity.class);</b>
+<b class="nc">&nbsp;                    intent.putExtra(&quot;url&quot;, Constant.VIDEO_PATH());</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;information&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, InformationActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;emailUs&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, EmailpageActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;guide&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, GuidepageActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;                case &quot;reminder&quot;:
+<b class="nc">&nbsp;                    intent = new Intent(context, AlarmpageActivity.class);</b>
+<b class="nc">&nbsp;                    context.startActivity(intent);</b>
+&nbsp;                    break;
+&nbsp;            }
+&nbsp;
+&nbsp;        });
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getItemCount() {
+<b class="nc">&nbsp;        return list.size();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    protected static class ViewHolder extends RecyclerView.ViewHolder{</b>
+&nbsp;        private final TextView name;
+&nbsp;        private final ImageView icon;
+&nbsp;        private final LinearLayout layout;
+&nbsp;
+&nbsp;        public ViewHolder(@NonNull View itemView) {
+<b class="nc">&nbsp;            super(itemView);</b>
+<b class="nc">&nbsp;            name = itemView.findViewById(R.id.elementName);</b>
+<b class="nc">&nbsp;            icon = itemView.findViewById(R.id.elementIcon);</b>
+<b class="nc">&nbsp;            layout = itemView.findViewById(R.id.elementLayout);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

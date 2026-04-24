@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SingleLiveEvent</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Helper</a>
+</div>
+
+<h1>Coverage Summary for Class: SingleLiveEvent (com.example.do_an_tot_nghiep.Helper)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SingleLiveEvent</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SingleLiveEvent$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36.4%
+  </span>
+  <span class="absValue">
+    (4/11)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Helper;
+&nbsp;
+&nbsp;import android.util.Log;
+&nbsp;
+&nbsp;import androidx.annotation.MainThread;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import androidx.lifecycle.LifecycleOwner;
+&nbsp;import androidx.lifecycle.MutableLiveData;
+&nbsp;import androidx.lifecycle.Observer;
+&nbsp;
+&nbsp;import java.util.concurrent.atomic.AtomicBoolean;
+&nbsp;
+&nbsp;/**
+&nbsp; * A lifecycle-aware observable that sends only new updates after subscription, used events like
+&nbsp; * navigation and Snackbar messages.
+&nbsp; * &lt;p&gt;
+&nbsp; * This avoids a common problem with events: on configuration change (like rotation) an update
+&nbsp; * can be emitted if the observer is active. This LiveData only calls the observable if there&#39;s an
+&nbsp; * explicit call to setValue() or postValue().
+&nbsp; * &lt;p&gt;
+&nbsp; * Note that only one observer is going to be notified of changes.
+&nbsp; */
+<b class="fc">&nbsp;public class SingleLiveEvent&lt;T&gt; extends MutableLiveData&lt;T&gt; {</b>
+&nbsp;
+&nbsp;    private static final String TAG = &quot;SingleLiveEvent&quot;;
+&nbsp;
+<b class="fc">&nbsp;    private final AtomicBoolean mPending = new AtomicBoolean(false);</b>
+&nbsp;
+&nbsp;    @MainThread
+&nbsp;    public void observe(@NonNull LifecycleOwner owner, @NonNull final Observer&lt;? super T&gt; observer) {
+&nbsp;
+<b class="nc">&nbsp;        if (hasActiveObservers()) {</b>
+<b class="nc">&nbsp;            Log.w(TAG, &quot;Multiple observers registered but only one will be notified of changes.&quot;);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Observe the internal MutableLiveData
+<b class="nc">&nbsp;        super.observe(owner, new Observer&lt;T&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void onChanged(@Nullable T t) {
+<b class="nc">&nbsp;                if (mPending.compareAndSet(true, false)) {</b>
+<b class="nc">&nbsp;                    observer.onChanged(t);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    @MainThread
+&nbsp;    @Override
+&nbsp;    public void setValue(@Nullable T t) {
+<b class="fc">&nbsp;        mPending.set(true);</b>
+<b class="fc">&nbsp;        super.setValue(t);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Used for cases where T is Void, to make calls cleaner.
+&nbsp;     */
+&nbsp;    @MainThread
+&nbsp;    public void call() {
+<b class="nc">&nbsp;        setValue(null);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

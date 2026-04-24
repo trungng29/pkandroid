@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.do_an_tot_nghiep.Container.DoctorReadAll;
 import com.example.do_an_tot_nghiep.Container.SpecialityReadAll;
+import com.example.do_an_tot_nghiep.Helper.SingleLiveEvent;
 import com.example.do_an_tot_nghiep.Repository.DoctorRepository;
 import com.example.do_an_tot_nghiep.Repository.SpecialityRepository;
 
@@ -18,8 +19,8 @@ import java.util.Map;
 public class HomepageViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> animation;
-    private MutableLiveData<SpecialityReadAll> specialityReadAllResponse;
-    private MutableLiveData<DoctorReadAll> doctorReadAllResponse;
+    private SingleLiveEvent<SpecialityReadAll> specialityReadAllResponse = new SingleLiveEvent<>();
+    private SingleLiveEvent<DoctorReadAll> doctorReadAllResponse = new SingleLiveEvent<>();
 
     private SpecialityRepository specialityRepository;
     private DoctorRepository doctorRepository;
@@ -57,13 +58,9 @@ public class HomepageViewModel extends ViewModel {
     /* ***************************** SPECIALITY ***********************************/
     /**
      * @since 17-11-2022
-     * @return MutableLiveData<SpecialityReadAll> specialityReadAllResponse
+     * @return SingleLiveEvent<SpecialityReadAll> specialityReadAllResponse
      */
-    public MutableLiveData<SpecialityReadAll> getSpecialityReadAllResponse() {
-        if( specialityReadAllResponse == null )
-        {
-            specialityReadAllResponse = new MutableLiveData<>();
-        }
+    public SingleLiveEvent<SpecialityReadAll> getSpecialityReadAllResponse() {
         return specialityReadAllResponse;
     }
 
@@ -74,7 +71,8 @@ public class HomepageViewModel extends ViewModel {
      */
     public void specialityReadAll(Map<String, String> headers, Map<String, String> parameters)
     {
-        specialityReadAllResponse = specialityRepository.readAll(headers, parameters);
+        specialityRepository.readAll(headers, parameters);
+        specialityReadAllResponse = specialityRepository.getReadAllResponse();
         animation = specialityRepository.getAnimation();
     }
 
@@ -83,13 +81,9 @@ public class HomepageViewModel extends ViewModel {
     /* ***************************** DOCTOR ***********************************/
     /**
      * @since 17-11-2022
-     * @return MutableLiveData<DoctorReadAll> doctorReadAllResponse
+     * @return SingleLiveEvent<DoctorReadAll> doctorReadAllResponse
      */
-    public MutableLiveData<DoctorReadAll> getDoctorReadAllResponse() {
-        if( doctorReadAllResponse == null )
-        {
-            doctorReadAllResponse = new MutableLiveData<>();
-        }
+    public SingleLiveEvent<DoctorReadAll> getDoctorReadAllResponse() {
         return doctorReadAllResponse;
     }
 
@@ -100,7 +94,8 @@ public class HomepageViewModel extends ViewModel {
      */
     public void doctorReadAll(Map<String, String> headers, Map<String, String> parameters)
     {
-        doctorReadAllResponse = doctorRepository.readAll(headers, parameters);
+        doctorRepository.readAll(headers, parameters);
+        doctorReadAllResponse = doctorRepository.getReadAllResponse();
         animation = doctorRepository.getAnimation();
     }
 }

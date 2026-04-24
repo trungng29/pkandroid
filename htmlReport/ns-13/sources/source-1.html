@@ -1,0 +1,492 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SearchpageActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Searchpage</a>
+</div>
+
+<h1>Coverage Summary for Class: SearchpageActivity (com.example.do_an_tot_nghiep.Searchpage)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SearchpageActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/94)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SearchpageActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SearchpageActivity$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/111)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Searchpage;
+&nbsp;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.content.SharedPreferences;
+&nbsp;import android.content.res.Configuration;
+&nbsp;import android.content.res.Resources;
+&nbsp;import android.os.Bundle;
+&nbsp;import android.util.DisplayMetrics;
+&nbsp;import android.view.View;
+&nbsp;import android.widget.AdapterView;
+&nbsp;import android.widget.ImageButton;
+&nbsp;import android.widget.Spinner;
+&nbsp;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import androidx.appcompat.widget.SearchView;
+&nbsp;import androidx.lifecycle.ViewModelProvider;
+&nbsp;import androidx.recyclerview.widget.LinearLayoutManager;
+&nbsp;import androidx.recyclerview.widget.RecyclerView;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Adapter.FilterOptionAdapter;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.GlobalVariable;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Tooltip;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Doctor;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Option;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Service;
+&nbsp;import com.example.do_an_tot_nghiep.Model.Speciality;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.DoctorRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.ServiceRecyclerView;
+&nbsp;import com.example.do_an_tot_nghiep.RecyclerView.SpecialityRecyclerView;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 21-11-2022
+&nbsp; * Search page activity
+&nbsp; */
+<b class="nc">&nbsp;public class SearchpageActivity extends AppCompatActivity {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;Search-page Activity&quot;;</b>
+&nbsp;    private ImageButton btnBack;
+&nbsp;    private Spinner sprFilter;
+&nbsp;    private SearchView searchView;
+&nbsp;
+&nbsp;    private GlobalVariable globalVariable;
+&nbsp;    private SearchpageViewModel viewModel;
+&nbsp;
+&nbsp;    private Map&lt;String, String&gt; header;
+<b class="nc">&nbsp;    private final Map&lt;String, String&gt; paramsDoctor = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;    private final Map&lt;String, String&gt; paramsSpeciality = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;    private final Map&lt;String, String&gt; paramsService = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /*filterKey is the way to know what kind of information users wanna search*/
+&nbsp;    private String filterKey;
+&nbsp;
+&nbsp;    private RecyclerView doctorRecyclerView;
+&nbsp;    private RecyclerView specialityRecyclerView;
+&nbsp;    private RecyclerView serviceRecyclerView;
+&nbsp;
+&nbsp;    private SharedPreferences sharedPreferences;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        setContentView(R.layout.activity_searchpage);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent();</b>
+<b class="nc">&nbsp;        setupFilterSpinner();</b>
+&nbsp;
+&nbsp;        /*this block of code below - it handles event click on &quot;READ MORE&quot; button from HomepageActivity*/
+<b class="nc">&nbsp;        if(getIntent().getStringExtra(&quot;filterKey&quot;) != null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            filterKey = getIntent().getStringExtra(&quot;filterKey&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            String service = this.getString(R.string.service);</b>
+<b class="nc">&nbsp;            String speciality = this.getString(R.string.speciality);</b>
+<b class="nc">&nbsp;            String doctor = this.getString(R.string.doctor);</b>
+&nbsp;
+<b class="nc">&nbsp;            int position = 0;</b>
+<b class="nc">&nbsp;            if(Objects.equals(filterKey, service))</b>
+&nbsp;            {
+&nbsp;                // do nothing
+&nbsp;            }
+<b class="nc">&nbsp;            else if(Objects.equals(filterKey, speciality))</b>
+&nbsp;            {
+<b class="nc">&nbsp;                position = 1;</b>
+&nbsp;            }
+&nbsp;            else
+&nbsp;            {
+<b class="nc">&nbsp;                position = 2;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            sprFilter.setSelection(position);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        setupViewModel();</b>
+<b class="nc">&nbsp;        setupEvent();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * setup component
+&nbsp;     */
+&nbsp;    private void setupComponent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnBack = findViewById(R.id.btnBack);</b>
+<b class="nc">&nbsp;        sprFilter = findViewById(R.id.sprFilter);</b>
+<b class="nc">&nbsp;        searchView = findViewById(R.id.searchView);</b>
+&nbsp;
+<b class="nc">&nbsp;        globalVariable =  (GlobalVariable) this.getApplication();</b>
+<b class="nc">&nbsp;        sharedPreferences = this.getApplication()</b>
+<b class="nc">&nbsp;                .getSharedPreferences(globalVariable.getSharedReferenceKey(), MODE_PRIVATE);</b>
+<b class="nc">&nbsp;        header = globalVariable.getHeaders();</b>
+&nbsp;
+<b class="nc">&nbsp;        filterKey = this.getString(R.string.service);</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        doctorRecyclerView = findViewById(R.id.doctorRecyclerView);</b>
+<b class="nc">&nbsp;        specialityRecyclerView = findViewById(R.id.specialityRecyclerView);</b>
+<b class="nc">&nbsp;        serviceRecyclerView = findViewById(R.id.serviceRecyclerView);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onResume() {
+<b class="nc">&nbsp;        super.onResume();</b>
+<b class="nc">&nbsp;        Tooltip.setLocale(this, sharedPreferences);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * set options for spinner
+&nbsp;     */
+&nbsp;    private void setupFilterSpinner()
+&nbsp;    {
+<b class="nc">&nbsp;        List&lt;Option&gt; filterOptions = globalVariable.getFilterOptions();</b>
+<b class="nc">&nbsp;        FilterOptionAdapter filterAdapter = new FilterOptionAdapter(this, filterOptions);</b>
+<b class="nc">&nbsp;        sprFilter.setAdapter(filterAdapter);</b>
+<b class="nc">&nbsp;        sprFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {</b>
+&nbsp;            @Override
+&nbsp;            public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+<b class="nc">&nbsp;                filterKey = filterOptions.get(position).getName();</b>
+<b class="nc">&nbsp;                sendRequestWithFilterKey();</b>
+&nbsp;            }
+&nbsp;            @Override
+&nbsp;            public void onNothingSelected(AdapterView &lt;?&gt; parent) {
+<b class="nc">&nbsp;            }</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * setup event
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+&nbsp;        /*BUTTON BACK*/
+<b class="nc">&nbsp;        btnBack.setOnClickListener(view -&gt; finish());</b>
+&nbsp;
+&nbsp;        /*BUTTON SEARCH*/
+<b class="nc">&nbsp;        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {</b>
+&nbsp;            @Override
+&nbsp;            public boolean onQueryTextSubmit(String query) {
+<b class="nc">&nbsp;                paramsDoctor.put(&quot;search&quot;, query);</b>
+<b class="nc">&nbsp;                paramsService.put(&quot;search&quot;, query);</b>
+<b class="nc">&nbsp;                paramsSpeciality.put(&quot;search&quot;, query);</b>
+<b class="nc">&nbsp;                sendRequestWithFilterKey();</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public boolean onQueryTextChange(String newText) {
+<b class="nc">&nbsp;                if( newText.equals(&quot;&quot;))</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    paramsDoctor.put(&quot;search&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;                    paramsService.put(&quot;search&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;                    paramsSpeciality.put(&quot;search&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;                    sendRequestWithFilterKey();</b>
+<b class="nc">&nbsp;                    searchView.clearFocus();</b>
+&nbsp;                }
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     */
+&nbsp;    private void setupViewModel()
+&nbsp;    {
+<b class="nc">&nbsp;        viewModel = new ViewModelProvider(this).get(SearchpageViewModel.class);</b>
+<b class="nc">&nbsp;        viewModel.instantiate();</b>
+&nbsp;
+&nbsp;        /* *****************DOCTOR******************/
+<b class="nc">&nbsp;        paramsDoctor.put(&quot;length&quot;, &quot;100&quot;);// day la mot params co the truyen trong API nay</b>
+<b class="nc">&nbsp;        viewModel.doctorReadAll(header, paramsDoctor);</b>
+<b class="nc">&nbsp;        viewModel.getDoctorReadAllResponse().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if( result == 1)</b>
+&nbsp;            {
+&nbsp;
+<b class="nc">&nbsp;                List&lt;Doctor&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                setupRecyclerViewDoctor(list);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /* *****************SPECIALITY******************/
+<b class="nc">&nbsp;        paramsSpeciality.put(&quot;length&quot;, &quot;100&quot;);// day la mot params co the truyen trong API nay</b>
+<b class="nc">&nbsp;        viewModel.specialityReadAll(header, paramsSpeciality);</b>
+<b class="nc">&nbsp;        viewModel.getSpecialityReadAll().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if(result == 1)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                List&lt;Speciality&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                setupRecyclerViewSpeciality(list);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+&nbsp;        /* *****************SERVICE******************/
+<b class="nc">&nbsp;        paramsService.put(&quot;length&quot;, &quot;100&quot;);// day la mot params co the truyen trong API nay</b>
+<b class="nc">&nbsp;        viewModel.serviceReadAll(header, paramsService);</b>
+<b class="nc">&nbsp;        viewModel.getServiceReadAllResponse().observe(this, response-&gt;{</b>
+<b class="nc">&nbsp;            int result = response.getResult();</b>
+<b class="nc">&nbsp;            if(result == 1)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                List&lt;Service&gt; list = response.getData();</b>
+<b class="nc">&nbsp;                setupRecyclerViewService(list);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * filterKey is the way to know what kind of information users wanna search
+&nbsp;     */
+&nbsp;    @SuppressLint(&quot;NotifyDataSetChanged&quot;)
+&nbsp;    private void sendRequestWithFilterKey()
+&nbsp;    {
+<b class="nc">&nbsp;        List&lt;Option&gt; options = globalVariable.getFilterOptions();</b>
+<b class="nc">&nbsp;        String option1 = options.get(0).getName();// service</b>
+<b class="nc">&nbsp;        String option2 = options.get(1).getName();// speciality</b>
+<b class="nc">&nbsp;        String option3 = options.get(2).getName();// doctor</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        if( filterKey.equals(option2))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            viewModel.specialityReadAll(header, paramsSpeciality);</b>
+<b class="nc">&nbsp;            doctorRecyclerView.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            specialityRecyclerView.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            serviceRecyclerView.setVisibility(View.GONE);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if( filterKey.equals(option3))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            viewModel.serviceReadAll(header, paramsService);</b>
+<b class="nc">&nbsp;            doctorRecyclerView.setVisibility(View.VISIBLE);</b>
+<b class="nc">&nbsp;            specialityRecyclerView.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            serviceRecyclerView.setVisibility(View.GONE);</b>
+&nbsp;        }
+&nbsp;        else// by default, find service
+&nbsp;        {
+<b class="nc">&nbsp;            viewModel.doctorReadAll(header, paramsDoctor);</b>
+<b class="nc">&nbsp;            doctorRecyclerView.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            specialityRecyclerView.setVisibility(View.GONE);</b>
+<b class="nc">&nbsp;            serviceRecyclerView.setVisibility(View.VISIBLE);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * @param list is the list of doctor
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewDoctor(List&lt;Doctor&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        DoctorRecyclerView doctorAdapter = new DoctorRecyclerView(this, list);</b>
+<b class="nc">&nbsp;        doctorRecyclerView.setAdapter(doctorAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        doctorRecyclerView.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 21-11-2022
+&nbsp;     * @param list is the list of speciality
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewSpeciality(List&lt;Speciality&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        SpecialityRecyclerView specialityAdapter = new SpecialityRecyclerView(this, list, R.layout.recycler_view_element_speciality_2);</b>
+<b class="nc">&nbsp;        specialityRecyclerView.setAdapter(specialityAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        specialityRecyclerView.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * since 21-11-2022
+&nbsp;     * @param list is the list of service
+&nbsp;     */
+&nbsp;    private void setupRecyclerViewService(List&lt;Service&gt; list)
+&nbsp;    {
+<b class="nc">&nbsp;        ServiceRecyclerView serviceAdapter = new ServiceRecyclerView(this, list);</b>
+<b class="nc">&nbsp;        serviceRecyclerView.setAdapter(serviceAdapter);</b>
+&nbsp;
+<b class="nc">&nbsp;        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);</b>
+<b class="nc">&nbsp;        serviceRecyclerView.setLayoutManager(manager);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EmailFragment2</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.do_an_tot_nghiep.Emailpage</a>
+</div>
+
+<h1>Coverage Summary for Class: EmailFragment2 (com.example.do_an_tot_nghiep.Emailpage)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EmailFragment2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.do_an_tot_nghiep.Emailpage;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.Bundle;
+&nbsp;
+&nbsp;import androidx.appcompat.widget.AppCompatButton;
+&nbsp;import androidx.fragment.app.Fragment;
+&nbsp;
+&nbsp;import android.view.LayoutInflater;
+&nbsp;import android.view.View;
+&nbsp;import android.view.ViewGroup;
+&nbsp;
+&nbsp;import com.example.do_an_tot_nghiep.Helper.Dialog;
+&nbsp;import com.example.do_an_tot_nghiep.R;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Phong-Kaster
+&nbsp; * @since 03-12-2022
+&nbsp; */
+<b class="nc">&nbsp;public class EmailFragment2 extends Fragment {</b>
+&nbsp;
+&nbsp;    private String txtTitle;
+&nbsp;    private String txtDescription;
+&nbsp;    private String txtContent;
+&nbsp;    private AppCompatButton btnSend;
+&nbsp;
+&nbsp;    private Dialog dialog;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+&nbsp;                             Bundle savedInstanceState) {
+&nbsp;        // Inflate the layout for this fragment
+<b class="nc">&nbsp;        View view = inflater.inflate(R.layout.fragment_email2, container, false);</b>
+&nbsp;
+<b class="nc">&nbsp;        setupComponent(view);</b>
+&nbsp;
+&nbsp;        /*GET DATA FROM EMAIL FRAGMENT 1*/
+<b class="nc">&nbsp;        dialog = new Dialog(requireContext());</b>
+<b class="nc">&nbsp;        dialog.announce();</b>
+<b class="nc">&nbsp;        dialog.btnOK.setOnClickListener(view1-&gt;{</b>
+<b class="nc">&nbsp;            requireActivity().getSupportFragmentManager().popBackStack();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        Bundle bundle = this.getArguments();</b>
+<b class="nc">&nbsp;        if( bundle == null)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            dialog.show(R.string.attention, requireContext().getString(R.string.oops_there_is_an_issue), R.drawable.ic_close);</b>
+&nbsp;        }
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            txtTitle = bundle.getString(&quot;title&quot;);</b>
+<b class="nc">&nbsp;            txtDescription = bundle.getString(&quot;description&quot;);</b>
+<b class="nc">&nbsp;            txtContent = bundle.getString(&quot;content&quot;);</b>
+&nbsp;        }/*end GET DATA FROM EMAIL FRAGMENT 1*/
+&nbsp;
+<b class="nc">&nbsp;        setupEvent();</b>
+<b class="nc">&nbsp;        return view;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 03-12-2022
+&nbsp;     */
+&nbsp;    private void setupComponent(View view)
+&nbsp;    {
+<b class="nc">&nbsp;        btnSend = view.findViewById(R.id.btnSend);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @since 03-12-2022
+&nbsp;     */
+&nbsp;    private void setupEvent()
+&nbsp;    {
+<b class="nc">&nbsp;        btnSend.setOnClickListener(view -&gt; {</b>
+&nbsp;
+<b class="nc">&nbsp;            String body = requireContext().getString(R.string.description2) + &quot;: &quot; + txtDescription +</b>
+<b class="nc">&nbsp;                    &quot;\n\n &quot;+ requireContext().getString(R.string.content) + &quot;: &quot; + txtContent;</b>
+&nbsp;
+<b class="nc">&nbsp;            Uri uri = Uri.parse(&quot;mailto:&quot;)</b>
+<b class="nc">&nbsp;                    .buildUpon()</b>
+<b class="nc">&nbsp;                    .appendQueryParameter(&quot;to&quot;, &quot;phongkaster@gmail.com&quot;)</b>
+<b class="nc">&nbsp;                    .appendQueryParameter(&quot;subject&quot;, txtTitle)</b>
+<b class="nc">&nbsp;                    .appendQueryParameter(&quot;body&quot;, body)</b>
+<b class="nc">&nbsp;                    .build();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, uri);</b>
+<b class="nc">&nbsp;            String chosenTitle = requireContext().getString(R.string.select_application_to_send);</b>
+<b class="nc">&nbsp;            startActivity(Intent.createChooser(emailIntent, chosenTitle));</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-22 14:28</div>
+</div>
+</body>
+</html>

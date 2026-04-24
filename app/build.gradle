@@ -1,5 +1,8 @@
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     id 'com.android.application'
+    id 'jacoco'
     // Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
 }
@@ -31,6 +34,56 @@ android {
         viewBinding true
     }
 
+    testOptions {
+        unitTests.all {
+            // Needed for Android unit tests that hit generated/no-location classes.
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
+        }
+    }
+
+}
+
+jacoco {
+    toolVersion = '0.8.8'
+}
+
+tasks.register('jacocoTestReport', JacocoReport) {
+    group = 'verification'
+    description = 'Generates JaCoCo coverage reports for debug unit tests.'
+    dependsOn 'testDebugUnitTest'
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*'
+    ]
+
+    def debugJavaClasses = "$buildDir/intermediates/javac/debug/classes"
+    def debugKotlinClasses = "$buildDir/tmp/kotlin-classes/debug"
+
+    classDirectories.setFrom(files(
+            fileTree(dir: debugJavaClasses, excludes: fileFilter),
+            fileTree(dir: debugKotlinClasses, excludes: fileFilter)
+    ))
+    sourceDirectories.setFrom(files(['src/main/java', 'src/main/kotlin']))
+    additionalSourceDirs.setFrom(files(['src/main/java', 'src/main/kotlin']))
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec',
+            'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec',
+            'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest/testDebugUnitTest.exec'
+    ]))
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
 }
 
 
@@ -77,5 +130,23 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0-alpha02'
 
     // recycler view decorator
-    implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+
+    // JUnit (core)
+    testImplementation 'junit:junit:4.13.2'
+
+// Mockito core
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+
+// Mockito Kotlin (nếu bạn dùng Kotlin - khuyến khích)
+    testImplementation "org.mockito.kotlin:mockito-kotlin:5.2.1"
+
+// Coroutines test (nếu dùng ViewModel + coroutine)
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
+
+// Optional: Truth (assert đẹp hơn)
+    testImplementation "com.google.truth:truth:1.1.5"
 }
+
