@@ -36,6 +36,9 @@ android {
 
     testOptions {
         unitTests.all {
+            // Use JUnit 4 for unit tests (not JUnit 5 Platform)
+            // useJUnitPlatform() - DISABLED to use JUnit 4 instead
+
             // Needed for Android unit tests that hit generated/no-location classes.
             jacoco {
                 includeNoLocationClasses = true
@@ -98,6 +101,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     testImplementation 'junit:junit:4.13.2'
+    // JUnit 5 (Jupiter) - API and Engine for running tests with useJUnitPlatform()
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    // Mockito Jupiter integration (allows @ExtendWith(MockitoExtension.class) and MockedStatic features)
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 

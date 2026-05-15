@@ -1,5 +1,7 @@
 package com.example.do_an_tot_nghiep.Configuration;
 
+import android.os.Build;
+
 /**
  * @author Phong-Kaster
  * @since 18-11-2022
@@ -7,13 +9,39 @@ package com.example.do_an_tot_nghiep.Configuration;
  */
 public class Constant {
 
+    private static boolean isEmulator() {
+        return Build.FINGERPRINT.contains("generic")
+                || Build.FINGERPRINT.contains("unknown")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MODEL.contains("sdk_gphone")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for arm64")
+                || Build.PRODUCT.contains("sdk_google")
+                || Build.PRODUCT.contains("google_sdk")
+                || Build.PRODUCT.contains("sdk")
+                || Build.PRODUCT.contains("emulator")
+                || Build.PRODUCT.contains("simulator")
+                // ✅ Thêm Genymotion detection
+                || Build.MANUFACTURER.contains("Genymotion")
+                || Build.FINGERPRINT.contains("vbox")
+                || Build.FINGERPRINT.contains("test-keys")
+                || Build.HARDWARE.contains("vbox86");
+    }
+
+    private static String baseHost() {
+        if (Build.MANUFACTURER.contains("Genymotion")
+                || Build.HARDWARE.contains("vbox86")) {
+            return "http://10.0.3.2:8080/";   // ✅ Genymotion
+        }
+        return isEmulator() ? "http://10.0.2.2:8080/" : "http://localhost:8080/";
+    }
+
     /**
      * @since 17-11-2022
      */
     public static String UPLOAD_URI()
     {
-        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
-        return "http://192.168.1.57:8080/assets/uploads/";
+        return baseHost() + "assets/uploads/";
     }
 
 
@@ -23,8 +51,7 @@ public class Constant {
      */
     public static String APP_PATH()
     {
-        // PHẢI CÓ TÊN THƯ MỤC DỰ ÁN Ở ĐÂY
-        return "http://192.168.1.57:8080/";
+        return baseHost();
     }
 
     /**
@@ -33,7 +60,7 @@ public class Constant {
      */
     public static String APP_PATH_EMULATOR()
     {
-        return "http://192.168.1.57:8080/";
+        return "http://10.0.2.2:8080/";
     }
 
     /**

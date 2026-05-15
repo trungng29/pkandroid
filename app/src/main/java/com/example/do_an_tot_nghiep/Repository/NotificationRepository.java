@@ -56,8 +56,14 @@ public class NotificationRepository {
                 if(response.isSuccessful())
                 {
                     NotificationReadAll content = response.body();
-                    assert content != null;
-                    readAllResponse.setValue(content);
+                    if(content != null)
+                    {
+                        readAllResponse.setValue(content);
+                    }
+                    else
+                    {
+                        readAllResponse.setValue(null);
+                    }
 //                    System.out.println(TAG);
 //                    System.out.println("result: " + content.getResult());
 //                    System.out.println("msg: " + content.getMsg());
